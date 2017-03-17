@@ -1,0 +1,8 @@
+Package: zimbra-core
+Version: 8.7.1.GA.1671.UBUNTU16.64
+Description: Best email money can buy
+Maintainer: build@zimbra.com
+Section: mail
+Priority: optional
+Architecture: amd64
+Depends: zimbra-core-components
