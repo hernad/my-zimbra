@@ -1,0 +1,759 @@
+if(AjxPackage.define("Debug")){
+if(AjxPackage.define("ajax.debug.AjxDebug")){
+AjxDebug=function(e){
+if(arguments.length==0){
+e={}
+}else{
+if(typeof arguments[0]=="number"){
+e={
+level:arguments[0],name:arguments[1],showTime:arguments[2]}
+}}
+this._showTime=e.showTime;
+this._target=e.target||AjxDebug.TGT_WINDOW;
+this._showTiming=false;
+this._startTimePt=this._lastTimePt=0;
+this._dbgWindowInited=false;
+this._msgQueue=[];
+this._isPrevWinOpen=false;
+this.setDebugLevel(e.level)
+};
+AjxDebug.prototype.toString=function(){
+return"AjxDebug"
+};
+AjxDebug.prototype.isAjxDebug=true;
+AjxDebug.NONE=0;
+AjxDebug.DBG1=1;
+AjxDebug.DBG2=2;
+AjxDebug.DBG3=3;
+AjxDebug.TGT_WINDOW="window";
+AjxDebug.TGT_CONSOLE="console";
+AjxDebug.BUFFER={};
+AjxDebug.BUFFER_MAX={};
+AjxDebug.DEFAULT_TYPE="debug";
+AjxDebug.RPC="rpc";
+AjxDebug.NOTIFY="notify";
+AjxDebug.EXCEPTION="exception";
+AjxDebug.CALENDAR="calendar";
+AjxDebug.REPLY="reply";
+AjxDebug.SCROLL="scroll";
+AjxDebug.BAD_JSON="bad_json";
+AjxDebug.PREFS="prefs";
+AjxDebug.PROGRESS="progress";
+AjxDebug.REMINDER="reminder";
+AjxDebug.OFFLINE="offline";
+AjxDebug.TAG_ICON="tagIcon";
+AjxDebug.DATA_URI="dataUri";
+AjxDebug.MSG_DISPLAY="msgDisplay";
+AjxDebug.ZIMLET="zimlet";
+AjxDebug.KEYBOARD="kbnav";
+AjxDebug.FOCUS="focus";
+AjxDebug.FOCUS1="focus1";
+AjxDebug.ACCESSIBILITY="a11y";
+AjxDebug.DRAFT="draft";
+AjxDebug.BUFFER_MAX[AjxDebug.DEFAULT_TYPE]=0;
+AjxDebug.BUFFER_MAX[AjxDebug.RPC]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.NOTIFY]=400;
+AjxDebug.BUFFER_MAX[AjxDebug.EXCEPTION]=100;
+AjxDebug.BUFFER_MAX[AjxDebug.CALENDAR]=400;
+AjxDebug.BUFFER_MAX[AjxDebug.REPLY]=400;
+AjxDebug.BUFFER_MAX[AjxDebug.SCROLL]=100;
+AjxDebug.BUFFER_MAX[AjxDebug.BAD_JSON]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.PREFS]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.REMINDER]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.OFFLINE]=400;
+AjxDebug.BUFFER_MAX[AjxDebug.TAG_ICON]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.PROGRESS]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.DATA_URI]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.MSG_DISPLAY]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.ZIMLET]=200;
+AjxDebug.BUFFER_MAX[AjxDebug.KEYBOARD]=null;
+AjxDebug.BUFFER_MAX[AjxDebug.FOCUS]=null;
+AjxDebug.BUFFER_MAX[AjxDebug.ACCESSIBILITY]=null;
+AjxDebug.BUFFER_MAX[AjxDebug.DRAFT]=200;
+AjxDebug.MAX_OUT=25000;
+AjxDebug._CONTENT_FRAME_ID="AjxDebug_CF";
+AjxDebug._LINK_FRAME_ID="AjxDebug_LF";
+AjxDebug._BOTTOM_FRAME_ID="AjxDebug_BFI";
+AjxDebug._BOTTOM_FRAME_NAME="AjxDebug_BFN";
+AjxDebug.prototype.setTitle=function(e){
+if(this._document&&!AjxEnv.isIE){
+this._document.title=e
+}};
+AjxDebug.prototype.setDebugLevel=function(e){
+this._level=parseInt(e)||e;
+this._enable(this._level!=AjxDebug.NONE)
+};
+AjxDebug.prototype.getDebugLevel=function(){
+return this._level
+};
+AjxDebug.prototype.println=function(n,o,i){
+if(!this._isWriteable()){
+return
+}
+try{
+var e=this._handleArgs(arguments);
+if(!e){
+return
+}
+o=e.args.join("");
+var a=(this._target!=AjxDebug.TGT_CONSOLE)?"<br>":"";
+this._add({
+msg:this._timestamp()+o+a,linkName:e.linkName,level:n}
+)
+}
+catch(t){}};
+AjxDebug.prototype.isDisabled=function(){
+return !this._enabled
+};
+AjxDebug.prototype.dumpObj=function(o,a,t,i){
+if(!this._isWriteable()){
+return
+}
+var e=this._handleArgs(arguments);
+if(!e){
+return
+}
+a=e.args[0];
+if(!a){
+return
+}
+t=e.args[1];
+this._add({
+obj:a,linkName:e.linkName,showFuncs:t,level:o}
+)
+};
+AjxDebug.prototype.printRaw=function(i,a,t){
+if(!this._isWriteable()){
+return
+}
+var e=this._handleArgs(arguments);
+if(!e){
+return
+}
+this._add({
+obj:e.args[0],isRaw:true,linkName:e.linkName,level:i}
+)
+};
+AjxDebug.prototype.printXML=function(i,a,t){
+if(!this._isWriteable()){
+return
+}
+var e=this._handleArgs(arguments);
+if(!e){
+return
+}
+a=e.args[0];
+if(!a){
+return
+}
+if(a.length>AjxDebug.MAX_OUT){
+this.printRaw(a);
+return
+}
+this._add({
+obj:a,isXml:true,linkName:e.linkName,level:i}
+)
+};
+AjxDebug.prototype.display=function(i,a,t){
+if(!this._isWriteable()){
+return
+}
+var e=this._handleArgs(arguments);
+if(!e){
+return
+}
+a=e.args[0];
+a=a.replace(/\r?\n/g,"[crlf]");
+a=a.replace(/ /g,"[space]");
+a=a.replace(/\t/g,"[tab]");
+this.printRaw(i,a,t)
+};
+AjxDebug.prototype.showTiming=function(t,o){
+this._showTiming=t;
+if(t){
+this._enable(true)
+}
+var a=t?"on":"off";
+var i="Turning timing info "+a;
+if(o){
+i=i+": "+o
+}
+var e=new DebugMessage({
+msg:i}
+);
+this._addMessage(e);
+this._startTimePt=this._lastTimePt=new Date().getTime()
+};
+AjxDebug.prototype.timePt=function(r,a){
+if(!this._showTiming||!this._isWriteable()){
+return
+}
+if(a){
+this._startTimePt=this._lastTimePt=new Date().getTime()
+}
+var o=new Date().getTime();
+var e=o-this._startTimePt;
+var t=o-this._lastTimePt;
+this._lastTimePt=o;
+var i=a?"<br/>":"";
+r=r?" "+r:"";
+var s=[i,"[",e," / ",t,"]",r].join("");
+var n="<div>"+s+"</div>";
+this._addMessage(new DebugMessage({
+msg:n}
+));
+return t
+};
+AjxDebug.prototype.getContentFrame=function(){
+if(this._contentFrame){
+return this._contentFrame
+}
+if(this._debugWindow&&this._debugWindow.document){
+return this._debugWindow.document.getElementById(AjxDebug._CONTENT_FRAME_ID)
+}
+return null
+};
+AjxDebug.prototype.getLinkFrame=function(e){
+if(this._linkFrame){
+return this._linkFrame
+}
+if(this._debugWindow&&this._debugWindow.document){
+return this._debugWindow.document.getElementById(AjxDebug._LINK_FRAME_ID)
+}
+if(!e){
+this._openDebugWindow();
+return this.getLinkFrame(true)
+}
+return null
+};
+AjxDebug.prototype._enable=function(e){
+this._enabled=e;
+if(this._target==AjxDebug.TGT_WINDOW){
+if(e){
+if(!this._dbgName){
+this._dbgName="AjxDebugWin_"+location.hostname.replace(/\./g,"_")
+}
+if(this._debugWindow==null||this._debugWindow.closed){
+this._openDebugWindow()
+}}else{
+if(this._debugWindow){
+this._debugWindow.close();
+this._debugWindow=null
+}}}};
+AjxDebug.prototype._isWriteable=function(){
+if(this.isDisabled()){
+return false
+}
+if(this._target==AjxDebug.TGT_WINDOW){
+try{
+return(!this._isPaused&&this._debugWindow&&!this._debugWindow.closed)
+}
+catch(e){
+return false
+}}
+return true
+};
+AjxDebug.prototype._getHtmlForObject=function(o,n){
+n=n||{};
+var a=[];
+var t=0;
+if(o===undefined){
+a[t++]="<span>Undefined</span>"
+}else{
+if(o===null){
+a[t++]="<span>NULL</span>"
+}else{
+if(AjxUtil.isBoolean(o)){
+a[t++]="<span>"+o+"</span>"
+}else{
+if(AjxUtil.isNumber(o)){
+a[t++]="<span>"+o+"</span>"
+}else{
+if(n.isRaw){
+a[t++]=this._timestamp();
+a[t++]="<textarea rows='25' style='width:100%' readonly='true'>";
+a[t++]=o;
+a[t++]="</textarea><p></p>"
+}else{
+if(n.isXml){
+var e=new AjxDebugXmlDocument;
+var i=e.create();
+if(i&&("loadXML" in i)){
+i.loadXML(o);
+a[t++]="<div style='border-width:2px; border-style:inset; width:100%; height:300px; overflow:auto'>";
+a[t++]=this._createXmlTree(i,0,{
+authToken:true}
+);
+a[t++]="</div>"
+}else{
+a[t++]="<span>Unable to create XmlDocument to show XML</span>"
+}}else{
+a[t++]="<div style='border-width:2px; border-style:inset; width:100%; height:300px; overflow:auto'><pre>";
+a[t++]=this._dump(o,true,n.showFuncs,{
+ZmAppCtxt:true,authToken:true}
+);
+a[t++]="</div></pre>"
+}}}}}}
+return a.join("")
+};
+AjxDebug.prototype._dump=function(i,a,e,t){
+return AjxStringUtil.prettyPrint(i,a,e,t)
+};
+AjxDebug.prototype._handleArgs=function(n){
+if(this._level==AjxDebug.NONE||this._showTiming||n.length==0){
+return
+}
+var e=new Array(n.length);
+for(var a=0;
+a<n.length;
+a++){
+e[a]=n[a]
+}
+var l={
+args:null,linkName:null};
+var r=e.length;
+if(e.length>1){
+var h=e[e.length-1];
+if(h&&h.indexOf&&(h.indexOf("DebugWarn")!=-1||((h.indexOf(" ")==-1)&&(/Request|Response$/.test(h))))){
+l.linkName=h;
+e.pop()
+}}
+var s=null;
+var t=e[0];
+var o=(typeof t=="number"||((r>1)&&t.length<=8&&/^[a-z0-9]+$/.test(t)));
+if(o){
+s=t;
+e.shift()
+}
+if(s&&(AjxDebug.BUFFER_MAX[s]==null)){
+if(typeof this._level=="number"){
+if(typeof s!="number"||(s>this._level)){
+return
+}}else{
+if(s!=this._level){
+return
+}}}
+l.args=e;
+return l
+};
+AjxDebug.prototype._openDebugWindow=function(i){
+var t=AjxEnv.isIE?"_blank":this._dbgName;
+this._debugWindow=window.open("",t,"width=600,height=400,resizable=yes,scrollbars=yes");
+if(this._debugWindow==null){
+this._enabled=false;
+return
+}
+this._enabled=true;
+this._isPrevWinOpen=this._debugWindow.debug;
+this._debugWindow.debug=true;
+try{
+this._document=this._debugWindow.document;
+this.setTitle("Debug");
+if(!this._isPrevWinOpen){
+this._document.write("<html>","<head>","<script>","function blank() {return [","'<html><head><style type=\"text/css\">',","'P, TD, DIV, SPAN, SELECT, INPUT, TEXTAREA, BUTTON {',","'font-family: Tahoma, Arial, Helvetica, sans-serif;',","'font-size:11px;}',","'.Content {display:block;margin:0.25em 0em;}',","'.Link {cursor: pointer;color:blue;text-decoration:underline;white-space:nowrap;width:100%;}',","'.DebugWarn {color:red;font-weight:bold;}',","'.Run {color:black; background-color:red;width:100%;font-size:18px;font-weight:bold;}',","'.RunLink {display:block;color:black;background-color:red;font-weight:bold;white-space:nowrap;width:100%;}',","'</style></head><body></body></html>'].join(\"\");}","<\/script>","</head>","<frameset cols='125, *'>","<frameset rows='*,40'>","<frame name='",AjxDebug._LINK_FRAME_ID,"' id='",AjxDebug._LINK_FRAME_ID,"' src='javascript:parent.parent.blank();'>","<frame name='",AjxDebug._BOTTOM_FRAME_NAME,"' id='",AjxDebug._BOTTOM_FRAME_ID,"' src='javascript:parent.parent.blank();' scrolling=no frameborder=0>","</frameset>","<frame name='",AjxDebug._CONTENT_FRAME_ID,"' id='",AjxDebug._CONTENT_FRAME_ID,"' src='javascript:parent.blank();'>","</frameset>","</html>");
+this._document.close();
+var e=new AjxTimedAction(this,AjxDebug.prototype._finishInitWindow);
+AjxTimedAction.scheduleAction(e,2500)
+}else{
+this._finishInitWindow();
+this._contentFrame=this._document.getElementById(AjxDebug._CONTENT_FRAME_ID);
+this._linkFrame=this._document.getElementById(AjxDebug._LINK_FRAME_ID);
+this._createLinkNContent("RunLink","NEW RUN","Run","NEW RUN");
+this._attachHandlers();
+this._dbgWindowInited=true;
+this._showMessages()
+}}
+catch(a){
+if(this._debugWindow){
+this._debugWindow.close()
+}
+this._openDebugWindow(true)
+}};
+AjxDebug.prototype._finishInitWindow=function(){
+try{
+this._contentFrame=this._debugWindow.document.getElementById(AjxDebug._CONTENT_FRAME_ID);
+this._linkFrame=this._debugWindow.document.getElementById(AjxDebug._LINK_FRAME_ID);
+var n=this._debugWindow.document.getElementById(AjxDebug._BOTTOM_FRAME_ID);
+var o=n.contentWindow.document;
+var a=[];
+var t=0;
+a[t++]="<table><tr><td><button id='";
+a[t++]=AjxDebug._BOTTOM_FRAME_ID;
+a[t++]="_clear'>Clear</button></td><td><button id='";
+a[t++]=AjxDebug._BOTTOM_FRAME_ID;
+a[t++]="_pause'>Pause</button></td></tr></table>";
+if(o.body){
+o.body.innerHTML=a.join("")
+}}
+catch(e){}
+if(o){
+this._clearBtn=o.getElementById(AjxDebug._BOTTOM_FRAME_ID+"_clear");
+this._pauseBtn=o.getElementById(AjxDebug._BOTTOM_FRAME_ID+"_pause")
+}
+this._attachHandlers();
+this._dbgWindowInited=true;
+this._showMessages()
+};
+AjxDebug.prototype._attachHandlers=function(){
+var e=AjxCallback.simpleClosure(this._unloadHandler,this);
+if(this._debugWindow.attachEvent){
+this._unloadHandler=e;
+this._debugWindow.attachEvent("onunload",e)
+}else{
+this._debugWindow.onunload=e
+}
+if(this._clearBtn){
+this._clearBtn.onclick=AjxCallback.simpleClosure(this._clear,this)
+}
+if(this._pauseBtn){
+this._pauseBtn.onclick=AjxCallback.simpleClosure(this._pause,this)
+}};
+AjxDebug.prototype._scrollToBottom=function(){
+var t=this.getContentFrame();
+var e=t?t.contentWindow.document.body:null;
+var i=this.getLinkFrame();
+var a=i?i.contentWindow.document.body:null;
+if(e&&a){
+e.scrollTop=e.scrollHeight;
+a.scrollTop=a.scrollHeight
+}};
+AjxDebug.prototype._timestamp=function(){
+return this._showTime?this._getTimeStamp()+": ":""
+};
+AjxDebug.prototype.setShowTimestamps=function(e){
+this._showTime=e
+};
+AjxDebug.prototype._createXmlTree=function(o,a,e){
+if(o==null){
+return""
+}
+var h="";
+var r;
+switch(o.nodeType){
+case 1:h+="<div style='color: blue; padding-left: 16px;'>&lt;<span style='color: DarkRed;'>"+o.nodeName+"</span>";
+if(e&&e[o.nodeName]){
+return h+"/&gt;</div>"
+}
+var l=o.attributes;
+r=l.length;
+for(var n=0;
+n<r;
+n++){
+h+=this._createXmlAttribute(l[n])
+}
+if(!o.hasChildNodes()){
+return h+"/&gt;</div>"
+}
+h+="&gt;<br />";
+var s=o.childNodes;
+r=s.length;
+for(var n=0;
+n<r;
+n++){
+h+=this._createXmlTree(s[n],a+3,e)
+}
+h+="&lt;/<span style='color: DarkRed;'>"+o.nodeName+"</span>&gt;</div>";
+break;
+case 9:var s=o.childNodes;
+r=s.length;
+for(var n=0;
+n<r;
+n++){
+h+=this._createXmlTree(s[n],a,e)
+}
+break;
+case 3:if(!/^\s*$/.test(o.nodeValue)){
+var t=o.nodeValue.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+h+="<span style='color: WindowText; padding-left: 16px;'>"+t+"</span><br />"
+}
+break;
+case 7:h+="&lt;?"+o.nodeName;
+var l=o.attributes;
+r=l.length;
+for(var n=0;
+n<r;
+n++){
+h+=this._createXmlAttribute(l[n])
+}
+h+="?&gt;<br />";
+break;
+case 4:h="<div style=''>&lt;![CDATA[<span style='color: WindowText; font-family: \"Courier New\"; white-space: pre; display: block; border-left: 1px solid Gray; padding-left: 16px;'>"+o.nodeValue+"</span>]]></div>";
+break;
+case 8:h="<div style='color: blue; padding-left: 16px;'>&lt;!--<span style='white-space: pre; font-family: \"Courier New\"; color: Gray; display: block;'>"+o.nodeValue+"</span>--></div>";
+break;
+case 10:h="<div style='color: blue; padding-left: 16px'>&lt;!DOCTYPE "+o.name;
+if(o.publicId){
+h+=' PUBLIC "'+o.publicId+'"';
+if(o.systemId){
+h+=' "'+o.systemId+'"'
+}}else{
+if(o.systemId){
+h+=' SYSTEM "'+o.systemId+'"'
+}}
+h+="&gt;</div>";
+break;
+default:this._inspect(o)
+}
+return h
+};
+AjxDebug.prototype._createXmlAttribute=function(e){
+return[" <span style='color: red'>",e.nodeName,"</span><span style='color: blue'>=\"",e.nodeValue,'"</span>'].join("")
+};
+AjxDebug.prototype._inspect=function(t){
+var a="";
+for(var e in t){
+a+="obj."+e+" = "+t[e]+"\n"
+}
+window.alert(a)
+};
+AjxDebug.prototype._add=function(e){
+e.extraHtml=e.obj&&this._getHtmlForObject(e.obj,e);
+this._addMessage(new DebugMessage(e))
+};
+AjxDebug.prototype._addMessage=function(e){
+this._msgQueue.push(e);
+this._showMessages()
+};
+AjxDebug.prototype._showMessages=function(){
+switch(this._target){
+case AjxDebug.TGT_WINDOW:this._showMessagesInWindow();
+break;
+case AjxDebug.TGT_CONSOLE:this._showMessagesInConsole()
+}
+this._addMessagesToBuffer();
+this._msgQueue=[]
+};
+AjxDebug.prototype._showMessagesInWindow=function(){
+if(!this._dbgWindowInited){
+return
+}
+try{
+if(this._msgQueue.length>0){
+var e=this.getContentFrame();
+var o=this.getLinkFrame();
+if(!e||!o){
+return
+}
+var c=e.contentWindow.document;
+var r=o.contentWindow.document;
+var t=new Date();
+for(var n=0,s=this._msgQueue.length;
+n<s;
+++n){
+var a=this._msgQueue[n];
+var d=a.linkName;
+var l=[a.message,a.extraHtml].join("");
+this._createLinkNContent("Link",d,"Content",l,t)
+}}
+this._scrollToBottom()
+}
+catch(h){}};
+AjxDebug.prototype._addMessagesToBuffer=function(){
+var a=(this._target==AjxDebug.TGT_CONSOLE)?"<br>":"";
+for(var t=0,e=this._msgQueue.length;
+t<e;
+++t){
+var o=this._msgQueue[t];
+AjxDebug._addMessageToBuffer(o.type,o.message+o.extraHtml+a)
+}};
+AjxDebug._addMessageToBuffer=function(a,i){
+a=a||AjxDebug.DEFAULT_TYPE;
+var e=AjxDebug.BUFFER_MAX[a];
+if(e>0){
+var t=AjxDebug.BUFFER[a]=AjxDebug.BUFFER[a]||[];
+while(t.length>=e){
+t.shift()
+}
+t.push(i)
+}};
+AjxDebug.prototype._showMessagesInConsole=function(){
+if(!window.console){
+return
+}
+var t=new Date();
+for(var a=0,e=this._msgQueue.length;
+a<e;
+++a){
+var o=this._msgQueue[a];
+if(window.console&&window.console.log){
+window.console.log(AjxStringUtil.stripTags(o.message+o.extraHtml))
+}}};
+AjxDebug.prototype._getTimeStamp=function(e){
+if(!AjxDebug._timestampFormatter){
+AjxDebug._timestampFormatter=new AjxDateFormat("HH:mm:ss.SSS")
+}
+e=e||new Date();
+return AjxStringUtil.htmlEncode(AjxDebug._timestampFormatter.format(e),true)
+};
+AjxDebug.prototype._createLinkNContent=function(s,u,i,h,a){
+var o=this.getLinkFrame();
+if(!o){
+return
+}
+a=a||new Date();
+var n=["[",this._getTimeStamp(a),"]"].join("");
+var t="Lnk_"+a.getTime();
+if(u){
+var r=o.contentWindow.document;
+var d=r.createElement("DIV");
+d.className=s;
+d.innerHTML=[u,n].join(" - ");
+d._targetId=t;
+d._dbg=this;
+d.onclick=AjxDebug._linkClicked;
+var c=r.body;
+c.appendChild(d)
+}
+var l=this.getContentFrame().contentWindow.document;
+var e=l.createElement("DIV");
+e.className=i;
+e.id=t;
+e.innerHTML=h;
+l.body.appendChild(e);
+this._scrollToBottom()
+};
+AjxDebug._linkClicked=function(){
+var t=this._dbg.getContentFrame();
+var e=t.contentWindow.document.getElementById(this._targetId);
+var a=0;
+while(e){
+a+=e.offsetTop;
+e=e.offsetParent
+}
+t.contentWindow.scrollTo(0,a)
+};
+AjxDebug.prototype._clear=function(){
+this.getContentFrame().contentWindow.document.body.innerHTML="";
+this.getLinkFrame().contentWindow.document.body.innerHTML=""
+};
+AjxDebug.prototype._pause=function(){
+this._isPaused=!this._isPaused;
+this._pauseBtn.innerHTML=this._isPaused?"Resume":"Pause"
+};
+AjxDebug.prototype._unloadHandler=function(){
+if(!this._debugWindow){
+return
+}
+if(this._debugWindow.detachEvent){
+this._debugWindow.detachEvent("onunload",this._unloadHandler)
+}else{
+this._debugWindow.onunload=null
+}};
+AjxDebug.println=function(e,t){
+AjxDebug._addMessageToBuffer(e,t+"<br>")
+};
+AjxDebug.dumpObj=function(e,t){
+AjxDebug._addMessageToBuffer(e,"<pre>"+AjxStringUtil.prettyPrint(t,true)+"</pre>")
+};
+AjxDebug.logSoapMessage=function(o){
+if(o.methodNameStr=="NoOpRequest"||o.methodNameStr=="NoOpResponse"){
+return
+}
+var t=AjxDebug._getTimeStamp();
+var i=["<b>",o.methodNameStr,o.asyncMode?"":" (SYNCHRONOUS)"," - ",t,"</b>"].join("");
+for(var e in AjxDebug.BUFFER){
+if(e==AjxDebug.DEFAULT_TYPE){
+continue
+}
+AjxDebug.println(e,i)
+}
+if(window.DBG){
+var a=o.methodNameStr;
+if(!o.asyncMode){
+a="<span class='DebugWarn'>SYNCHRONOUS </span>"+a
+}
+window.DBG.println(window.DBG._level,i,a)
+}};
+AjxDebug._getTimeStamp=function(e){
+return AjxDebug.prototype._getTimeStamp.apply(null,arguments)
+};
+AjxDebug.getDebugLog=function(t){
+t=t||AjxDebug.DEFAULT_TYPE;
+var e=AjxDebug.BUFFER[t];
+return e?e.join(""):""
+};
+DebugMessage=function(e){
+e=e||{};
+this.message=e.msg||"";
+this.type=e.type||null;
+this.category=e.category||"";
+this.time=e.time||(new Date().getTime());
+this.extraHtml=e.extraHtml||"";
+this.linkName=e.linkName;
+this.type=(e.level&&typeof(e.level)=="string")?e.level:AjxDebug.DEFAULT_TYPE
+}
+}
+if(AjxPackage.define("ajax.debug.AjxDebugXmlDocument")){
+AjxDebugXmlDocument=function(){};
+getDomDocumentPrefix=function(){
+if(getDomDocumentPrefix.prefix){
+return getDomDocumentPrefix.prefix
+}
+var n=["MSXML2","Microsoft","MSXML","MSXML3"];
+var s;
+var e=n.length;
+for(var a=0;
+a<e;
+a++){
+try{
+s=new ActiveXObject(n[a]+".DomDocument");
+return getDomDocumentPrefix.prefix=n[a]
+}
+catch(t){}}
+throw new Error("Could not find an installed XML parser")
+};
+AjxDebugXmlDocument.prototype.create=function(){
+try{
+if(document.implementation&&document.implementation.createDocument){
+var t=document.implementation.createDocument("","",null);
+if(t.readyState==null){
+t.readyState=1;
+t.addEventListener("load",function(){
+t.readyState=4;
+if(typeof t.onreadystatechange=="function"){
+t.onreadystatechange()
+}}
+,false)
+}
+return t
+}
+if(window.ActiveXObject){
+return new ActiveXObject(getDomDocumentPrefix()+".DomDocument")
+}}
+catch(e){}
+throw new Error("Your browser does not support XmlDocument objects")
+};
+if(window.DOMParser&&window.XMLSerializer&&window.Node&&Node.prototype&&Node.prototype.__defineGetter__){
+if(AjxEnv.isSafari){
+Document.prototype.loadXML=function(a){
+var o=(new DOMParser()).parseFromString(a,"text/xml");
+while(this.hasChildNodes()){
+this.removeChild(this.lastChild)
+}
+var e=o.childNodes.length;
+for(var t=0;
+t<e;
+t++){
+this.appendChild(this.importNode(o.childNodes[t],true))
+}};
+Document.prototype.__defineGetter__("xml",function(){
+return(new XMLSerializer()).serializeToString(this)
+}
+)
+}else{
+AjxDebugXmlDocument.prototype.loadXML=function(a){
+var o=(new DOMParser()).parseFromString(a,"text/xml");
+while(this.hasChildNodes()){
+this.removeChild(this.lastChild)
+}
+var e=o.childNodes.length;
+for(var t=0;
+t<e;
+t++){
+this.appendChild(this.importNode(o.childNodes[t],true))
+}};
+AjxDebugXmlDocument.prototype.__defineGetter__("xml",function(){
+return(new XMLSerializer()).serializeToString(this)
+}
+)
+}}}};

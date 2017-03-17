@@ -1,0 +1,468 @@
+
+[INFO] Using charset UTF-8
+
+[WARNING] Try to use a single 'var' statement per scope.
+returnmatchMedia(mq).matches;} ---> var  <--- bool;injectElementWithStyles("@media "+mq+" { #"+
+
+[WARNING] Try to use a single 'var' statement per scope.
+){thrownew TypeError();} ---> var  <--- args=slice.call(arguments,1)
+
+[WARNING] Try to use a single 'var' statement per scope.
+;F.prototype=target.prototype; ---> var  <--- self=new F();var result=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var self=new F(); ---> var  <--- result=target.apply(self,args.
+
+[WARNING] Try to use a single 'var' statement per scope.
+{for(var i in props){ ---> var  <--- prop=props[i];if(!
+
+[WARNING] Try to use a single 'var' statement per scope.
+{for(var i in props){ ---> var  <--- item=obj[props[i]];
+
+[WARNING] Try to use a single 'var' statement per scope.
+split(" "));}for( ---> var  <--- feature in tests){if(hasOwnProp(tests
+
+[WARNING] Try to use a single 'var' statement per scope.
+options=window.html5||{}; ---> var  <--- reSkip=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;var saveClones=/^<|^(?:a|b|button|code|div|fieldset|form|h1|h2|h3|h4|h5|h6|i|iframe|img|input|label|li|link|ol|option|p|param|q|script|select|span|strong|style|table|tbody|td|textarea|tfoot|th|thead|tr|ul)$/i;var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+||{};var reSkip=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i; ---> var  <--- saveClones=/^<|^(?:a|b|button|code|div|fieldset|form|h1|h2|h3|h4|h5|h6|i|iframe|img|input|label|li|link|ol|option|p|param|q|script|select|span|strong|style|table|tbody|td|textarea|tfoot|th|thead|tr|ul)$/i;var supportsHtml5Styles;var expando=
+
+[WARNING] Try to use a single 'var' statement per scope.
+reSkip=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;var saveClones=/^<|^(?:a|b|button|code|div|fieldset|form|h1|h2|h3|h4|h5|h6|i|iframe|img|input|label|li|link|ol|option|p|param|q|script|select|span|strong|style|table|tbody|td|textarea|tfoot|th|thead|tr|ul)$/i; ---> var  <--- supportsHtml5Styles;var expando="_html5shiv";var expanID=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var saveClones=/^<|^(?:a|b|button|code|div|fieldset|form|h1|h2|h3|h4|h5|h6|i|iframe|img|input|label|li|link|ol|option|p|param|q|script|select|span|strong|style|table|tbody|td|textarea|tfoot|th|thead|tr|ul)$/i;var supportsHtml5Styles; ---> var  <--- expando="_html5shiv";var expanID=0;var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var supportsHtml5Styles;var expando="_html5shiv"; ---> var  <--- expanID=0;var expandoData={};
+
+[WARNING] Try to use a single 'var' statement per scope.
+expando="_html5shiv";var expanID=0; ---> var  <--- expandoData={};var supportsUnknownElements;(function
+
+[WARNING] Try to use a single 'var' statement per scope.
+=0;var expandoData={}; ---> var  <--- supportsUnknownElements;(function(){try{var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+,data);}returnownerDocument;} ---> var  <--- html5={elements:options.elements||"abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video"
+
+[WARNING] Invalid hint syntax: use strict
+{};}(function(){ ---> "use strict" <--- ;functionf(n){returnn<
+
+[WARNING] Using 'eval' is not recommended. Moreover, using 'eval' reduces the level of compression!
+/(?:^|:|,)(?:\s*\[)+/g,""))){j= ---> eval <--- ("("+text+")");returntypeof
+
+[WARNING] Using 'eval' is not recommended. Moreover, using 'eval' reduces the level of compression!
+indirectEvalIsGlobal=false;var evl=window. ---> eval <--- ;try{evl("__indirectEval=true");if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+=navigator.userAgent.toLowerCase(); ---> var  <--- agtArr=agt.split(" ");var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+agtArr=agt.split(" "); ---> var  <--- isSpoofer=false;var isWebTv=false;var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+(" ");var isSpoofer=false; ---> var  <--- isWebTv=false;var isHotJava=false;var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+isSpoofer=false;var isWebTv=false; ---> var  <--- isHotJava=false;var beginsWithMozilla=false;var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+isWebTv=false;var isHotJava=false; ---> var  <--- beginsWithMozilla=false;var isCompatible=false;var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+isHotJava=false;var beginsWithMozilla=false; ---> var  <--- isCompatible=false;var isTrident=false;if
+
+[WARNING] Try to use a single 'var' statement per scope.
+beginsWithMozilla=false;var isCompatible=false; ---> var  <--- isTrident=false;if(agtArr!=null)
+
+[WARNING] Try to use a single 'var' statement per scope.
+false;if(agtArr!=null){ ---> var  <--- browserVersion;var index=-1;if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+(agtArr!=null){var browserVersion; ---> var  <--- index=-1;if((index=
+
+[WARNING] Try to use a single 'var' statement per scope.
+);AjxEnv.isNav=true;} ---> var  <--- token;for(var i=0;i
+
+[WARNING] Try to use a single 'var' statement per scope.
+=true;}var token;for( ---> var  <--- i=0;i<agtArr.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+isIE;if(AjxEnv.isSafari){ ---> var  <--- webkit=AjxEnv.getWebkitVersion();AjxEnv.
+
+[WARNING] Try to use a single 'var' statement per scope.
+document.createElement("INPUT");try{ ---> var  <--- div=document.createElement("div");div
+
+[WARNING] Try to use a single 'var' statement per scope.
+getWebkitVersion=function(){var webkit_version; ---> var  <--- regex=new RegExp("\\(.*\\) AppleWebKit/(.*) \\((.*)");var matches
+
+[WARNING] Try to use a single 'var' statement per scope.
+var regex=new RegExp("\\(.*\\) AppleWebKit/(.*) \\((.*)"); ---> var  <--- matches=regex.exec(navigator.userAgent)
+
+[WARNING] Try to use a single 'var' statement per scope.
+.userAgent);if(matches){ ---> var  <--- version=matches[1];var bits=
+
+[WARNING] Try to use a single 'var' statement per scope.
+{var version=matches[1]; ---> var  <--- bits=version.split(".");var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+bits=version.split("."); ---> var  <--- is_nightly=(version[version.length-1
+
+[WARNING] Try to use a single 'var' statement per scope.
+.length-1]=="+"); ---> var  <--- minor=is_nightly?"+":parseInt(bits[
+
+[WARNING] Try to use a single 'var' statement per scope.
+(thisObj){var that=this; ---> var  <--- args;if(arguments.length>1)
+
+[WARNING] Invalid hint syntax: use strict
+Object.keys=(function(){ ---> "use strict" <--- ;var hasOwnProperty=Object.prototype.hasOwnProperty,
+
+[WARNING] Try to use a single 'var' statement per scope.
+{thrownew TypeError('"this" is null or not defined');} ---> var  <--- O=Object(this);var len=
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var O=Object(this); ---> var  <--- len=O.length>>>0;if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+===0){return-1;} ---> var  <--- n=+fromIndex||0;if(Math
+
+[WARNING] Invalid hint syntax: use strict
+prototype.some=function(fun){ ---> "use strict" <--- ;if(this==null){thrownew 
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var t=Object(this); ---> var  <--- len=t.length>>>0;var thisArg
+
+[WARNING] Try to use a single 'var' statement per scope.
+var len=t.length>>>0; ---> var  <--- thisArg=arguments.length>=2?arguments[
+
+[WARNING] Try to use a single 'var' statement per scope.
+[1]:void 0;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] Try to use a single 'var' statement per scope.
+this.args);}}for( ---> var  <--- i=0;i<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+argList&&argList.length){for( ---> var  <--- i=0;i<argList.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+{var args=[];for( ---> var  <--- i=2;i<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+{var args2=[];for( ---> var  <--- i=0;i<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+"MSXML2.XMLHTTP.3.0","MSXML2.XMLHTTP","Microsoft.XMLHTTP"];for( ---> var  <--- i=0;i<vers.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+params={url:urlOrParams};} ---> var  <--- req=AjxLoader.__createXHR();var func
+
+[WARNING] Try to use a single 'var' statement per scope.
+var req=AjxLoader.__createXHR(); ---> var  <--- func=Boolean(params.callback)?function
+
+[WARNING] Try to use a single 'var' statement per scope.
+params.callback);}:null; ---> var  <--- method=params.method||(params.content
+
+[WARNING] Try to use a single 'var' statement per scope.
+){req.onreadystatechange=func;} ---> var  <--- async=params.async!=null?params.
+
+[WARNING] Try to use a single 'var' statement per scope.
+userName,params.password);for( ---> var  <--- name in params.headers){req.setRequestHeader
+
+[WARNING] Try to use a single 'var' statement per scope.
+params={name:nameOrParams};} ---> var  <--- array=params.name;if(array instanceof 
+
+[WARNING] Try to use a single 'var' statement per scope.
+true;params.name=array;} ---> var  <--- name=array.shift();if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+if(array.length>0){ ---> var  <--- ctor=new Function();ctor.prototype
+
+[WARNING] Try to use a single 'var' statement per scope.
+;ctor.prototype.constructor=ctor; ---> var  <--- nparams=new ctor();nparams.name
+
+[WARNING] Try to use a single 'var' statement per scope.
+;}params.name=name;} ---> var  <--- oname=params.name;var name=AjxPackage
+
+[WARNING] Try to use a single 'var' statement per scope.
+;}var oname=params.name; ---> var  <--- name=AjxPackage.__package2path(oname);var 
+
+[WARNING] The variable name has already been declared in the same scope...
+}var oname=params.name;var  ---> name <--- =AjxPackage.__package2path(oname);var callback
+
+[WARNING] Try to use a single 'var' statement per scope.
+name=AjxPackage.__package2path(oname); ---> var  <--- callback=params.callback;if(typeofcallback
+
+[WARNING] Try to use a single 'var' statement per scope.
+callback=new AjxCallback(callback);} ---> var  <--- cb=callback?" (callback)":"";var loaded
+
+[WARNING] Try to use a single 'var' statement per scope.
+var cb=callback?" (callback)":""; ---> var  <--- loaded=AjxPackage._packages[name]?" LOADED"
+
+[WARNING] Try to use a single 'var' statement per scope.
+_packages[name]?" LOADED":""; ---> var  <--- mode=AjxPackage.__scripts.length?" (async, queueing...)":
+
+[WARNING] Try to use a single 'var' statement per scope.
+mode].join("")); ---> var  <--- reload=params.forceReload!=null?params.
+
+[WARNING] Try to use a single 'var' statement per scope.
+.run();}return;} ---> var  <--- basePath=params.basePath||AjxPackage._basePath||
+
+[WARNING] Try to use a single 'var' statement per scope.
+||AjxPackage._basePath||window.contextPath; ---> var  <--- extension=params.extension||AjxPackage._extension;
+
+[WARNING] Try to use a single 'var' statement per scope.
+=params.extension||AjxPackage._extension; ---> var  <--- queryString=params.queryString||AjxPackage._queryString;
+
+[WARNING] Try to use a single 'var' statement per scope.
+=params.queryString||AjxPackage._queryString; ---> var  <--- pathParts=[basePath,"/",name,extension
+
+[WARNING] Try to use a single 'var' statement per scope.
+.push("?",queryString);} ---> var  <--- path=pathParts.join("");var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+path=pathParts.join(""); ---> var  <--- method=params.method||(params.callback
+
+[WARNING] Try to use a single 'var' statement per scope.
+AjxPackage.DEFAULT_ASYNC:AjxPackage.DEFAULT_SYNC); ---> var  <--- isSync=method==AjxPackage.METHOD_XHR_SYNC||params.
+
+[WARNING] Try to use a single 'var' statement per scope.
+==AjxPackage.METHOD_XHR_SYNC||params.forceSync; ---> var  <--- isAsync=!isSync;var data={name
+
+[WARNING] Try to use a single 'var' statement per scope.
+.forceSync;var isAsync=!isSync; ---> var  <--- data={name:name,path:path
+
+[WARNING] Try to use a single 'var' statement per scope.
+.__doLoad(data);}else{ ---> var  <--- current=AjxPackage.__scripts[AjxPackage.__scripts.
+
+[WARNING] Try to use a single 'var' statement per scope.
+=[];if(callback){ ---> var  <--- top=AjxPackage.__scripts[0];top
+
+[WARNING] Using 'eval' is not recommended. Moreover, using 'eval' reduces the level of compression!
+(data);}};AjxPackage. ---> eval <--- =function(text){if(window.
+
+[WARNING] Using 'eval' is not recommended. Moreover, using 'eval' reduces the level of compression!
+.indirectEvalIsGlobal){var evl=window. ---> eval <--- ;evl(text);}else{var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+;evl(text);}else{ ---> var  <--- e=document.createElement("SCRIPT");var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+e=document.createElement("SCRIPT"); ---> var  <--- t=document.createTextNode(text);e
+
+[WARNING] Try to use a single 'var' statement per scope.
+);e.appendChild(t); ---> var  <--- heads=document.getElementsByTagName("HEAD");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+path;if(script.attachEvent){ ---> var  <--- handler=AjxCallback.simpleClosure(AjxPackage.__onAsyncLoadIE,
+
+[WARNING] Try to use a single 'var' statement per scope.
+else{if(script.addEventListener){ ---> var  <--- handler=AjxCallback.simpleClosure(AjxPackage.__onAsyncLoad,
+
+[WARNING] The variable handler has already been declared in the same scope...
+{if(script.addEventListener){var  ---> handler <--- =AjxCallback.simpleClosure(AjxPackage.__onAsyncLoad,null
+
+[WARNING] Try to use a single 'var' statement per scope.
+"load",handler,true);}} ---> var  <--- heads=document.getElementsByTagName("HEAD");if
+
+[WARNING] Try to use a single 'var' statement per scope.
+__onXHR,[data]):null; ---> var  <--- loadParams={url:data.path,userName
+
+[WARNING] Try to use a single 'var' statement per scope.
+data.async,callback:callback}; ---> var  <--- req=AjxLoader.load(loadParams);if
+
+[WARNING] Using 'eval' is not recommended. Moreover, using 'eval' reduces the level of compression!
+AjxPackage.__depth++;try{AjxPackage. ---> eval <--- (text);}catch(e){
+
+[WARNING] Try to use a single 'var' statement per scope.
+(title,"\n\n");}for( ---> var  <--- i=AjxPackage.__scripts.length-1;
+
+[WARNING] Try to use a single 'var' statement per scope.
+;i>=0;i--){ ---> var  <--- script=AjxPackage.__scripts[i];a
+
+[WARNING] Try to use a single 'var' statement per scope.
+if(script.scripts){for( ---> var  <--- j=0;j<script.scripts.
+
+[WARNING] Try to use a single 'var' statement per scope.
+.scripts.length;j++){ ---> var  <--- subscript=script.scripts[j];a
+
+[WARNING] Try to use a single 'var' statement per scope.
+(name);if(el){ ---> var  <--- isTextArea=el.nodeName.toUpperCase()==
+
+[WARNING] Try to use a single 'var' statement per scope.
+value:el.innerHTML);}} ---> var  <--- pkg=AjxTemplate.__name2Package(name);var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+pkg=AjxTemplate.__name2Package(name); ---> var  <--- id=name.replace(/^[^#]*#?/,"")
+
+[WARNING] Try to use a single 'var' statement per scope.
+;}AjxTemplate.require(pkg); ---> var  <--- hasBuffer=Boolean(buffer);buffer=buffer
+
+[WARNING] Try to use a single 'var' statement per scope.
+);buffer=buffer||[]; ---> var  <--- func=AjxTemplate.getTemplate(name);if
+
+[WARNING] Try to use a single 'var' statement per scope.
+AjxTemplate._stack.push(pkg); ---> var  <--- params=AjxTemplate.getParams(name);func
+
+[WARNING] Try to use a single 'var' statement per scope.
+name=AjxPackage.__package2path(pkg); ---> var  <--- lines=templateText!=null?templateText:AjxLoader.
+
+[WARNING] Try to use a single 'var' statement per scope.
+AjxLoader.load(name).reponseText; ---> var  <--- buffer=[],offset=0,first
+
+[WARNING] Try to use a single 'var' statement per scope.
+;AjxTemplate.__RE_TEMPLATE.lastIndex=0; ---> var  <--- m=AjxTemplate.__RE_TEMPLATE.exec(lines)
+
+[WARNING] Try to use a single 'var' statement per scope.
+);if(m){do{ ---> var  <--- attrs=AjxTemplate.__parseAttrs(m[1]
+
+[WARNING] Try to use a single 'var' statement per scope.
+.__parseAttrs(m[1]); ---> var  <--- body=m[2];if(attrs
+
+[WARNING] Try to use a single 'var' statement per scope.
+.replace(/^\s+|\s+$/,"");} ---> var  <--- packageId=pkg;var templateId=attrs.id
+
+[WARNING] Try to use a single 'var' statement per scope.
+"");}var packageId=pkg; ---> var  <--- templateId=attrs.id;if(templateId&&
+
+[WARNING] Try to use a single 'var' statement per scope.
+.replace(/^.*#/,"");} ---> var  <--- id=templateId?packageId+"#"+templateId:
+
+[WARNING] Try to use a single 'var' statement per scope.
+?packageId+"#"+templateId:packageId; ---> var  <--- func=AjxTemplate.__convertLines(body);AjxTemplate
+
+[WARNING] Try to use a single 'var' statement per scope.
+{AjxPackage.define(pkg);} ---> var  <--- func=AjxTemplate.__convertLines(lines);AjxTemplate
+
+[WARNING] The variable func has already been declared in the same scope...
+AjxPackage.define(pkg);}var  ---> func <--- =AjxTemplate.__convertLines(lines);AjxTemplate.
+
+[WARNING] Try to use a single 'var' statement per scope.
+;AjxTemplate.__RE_REPLACE.lastIndex=0; ---> var  <--- m=AjxTemplate.__RE_REPLACE.exec(lines)
+
+[WARNING] Try to use a single 'var' statement per scope.
+(lines);if(m){ ---> var  <--- head=0;do{var tail=AjxTemplate
+
+[WARNING] Try to use a single 'var' statement per scope.
+){var head=0;do{ ---> var  <--- tail=AjxTemplate.__RE_REPLACE.lastIndex-m[
+
+[WARNING] Try to use a single 'var' statement per scope.
+substring(head,tail));} ---> var  <--- param=m[1];var inline=
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var param=m[1]; ---> var  <--- inline=m[2];if(param
+
+[WARNING] Try to use a single 'var' statement per scope.
+.__RE_ATTR.exec(s)){ ---> var  <--- value=m[2];attrs[m
+
+[WARNING] Try to use a single 'var' statement per scope.
+var offset=buffer.length;for( ---> var  <--- i=1;i<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+var offset=buffer.length;for( ---> var  <--- j=1;j<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+<arguments.length;j++){ ---> var  <--- s=arguments[j];var lines=
+
+[WARNING] Try to use a single 'var' statement per scope.
+{var s=arguments[j]; ---> var  <--- lines=s.split("\n");for
+
+[WARNING] Try to use a single 'var' statement per scope.
+s.split("\n");for( ---> var  <--- i=0;i<lines.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+<lines.length;i++){ ---> var  <--- line=lines[i];offset=AjxTemplate
+
+[WARNING] Try to use a single 'var' statement per scope.
+[offset++]='\tbuffer[_i++] = "';for( ---> var  <--- i=1;i<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+[offset++]="\tbuffer[_i++] = ";for( ---> var  <--- i=1;i<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+_loaded=loaded;if(loaded){ ---> var  <--- callbacks=pkgData.callback||[];for
+
+[WARNING] Try to use a single 'var' statement per scope.
+pkgData.callback||[];for( ---> var  <--- i=0;i<callbacks.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+preLoadOk:(callback!=null);} ---> var  <--- item=AjxDispatcher._registry[method];if
+
+[WARNING] Try to use a single 'var' statement per scope.
+AjxPackage.__log("Run method: "+method); ---> var  <--- pkg=item.pkg;var args=[
+
+[WARNING] Try to use a single 'var' statement per scope.
+);var pkg=item.pkg; ---> var  <--- args=[];for(var i=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var args=[];for( ---> var  <--- i=1;i<arguments.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var unloaded=[];for( ---> var  <--- i=0;i<pkg.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+<pkg.length;i++){ ---> var  <--- p=pkg[i];if(!
+
+[WARNING] Try to use a single 'var' statement per scope.
+,callback,args);}else{ ---> var  <--- preLoad=AjxDispatcher._preLoad;if(preLoadOk&&
+
+[WARNING] Try to use a single 'var' statement per scope.
+,callback,args]);for( ---> var  <--- i=0;i<preLoad.length;
+
+[WARNING] The variable i has already been declared in the same scope...
+callback,args]);for(var  ---> i <--- =0;i<preLoad.length;i
+
+[WARNING] Try to use a single 'var' statement per scope.
+;}if(async&&callback){ ---> var  <--- postLoadCallback=new AjxCallback(null,AjxDispatcher._postLoadCallback
+
+[WARNING] Try to use a single 'var' statement per scope.
+callback:postLoadCallback});}else{ ---> var  <--- _st=new Date();for(var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+_st=new Date();for( ---> var  <--- i=0;i<pkg.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+require(pkg[i]);} ---> var  <--- _en=new Date();var t=
+
+[WARNING] Try to use a single 'var' statement per scope.
+}var _en=new Date(); ---> var  <--- t=_en.getTime()-_st.
+
+[WARNING] Try to use a single 'var' statement per scope.
+)._loaded=true;}for( ---> var  <--- i=0;i<pkg.length;
+
+[WARNING] The variable i has already been declared in the same scope...
+._loaded=true;}for(var  ---> i <--- =0;i<pkg.length;i
+
+[WARNING] Try to use a single 'var' statement per scope.
+<pkg.length;i++){ ---> var  <--- pkgData=AjxDispatcher._getPackageData(pkg[i]
+
+[WARNING] Try to use a single 'var' statement per scope.
+("Running post-load package function for "+pkg[i]); ---> var  <--- callbacks=pkgData.callback;for(var j
+
+[WARNING] Try to use a single 'var' statement per scope.
+var callbacks=pkgData.callback;for( ---> var  <--- j=0;j<callbacks.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+0;}}if(pkgWasLoaded){ ---> var  <--- postLoad=AjxDispatcher._postLoad;if(AjxDispatcher.
+
+[WARNING] Try to use a single 'var' statement per scope.
+_loadFunctionsEnabled&&postLoad.length){for( ---> var  <--- i=0;i<postLoad.length;
+
+[WARNING] The variable i has already been declared in the same scope...
+&&postLoad.length){for(var  ---> i <--- =0;i<postLoad.length;i
+
+[WARNING] The symbol bind is declared but is apparently never used.
+This code can probably be written in a more compact way.
+){Function.prototype.bind=function ---> bind <--- (that){var target=this;if
+
+[WARNING] The symbol isTrident is declared but is apparently never used.
+This code can probably be written in a more compact way.
+=false;var isCompatible=false;var  ---> isTrident <--- =false;if(agtArr!=null){
+
+[WARNING] The symbol buffer is declared but is apparently never used.
+This code can probably be written in a more compact way.
+.load(name).reponseText;var  ---> buffer <--- =[],offset=0,first=
+
+[WARNING] The symbol offset is declared but is apparently never used.
+This code can probably be written in a more compact way.
+.reponseText;var buffer=[], ---> offset <--- =0,first=true;AjxTemplate.__RE_TEMPLATE

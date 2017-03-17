@@ -1,0 +1,233 @@
+
+[INFO] Using charset UTF-8
+
+[WARNING] Try to use a single 'var' statement per scope.
+result.args.join(""); ---> var  <--- eol=(this._target!=AjxDebug.TGT_CONSOLE
+
+[WARNING] Try to use a single 'var' statement per scope.
+var state=on?"on":"off"; ---> var  <--- text="Turning timing info "+state;if(msg)
+
+[WARNING] Try to use a single 'var' statement per scope.
+text=text+": "+msg;} ---> var  <--- debugMsg=new DebugMessage({msg:text}
+
+[WARNING] Try to use a single 'var' statement per scope.
+new Date().getTime(); ---> var  <--- elapsed=now-this._startTimePt;var interval
+
+[WARNING] Try to use a single 'var' statement per scope.
+var elapsed=now-this._startTimePt; ---> var  <--- interval=now-this._lastTimePt;this.
+
+[WARNING] Try to use a single 'var' statement per scope.
+._lastTimePt;this._lastTimePt=now; ---> var  <--- spacer=restart?"<br/>":"";msg=
+
+[WARNING] Try to use a single 'var' statement per scope.
+=msg?" "+msg:""; ---> var  <--- text=[spacer,"[",elapsed," / "
+
+[WARNING] Try to use a single 'var' statement per scope.
+,msg].join(""); ---> var  <--- html="<div>"+text+"</div>";this.
+
+[WARNING] Try to use a single 'var' statement per scope.
+{};var html=[]; ---> var  <--- idx=0;if(obj===undefined)
+
+[WARNING] Try to use a single 'var' statement per scope.
+else{if(params.isXml){ ---> var  <--- xmldoc=new AjxDebugXmlDocument;var doc=xmldoc.
+
+[WARNING] Try to use a single 'var' statement per scope.
+isXml){var xmldoc=new AjxDebugXmlDocument; ---> var  <--- doc=xmldoc.create();if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+Array(args.length);for( ---> var  <--- i=0;i<args.length;
+
+[WARNING] Try to use a single 'var' statement per scope.
+i]=args[i];} ---> var  <--- result={args:null,linkName:null
+
+[WARNING] Try to use a single 'var' statement per scope.
+args:null,linkName:null}; ---> var  <--- origLen=argsArray.length;if(argsArray.
+
+[WARNING] Try to use a single 'var' statement per scope.
+if(argsArray.length>1){ ---> var  <--- lastArg=argsArray[argsArray.length-1]
+
+[WARNING] Try to use a single 'var' statement per scope.
+;argsArray.pop();}} ---> var  <--- userLevel=null;var firstArg=argsArray[0
+
+[WARNING] Try to use a single 'var' statement per scope.
+);}}var userLevel=null; ---> var  <--- firstArg=argsArray[0];var gotUserLevel=
+
+[WARNING] Try to use a single 'var' statement per scope.
+;var firstArg=argsArray[0]; ---> var  <--- gotUserLevel=(typeoffirstArg=="number"||((
+
+[WARNING] Try to use a single 'var' statement per scope.
+;this._document.close(); ---> var  <--- ta=new AjxTimedAction(this,AjxDebug.prototype
+
+[WARNING] Try to use a single 'var' statement per scope.
+document.getElementById(AjxDebug._BOTTOM_FRAME_ID); ---> var  <--- doc=frame.contentWindow.document;var html
+
+[WARNING] Try to use a single 'var' statement per scope.
+var doc=frame.contentWindow.document; ---> var  <--- html=[];var i=0;
+
+[WARNING] Try to use a single 'var' statement per scope.
+.document;var html=[]; ---> var  <--- i=0;html[i++]=
+
+[WARNING] Try to use a single 'var' statement per scope.
+var contentFrame=this.getContentFrame(); ---> var  <--- contentBody=contentFrame?contentFrame.contentWindow.document.
+
+[WARNING] Try to use a single 'var' statement per scope.
+.contentWindow.document.body:null; ---> var  <--- linkFrame=this.getLinkFrame();var linkBody
+
+[WARNING] Try to use a single 'var' statement per scope.
+var linkFrame=this.getLinkFrame(); ---> var  <--- linkBody=linkFrame?linkFrame.contentWindow.document.
+
+[WARNING] Try to use a single 'var' statement per scope.
+return"";}var str=""; ---> var  <--- len;switch(node.nodeType){case
+
+[WARNING] Try to use a single 'var' statement per scope.
+]){returnstr+"/&gt;</div>";} ---> var  <--- attrs=node.attributes;len=attrs.
+
+[WARNING] Try to use a single 'var' statement per scope.
+;len=attrs.length;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] Try to use a single 'var' statement per scope.
+str+"/&gt;</div>";}str+="&gt;<br />"; ---> var  <--- cs=node.childNodes;len=cs.
+
+[WARNING] Try to use a single 'var' statement per scope.
+;len=cs.length;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] The variable i has already been declared in the same scope...
+len=cs.length;for(var  ---> i <--- =0;i<len;i++)
+
+[WARNING] Try to use a single 'var' statement per scope.
+nodeName+"</span>&gt;</div>";break;case9: ---> var  <--- cs=node.childNodes;len=cs.
+
+[WARNING] The variable cs has already been declared in the same scope...
++"</span>&gt;</div>";break;case9:var  ---> cs <--- =node.childNodes;len=cs.length
+
+[WARNING] Try to use a single 'var' statement per scope.
+;len=cs.length;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] The variable i has already been declared in the same scope...
+len=cs.length;for(var  ---> i <--- =0;i<len;i++)
+
+[WARNING] Try to use a single 'var' statement per scope.
+.test(node.nodeValue)){ ---> var  <--- val=node.nodeValue.replace(/</g,
+
+[WARNING] Try to use a single 'var' statement per scope.
+:str+="&lt;?"+node.nodeName; ---> var  <--- attrs=node.attributes;len=attrs.
+
+[WARNING] The variable attrs has already been declared in the same scope...
+str+="&lt;?"+node.nodeName;var  ---> attrs <--- =node.attributes;len=attrs.length
+
+[WARNING] Try to use a single 'var' statement per scope.
+;len=attrs.length;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] The variable i has already been declared in the same scope...
+len=attrs.length;for(var  ---> i <--- =0;i<len;i++)
+
+[WARNING] Try to use a single 'var' statement per scope.
+){var str="";for( ---> var  <--- k in obj){str+="obj."+k
+
+[WARNING] Try to use a single 'var' statement per scope.
+var contentFrame=this.getContentFrame(); ---> var  <--- linkFrame=this.getLinkFrame();if(
+
+[WARNING] Try to use a single 'var' statement per scope.
+contentFrame||!linkFrame){return;} ---> var  <--- contentFrameDoc=contentFrame.contentWindow.document;var linkFrameDoc
+
+[WARNING] Try to use a single 'var' statement per scope.
+var contentFrameDoc=contentFrame.contentWindow.document; ---> var  <--- linkFrameDoc=linkFrame.contentWindow.document;var now
+
+[WARNING] Try to use a single 'var' statement per scope.
+var linkFrameDoc=linkFrame.contentWindow.document; ---> var  <--- now=new Date();for(var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+now=new Date();for( ---> var  <--- i=0,len=this._msgQueue.
+
+[WARNING] Try to use a single 'var' statement per scope.
+;i<len;++i){ ---> var  <--- msg=this._msgQueue[i];var 
+
+[WARNING] Try to use a single 'var' statement per scope.
+msg=this._msgQueue[i]; ---> var  <--- linkLabel=msg.linkName;var contentLabel=[
+
+[WARNING] Try to use a single 'var' statement per scope.
+];var linkLabel=msg.linkName; ---> var  <--- contentLabel=[msg.message,msg.extraHtml
+
+[WARNING] Try to use a single 'var' statement per scope.
+TGT_CONSOLE)?"<br>":"";for( ---> var  <--- i=0,len=this._msgQueue.
+
+[WARNING] Try to use a single 'var' statement per scope.
+;i<len;++i){ ---> var  <--- msg=this._msgQueue[i];AjxDebug
+
+[WARNING] Try to use a single 'var' statement per scope.
+];if(max>0){ ---> var  <--- buffer=AjxDebug.BUFFER[type]=AjxDebug
+
+[WARNING] Try to use a single 'var' statement per scope.
+now=new Date();for( ---> var  <--- i=0,len=this._msgQueue.
+
+[WARNING] Try to use a single 'var' statement per scope.
+;i<len;++i){ ---> var  <--- msg=this._msgQueue[i];if
+
+[WARNING] Try to use a single 'var' statement per scope.
+now=now||new Date(); ---> var  <--- timeStamp=["[",this._getTimeStamp(now
+
+[WARNING] Try to use a single 'var' statement per scope.
+,"]"].join(""); ---> var  <--- id="Lnk_"+now.getTime();
+
+[WARNING] Try to use a single 'var' statement per scope.
+getTime();if(linkLabel){ ---> var  <--- linkFrameDoc=linkFrame.contentWindow.document;var linkEl
+
+[WARNING] Try to use a single 'var' statement per scope.
+var linkFrameDoc=linkFrame.contentWindow.document; ---> var  <--- linkEl=linkFrameDoc.createElement("DIV");linkEl
+
+[WARNING] Try to use a single 'var' statement per scope.
+;linkEl.onclick=AjxDebug._linkClicked; ---> var  <--- linkBody=linkFrameDoc.body;linkBody.appendChild(
+
+[WARNING] Try to use a single 'var' statement per scope.
+;linkBody.appendChild(linkEl);} ---> var  <--- contentFrameDoc=this.getContentFrame().contentWindow.
+
+[WARNING] Try to use a single 'var' statement per scope.
+.getContentFrame().contentWindow.document; ---> var  <--- contentEl=contentFrameDoc.createElement("DIV");contentEl
+
+[WARNING] Try to use a single 'var' statement per scope.
+=this._dbg.getContentFrame(); ---> var  <--- el=contentFrame.contentWindow.document.getElementById(
+
+[WARNING] Try to use a single 'var' statement per scope.
+document.getElementById(this._targetId); ---> var  <--- y=0;while(el){y
+
+[WARNING] Try to use a single 'var' statement per scope.
+var ts=AjxDebug._getTimeStamp(); ---> var  <--- msg=["<b>",params.methodNameStr,params
+
+[WARNING] Try to use a single 'var' statement per scope.
+].join("");for( ---> var  <--- type in AjxDebug.BUFFER){if(type
+
+[WARNING] Try to use a single 'var' statement per scope.
+;}if(window.DBG){ ---> var  <--- linkName=params.methodNameStr;if(!params
+
+[WARNING] Try to use a single 'var' statement per scope.
+"MSXML2","Microsoft","MSXML","MSXML3"]; ---> var  <--- o;var len=prefixes.length;for
+
+[WARNING] Try to use a single 'var' statement per scope.
+,"MSXML","MSXML3"];var o; ---> var  <--- len=prefixes.length;for(var i
+
+[WARNING] Try to use a single 'var' statement per scope.
+var len=prefixes.length;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] Try to use a single 'var' statement per scope.
+.removeChild(this.lastChild);} ---> var  <--- len=doc2.childNodes.length;for(
+
+[WARNING] Try to use a single 'var' statement per scope.
+=doc2.childNodes.length;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] Try to use a single 'var' statement per scope.
+.removeChild(this.lastChild);} ---> var  <--- len=doc2.childNodes.length;for(
+
+[WARNING] Try to use a single 'var' statement per scope.
+=doc2.childNodes.length;for( ---> var  <--- i=0;i<len;i++
+
+[WARNING] The symbol contentFrameDoc is declared but is apparently never used.
+This code can probably be written in a more compact way.
+||!linkFrame){return;}var  ---> contentFrameDoc <--- =contentFrame.contentWindow.document;var linkFrameDoc=
+
+[WARNING] The symbol linkFrameDoc is declared but is apparently never used.
+This code can probably be written in a more compact way.
+contentFrameDoc=contentFrame.contentWindow.document;var  ---> linkFrameDoc <--- =linkFrame.contentWindow.document;var now=
+
+[WARNING] The symbol now is declared but is apparently never used.
+This code can probably be written in a more compact way.
+window.console){return;}var  ---> now <--- =new Date();for(var i

@@ -1,0 +1,1291 @@
+if(AjxPackage.define("Zimbra")){
+if(AjxPackage.define("zimbra.csfe.ZmBatchCommand")){
+ZmBatchCommand=function(e,t,a){
+this._onError=(e===false)?ZmBatchCommand.STOP:ZmBatchCommand.CONTINUE;
+this._accountName=t;
+this._useJson=a;
+this._requestBody=null;
+this.curId=0;
+this._cmds=[];
+this._requests=[];
+this._respCallbacks=[];
+this._errorCallbacks=[]
+};
+ZmBatchCommand.prototype.toString=function(){
+return"ZmBatchCommand"
+};
+ZmBatchCommand.prototype._sensitive=false;
+ZmBatchCommand.prototype._noAuthToken=false;
+ZmBatchCommand.STOP="stop";
+ZmBatchCommand.CONTINUE="continue";
+ZmBatchCommand.prototype.setSensitive=function(e){
+this._sensitive=this._sensitive||e
+};
+ZmBatchCommand.prototype.setNoAuthToken=function(e){
+this._noAuthToken=e
+};
+ZmBatchCommand.prototype.isSensitive=function(){
+return this._sensitive
+};
+ZmBatchCommand.prototype.add=function(e){
+this._cmds.push(e)
+};
+ZmBatchCommand.prototype.size=function(){
+return this.curId||this._cmds.length
+};
+ZmBatchCommand.prototype.run=function(m,h,e){
+for(var r=0;
+r<this._cmds.length;
+r++){
+var o=this._cmds[r];
+o.run(this);
+this.curId++
+}
+var n={
+sensitive:this._sensitive,noAuthToken:this._noAuthToken,asyncMode:true,callback:new AjxCallback(this,this._handleResponseRun,[m,h]),errorCallback:h,offlineCallback:e,accountName:this._accountName};
+if(this._useJson){
+var f={
+BatchRequest:{
+_jsns:"urn:zimbra",onerror:this._onError}};
+var t=f.BatchRequest;
+var p=this.size();
+if(p&&this._requests.length){
+for(var r=0;
+r<p;
+r++){
+var s=this._requests[r];
+if(s){
+s.requestId=r;
+var u=ZmCsfeCommand.getMethodName(s);
+if(!t[u]){
+t[u]=[]
+}
+s[u].requestId=r;
+t[u].push(s[u])
+}}
+n.jsonObj=f;
+this._requestBody=f
+}}else{
+var c=AjxSoapDoc.create("BatchRequest","urn:zimbra");
+c.setMethodAttribute("onerror",this._onError);
+var p=this.size();
+if(p>0){
+for(var r=0;
+r<p;
+r++){
+var d=this._requests[r];
+var l=d.getMethod();
+l.setAttribute("requestId",r);
+var a=c.adoptNode(l);
+c.getMethod().appendChild(a)
+}
+n.soapDoc=c;
+this._requestBody=c
+}}
+if(n.jsonObj||n.soapDoc){
+appCtxt.getAppController().sendRequest(n)
+}else{
+if(m){
+m.run()
+}}};
+ZmBatchCommand.prototype.getRequestBody=function(){
+return this._requestBody
+};
+ZmBatchCommand.prototype._handleResponseRun=function(l,n,d){
+var h=d.getResponse();
+if(!h.BatchResponse){
+return
+}
+var s=[];
+for(var e in h.BatchResponse){
+if(e.match(/^_/)){
+continue
+}
+var c=h.BatchResponse[e];
+for(var o=0;
+o<c.length;
+o++){
+s[c[o].requestId]={
+method:e,resp:c[o]}
+}}
+var t=[];
+for(var o=0;
+o<s.length;
+o++){
+var a=s[o];
+try{
+this._processResponse(a.method,a.resp)
+}
+catch(r){
+t.push(r);
+if(this._onError==ZmBatchCommand.STOP){
+break
+}}}
+if(t.length>0&&n){
+n.run.apply(n,t)
+}else{
+if(l){
+l.run(d)
+}}};
+ZmBatchCommand.prototype.addRequestParams=function(t,a,e){
+this._requests[this.curId]=t;
+this._respCallbacks[this.curId]=a;
+this._errorCallbacks[this.curId]=e
+};
+ZmBatchCommand.prototype.addNewRequestParams=function(t,a,e){
+this.addRequestParams(t,a,e);
+this.curId++
+};
+ZmBatchCommand.prototype._processResponse=function(s,o){
+var n=o.requestId;
+if(s=="Fault"){
+var t=ZmCsfeCommand.faultToEx(o,"ZmBatchCommand.prototype.run");
+if(this._errorCallbacks[n]){
+var i=this._errorCallbacks[n].run(t);
+if(!i){
+appCtxt.getAppController()._handleException(t)
+}}
+throw t
+}
+if(this._respCallbacks[n]){
+var a={};
+a[s]=o;
+var e=new ZmCsfeResult(a);
+this._respCallbacks[n].run(e,o)
+}}
+}
+if(AjxPackage.define("zimbra.csfe.ZmCsfeCommand")){
+ZmCsfeCommand=function(){};
+ZmCsfeCommand.prototype.isZmCsfeCommand=true;
+ZmCsfeCommand.prototype.toString=function(){
+return"ZmCsfeCommand"
+};
+ZmCsfeCommand._COOKIE_NAME="ZM_AUTH_TOKEN";
+ZmCsfeCommand.serverUri=null;
+ZmCsfeCommand._sessionId=null;
+ZmCsfeCommand._staleSession={};
+ZmCsfeCommand.REAUTH="reauth";
+ZmCsfeCommand.RETRY="retry";
+ZmCsfeCommand.getAuthToken=function(){
+return AjxCookie.getCookie(document,ZmCsfeCommand._COOKIE_NAME)
+};
+ZmCsfeCommand.setCookieName=function(e){
+ZmCsfeCommand._COOKIE_NAME=e
+};
+ZmCsfeCommand.setServerUri=function(e){
+ZmCsfeCommand.serverUri=e
+};
+ZmCsfeCommand.setAuthToken=function(t,n,o,a){
+ZmCsfeCommand._curAuthToken=t;
+if(n!=null){
+var i=null;
+if(n>0){
+i=new Date();
+var e=parseInt(n);
+i.setTime(i.getTime()+e)
+}
+AjxCookie.setCookie(document,ZmCsfeCommand._COOKIE_NAME,t,i,"/",null,a)
+}else{
+AjxCookie.deleteCookie(document,ZmCsfeCommand._COOKIE_NAME,"/")
+}
+if(o){
+ZmCsfeCommand.setSessionId(o)
+}};
+ZmCsfeCommand.clearAuthToken=function(){
+AjxCookie.deleteCookie(document,ZmCsfeCommand._COOKIE_NAME,"/")
+};
+ZmCsfeCommand.getSessionId=function(){
+return ZmCsfeCommand._sessionId
+};
+ZmCsfeCommand.setSessionId=function(t){
+var e=ZmCsfeCommand.extractSessionId(t);
+if(e){
+if(e&&!ZmCsfeCommand._staleSession[e]){
+if(e!=ZmCsfeCommand._sessionId){
+if(ZmCsfeCommand._sessionId){
+ZmCsfeCommand._staleSession[ZmCsfeCommand._sessionId]=true
+}
+ZmCsfeCommand._sessionId=e
+}}}};
+ZmCsfeCommand.clearSessionId=function(){
+ZmCsfeCommand._sessionId=null
+};
+ZmCsfeCommand.extractSessionId=function(e){
+var t;
+if(e instanceof Array){
+e=e[0].id
+}else{
+if(e&&e.id){
+e=e.id
+}}
+t=parseInt(e,10);
+if(isNaN(t)){
+t=null
+}
+return t
+};
+ZmCsfeCommand.faultToEx=function(t,a){
+var i={
+msg:AjxStringUtil.getAsString(t.Reason.Text),code:AjxStringUtil.getAsString(t.Detail.Error.Code),method:(a?a.methodNameStr:null),detail:AjxStringUtil.getAsString(t.Code.Value),data:t.Detail.Error.a,trace:(t.Detail.Error.Trace||"")};
+var e;
+if(a){
+if(a.soapDoc){
+i.request=a.soapDoc.getXml()
+}else{
+if(a.jsonRequestObj){
+if(a.jsonRequestObj&&a.jsonRequestObj.Header&&a.jsonRequestObj.Header.context){
+a.jsonRequestObj.Header.context.authToken="(removed)"
+}
+i.request=AjxStringUtil.prettyPrint(a.jsonRequestObj,true)
+}}}
+return new ZmCsfeException(i)
+};
+ZmCsfeCommand.getMethodName=function(t){
+var e=(t&&t._methodEl&&t._methodEl.tagName)?t._methodEl.tagName:null;
+if(!e){
+for(var a in t){
+if(/Request|Response$/.test(a)){
+e=a;
+break
+}}}
+return(e||"[unknown]")
+};
+ZmCsfeCommand.prototype.invoke=function(s){
+this.cancelled=false;
+if(!(s&&(s.soapDoc||s.jsonObj))){
+return
+}
+var e=ZmCsfeCommand.getRequestStr(s);
+var n;
+try{
+var o=(s.serverUri||ZmCsfeCommand.serverUri)+s.methodNameStr;
+this._st=new Date();
+var i={
+"Content-Type":"application/soap+xml; charset=utf-8"};
+if(AjxEnv.isIE6&&(location.protocol=="https:")){
+i.Connection="Close"
+}
+if(s.asyncMode){
+n=new AjxCallback(this,this._runCallback,[s]);
+this._rpcId=AjxRpc.invoke(e,o,i,n)
+}else{
+var t=AjxRpc.invoke(e,o,i);
+return(!s.returnXml)?(this._getResponseData(t,s)):t
+}}
+catch(a){
+this._handleException(a,s,n)
+}};
+ZmCsfeCommand.prototype.invokeRest=function(i){
+if(!(i&&i.restUri)){
+return
+}
+var a;
+try{
+this._st=new Date();
+if(i.asyncMode){
+a=new AjxCallback(this,this._runCallback,[i]);
+this._rpcId=AjxRpc.invoke(null,i.restUri,null,a,true)
+}else{
+var e=AjxRpc.invoke(null,i.restUri,null,null,true);
+return e.text
+}}
+catch(t){
+this._handleException(t,i,a)
+}};
+ZmCsfeCommand.prototype.cancel=function(){
+if(!this._rpcId){
+return
+}
+this.cancelled=true;
+var e=AjxRpc.getRpcRequestById(this._rpcId);
+if(e){
+e.cancel();
+if(AjxEnv.isFirefox3_5up){
+AjxRpc.removeRpcCtxt(e)
+}}};
+ZmCsfeCommand.getRequestStr=function(e){
+return e.soapDoc?ZmCsfeCommand._getSoapRequestStr(e):ZmCsfeCommand._getJsonRequestStr(e)
+};
+ZmCsfeCommand._getJsonRequestStr=function(s){
+var o={
+Header:{}
+,Body:s.jsonObj};
+var a=o.Header.context={
+_jsns:"urn:zimbra"};
+var i=["ZimbraWebClient - ",AjxEnv.browser," (",AjxEnv.platform,")"].join("");
+a.userAgent={
+name:i};
+if(ZmCsfeCommand.clientVersion){
+a.userAgent.version=ZmCsfeCommand.clientVersion
+}
+if(s.noSession){
+a.nosession={}
+}else{
+var n=ZmCsfeCommand.getSessionId();
+if(n){
+a.session={
+_content:n,id:n}
+}else{
+a.session={}
+}}
+if(s.targetServer){
+a.targetServer={
+_content:s.targetServer}
+}
+if(s.highestNotifySeen){
+a.notify={
+seq:s.highestNotifySeen}
+}
+if(s.changeToken){
+a.change={
+token:s.changeToken,type:"new"}
+}
+if(!s.skipAuthCheck){
+if(s.accountId){
+a.account={
+_content:s.accountId,by:"id"}
+}else{
+if(s.accountName){
+a.account={
+_content:s.accountName,by:"name"}
+}}}
+if(s.useXml){
+a.format={
+type:"xml"}
+}
+s.methodNameStr=ZmCsfeCommand.getMethodName(s.jsonObj);
+if(!s.noAuthToken){
+var t=s.authToken||ZmCsfeCommand.getAuthToken();
+if(!t){
+throw new ZmCsfeException(ZMsg.authTokenRequired,ZmCsfeException.NO_AUTH_TOKEN,s.methodNameStr)
+}
+if(ZmCsfeCommand._curAuthToken&&!s.skipAuthCheck&&(s.resend!=ZmCsfeCommand.REAUTH)&&(t!=ZmCsfeCommand._curAuthToken)){
+throw new ZmCsfeException(ZMsg.authTokenChanged,ZmCsfeException.AUTH_TOKEN_CHANGED,s.methodNameStr)
+}
+a.authToken=ZmCsfeCommand._curAuthToken=t
+}else{
+if(ZmCsfeCommand.noAuth){
+throw new ZmCsfeException(ZMsg.authRequired,ZmCsfeException.NO_AUTH_TOKEN,s.methodNameStr)
+}}
+if(window.csrfToken){
+a.csrfToken=window.csrfToken
+}
+AjxDebug.logSoapMessage(s);
+s.jsonRequestObj=o;
+var e=(s.useStringify1?JSON.stringify1(o):JSON.stringify(o));
+return AjxStringUtil.jsEncode(e)
+};
+ZmCsfeCommand._getSoapRequestStr=function(s){
+var d=s.soapDoc;
+if(!s.resend){
+var m=d.createHeaderElement();
+var o=d.set("context",null,m,"urn:zimbra");
+var t=d.set("userAgent",null,o);
+var a=["ZimbraWebClient - ",AjxEnv.browser," (",AjxEnv.platform,")"].join("");
+t.setAttribute("name",a);
+if(ZmCsfeCommand.clientVersion){
+t.setAttribute("version",ZmCsfeCommand.clientVersion)
+}
+if(s.noSession){
+d.set("nosession",null,o)
+}else{
+var r=ZmCsfeCommand.getSessionId();
+var h=d.set("session",null,o);
+if(r){
+h.setAttribute("id",r)
+}}
+if(s.targetServer){
+d.set("targetServer",s.targetServer,o)
+}
+if(s.highestNotifySeen){
+var f=d.set("notify",null,o);
+f.setAttribute("seq",s.highestNotifySeen)
+}
+if(s.changeToken){
+var c=d.set("change",null,o);
+c.setAttribute("token",s.changeToken);
+c.setAttribute("type","new")
+}
+if(!s.skipAuthCheck){
+if(s.accountId){
+var n=d.set("account",s.accountId,o);
+n.setAttribute("by","id")
+}else{
+if(s.accountName){
+var n=d.set("account",s.accountName,o);
+n.setAttribute("by","name")
+}}}
+if(s.skipExpiredToken){
+var l=d.set("authTokenControl",null,o);
+l.setAttribute("voidOnExpired","1")
+}
+if(!s.useXml){
+var i=d.set("format",null,o);
+i.setAttribute("type","js")
+}}
+s.methodNameStr=ZmCsfeCommand.getMethodName(d);
+if(!s.noAuthToken){
+var u=s.authToken||ZmCsfeCommand.getAuthToken();
+if(!u){
+throw new ZmCsfeException(ZMsg.authTokenRequired,ZmCsfeException.NO_AUTH_TOKEN,s.methodNameStr)
+}
+if(ZmCsfeCommand._curAuthToken&&!s.skipAuthCheck&&(s.resend!=ZmCsfeCommand.REAUTH)&&(u!=ZmCsfeCommand._curAuthToken)){
+throw new ZmCsfeException(ZMsg.authTokenChanged,ZmCsfeException.AUTH_TOKEN_CHANGED,s.methodNameStr)
+}
+ZmCsfeCommand._curAuthToken=u;
+if(s.resend==ZmCsfeCommand.REAUTH){
+var e=d.getDoc().getElementsByTagName("authToken");
+if(e&&e.length==1){
+e[0].firstChild.data=u
+}else{
+e=d.getDoc().getElementsByTagName("context");
+if(e&&e.length==1){
+d.set("authToken",u,e[0])
+}else{}}}else{
+if(!s.resend){
+d.set("authToken",u,o)
+}}}else{
+if(ZmCsfeCommand.noAuth&&!s.ignoreAuthToken){
+throw new ZmCsfeException(ZMsg.authRequired,ZmCsfeException.NO_AUTH_TOKEN,s.methodNameStr)
+}}
+if(window.csrfToken){
+d.set("csrfToken",window.csrfToken,o)
+}
+AjxDebug.logSoapMessage(s);
+return d.getXml()
+};
+ZmCsfeCommand.prototype._runCallback=function(a,e){
+if(!e){
+return
+}
+if(this.cancelled&&a.skipCallbackIfCancelled){
+return
+}
+var t;
+if(e instanceof ZmCsfeResult){
+t=e
+}else{
+t=this._getResponseData(e,a)
+}
+this._en=new Date();
+if(a.callback&&t){
+a.callback.run(t)
+}else{
+if(!a.emptyResponseOkay){}}};
+ZmCsfeCommand.prototype._getResponseData=function(i,a){
+this._en=new Date();
+var l=new ZmCsfeResult();
+var t=false;
+var e=Boolean(a.restUri);
+var n=null;
+if(!i.success&&!i.xml&&(/<html/i.test(i.text))){
+var r=new ZmCsfeException(null,ZmCsfeException.CSFE_SVC_ERROR,a.methodNameStr,"HTTP response status "+i.status);
+if(a.asyncMode){
+l.set(r,true);
+return l
+}else{
+throw r
+}}
+if(typeof(i.text)=="string"&&i.text.indexOf("{")==0){
+n=i.text
+}else{
+if(!e){
+try{
+t=true;
+if(!(i.text||(i.xml&&(typeof i.xml)=="string"))){
+if(a.emptyResponseOkay){
+return null
+}else{
+throw new ZmCsfeException(null,ZmCsfeException.EMPTY_RESPONSE,a.methodNameStr)
+}}
+n=(AjxEnv.isIE||i.xml==null)?AjxSoapDoc.createFromXml(i.text):AjxSoapDoc.createFromDom(i.xml)
+}
+catch(r){
+if(a.asyncMode){
+l.set(r,true);
+return l
+}else{
+throw r
+}}
+if(!n){
+var r=new ZmCsfeException(null,ZmCsfeException.SOAP_ERROR,a.methodNameStr,"Bad XML response doc");
+if(a.asyncMode){
+l.set(r,true);
+return l
+}else{
+throw r
+}}}}
+var o=e?i.text:{};
+if(t){
+o=n._xmlDoc.toJSObject(true,false,true)
+}else{
+if(!e){
+try{
+o=JSON.parse(n)
+}
+catch(r){
+if(r.name=="SyntaxError"){
+r=new ZmCsfeException(null,ZmCsfeException.BAD_JSON_RESPONSE,a.methodNameStr,n);
+AjxDebug.println(AjxDebug.BAD_JSON,"bad json. respDoc="+n)
+}
+if(a.asyncMode){
+l.set(r,true);
+return l
+}else{
+throw r
+}}}}
+a.methodNameStr=ZmCsfeCommand.getMethodName(o.Body);
+AjxDebug.logSoapMessage(a);
+var s=o&&o.Body&&o.Body.Fault;
+if(s){
+if(AjxUtil.isString(s)&&s.indexOf("<")==0){
+s=AjxXmlDoc.createFromXml(s).toJSObject(true,false,true)
+}
+var r=ZmCsfeCommand.faultToEx(s,a);
+if(a.asyncMode){
+l.set(r,true,o.Header);
+return l
+}else{
+throw r
+}}else{
+if(!i.success){
+var r=new ZmCsfeException(null,ZmCsfeException.CSFE_SVC_ERROR,a.methodNameStr,"HTTP response status "+i.status);
+if(a.asyncMode){
+l.set(r,true);
+return l
+}else{
+throw r
+}}else{
+if(a.asyncMode){
+l.set(o)
+}}}
+var h=o.Header&&o.Header.context&&o.Header.context.session;
+ZmCsfeCommand.setSessionId(h);
+return a.asyncMode?l:o
+};
+ZmCsfeCommand.prototype._handleException=function(e,a,i){
+if(!(e&&(e instanceof ZmCsfeException||e instanceof AjxSoapException||e instanceof AjxException))){
+var t=new ZmCsfeException();
+t.method=a.methodNameStr||a.restUri;
+t.detail=e?e.toString():"undefined exception";
+t.code=ZmCsfeException.UNKNOWN_ERROR;
+t.msg="Unknown Error";
+e=t
+}
+if(a.asyncMode){
+i.run(new ZmCsfeResult(e,true))
+}else{
+throw e
+}}
+}
+if(AjxPackage.define("zimbra.csfe.ZmCsfeException")){
+ZmCsfeException=function(o){
+o=Dwt.getParams(arguments,ZmCsfeException.PARAMS);
+AjxException.call(this,o.msg,o.code,o.method,o.detail);
+if(o.data){
+this.data={};
+for(var t=0;
+t<o.data.length;
+t++){
+var a=o.data[t];
+var e=a.n;
+if(!this.data[e]){
+this.data[e]=[]
+}
+this.data[e].push(a._content)
+}}
+this.trace=o.trace;
+this.request=o.request
+};
+ZmCsfeException.PARAMS=["msg","code","method","detail","data","trace"];
+ZmCsfeException.prototype=new AjxException;
+ZmCsfeException.prototype.constructor=ZmCsfeException;
+ZmCsfeException.prototype.isZmCsfeException=true;
+ZmCsfeException.prototype.toString=function(){
+return"ZmCsfeException"
+};
+ZmCsfeException.MAIL_SEND_ADDRESS_FAILURE_INVALID="invalid";
+ZmCsfeException.MAIL_SEND_ADDRESS_FAILURE_UNSENT="unsent";
+ZmCsfeException.getErrorMsg=function(t,e){
+var a=ZMsg[t];
+if(!a){
+ZmCsfeException._unknownFormat=ZmCsfeException._unknownFormat||new AjxMessageFormat(ZMsg.unknownError);
+return ZmCsfeException._unknownFormat.format(t)
+}
+this.msg=this.msg||a;
+return e?AjxMessageFormat.format(a,e):a
+};
+ZmCsfeException.prototype.getErrorMsg=function(e){
+return ZmCsfeException.getErrorMsg(this.code,e)
+};
+ZmCsfeException.prototype.getData=function(e){
+return this.data&&this.data[e]
+};
+ZmCsfeException.AUTH_TOKEN_CHANGED="AUTH_TOKEN_CHANGED";
+ZmCsfeException.BAD_JSON_RESPONSE="BAD_JSON_RESPONSE";
+ZmCsfeException.CSFE_SVC_ERROR="CSFE_SVC_ERROR";
+ZmCsfeException.EMPTY_RESPONSE="EMPTY_RESPONSE";
+ZmCsfeException.NETWORK_ERROR="NETWORK_ERROR";
+ZmCsfeException.NO_AUTH_TOKEN="NO_AUTH_TOKEN";
+ZmCsfeException.SOAP_ERROR="SOAP_ERROR";
+ZmCsfeException.LICENSE_ERROR="service.LICENSE_ERROR";
+ZmCsfeException.SVC_ALREADY_IN_PROGRESS="service.ALREADY_IN_PROGRESS";
+ZmCsfeException.SVC_AUTH_EXPIRED="service.AUTH_EXPIRED";
+ZmCsfeException.SVC_AUTH_REQUIRED="service.AUTH_REQUIRED";
+ZmCsfeException.SVC_FAILURE="service.FAILURE";
+ZmCsfeException.SVC_INVALID_REQUEST="service.INVALID_REQUEST";
+ZmCsfeException.SVC_PARSE_ERROR="service.PARSE_ERROR";
+ZmCsfeException.SVC_PERM_DENIED="service.PERM_DENIED";
+ZmCsfeException.SVC_RESOURCE_UNREACHABLE="service.RESOURCE_UNREACHABLE";
+ZmCsfeException.SVC_UNKNOWN_DOCUMENT="service.UNKNOWN_DOCUMENT";
+ZmCsfeException.SVC_TEMPORARILY_UNAVAILABLE="service.TEMPORARILY_UNAVAILABLE";
+ZmCsfeException.SVC_WRONG_HOST="service.WRONG_HOST";
+ZmCsfeException.ACCT_AUTH_FAILED="account.AUTH_FAILED";
+ZmCsfeException.ACCT_CHANGE_PASSWORD="account.CHANGE_PASSWORD";
+ZmCsfeException.ACCT_EXISTS="account.ACCOUNT_EXISTS";
+ZmCsfeException.ACCT_TOO_MANY_ACCOUNTS="account.TOO_MANY_ACCOUNTS";
+ZmCsfeException.ACCT_INVALID_ATTR_VALUE="account.INVALID_ATTR_VALUE";
+ZmCsfeException.ACCT_INVALID_PASSWORD="account.INVALID_PASSWORD";
+ZmCsfeException.ACCT_INVALID_PREF_NAME="account.INVALID_PREF_NAME";
+ZmCsfeException.ACCT_INVALID_PREF_VALUE="account.INVALID_PREF_VALUE";
+ZmCsfeException.ACCT_MAINTENANCE_MODE="account.MAINTENANCE_MODE";
+ZmCsfeException.ACCT_NO_SUCH_ACCOUNT="account.NO_SUCH_ACCOUNT";
+ZmCsfeException.ACCT_NO_SUCH_SAVED_SEARCH="account.NO_SUCH_SAVED_SEARCH";
+ZmCsfeException.ACCT_NO_SUCH_TAG="account.ACCT_NO_SUCH_TAG";
+ZmCsfeException.ACCT_PASS_CHANGE_TOO_SOON="account.PASSWORD_CHANGE_TOO_SOON";
+ZmCsfeException.ACCT_PASS_LOCKED="account.PASSWORD_LOCKED";
+ZmCsfeException.ACCT_PASS_RECENTLY_USED="account.PASSWORD_RECENTLY_USED";
+ZmCsfeException.COS_EXISTS="account.COS_EXISTS";
+ZmCsfeException.DISTRIBUTION_LIST_EXISTS="account.DISTRIBUTION_LIST_EXISTS";
+ZmCsfeException.DOMAIN_EXISTS="account.DOMAIN_EXISTS";
+ZmCsfeException.DOMAIN_NOT_EMPTY="account.DOMAIN_NOT_EMPTY";
+ZmCsfeException.IDENTITY_EXISTS="account.IDENTITY_EXISTS";
+ZmCsfeException.NO_SUCH_DISTRIBUTION_LIST="account.NO_SUCH_DISTRIBUTION_LIST";
+ZmCsfeException.NO_SUCH_DOMAIN="account.NO_SUCH_DOMAIN";
+ZmCsfeException.MAINTENANCE_MODE="account.MAINTENANCE_MODE";
+ZmCsfeException.TOO_MANY_IDENTITIES="account.TOO_MANY_IDENTITIES";
+ZmCsfeException.TOO_MANY_SEARCH_RESULTS="account.TOO_MANY_SEARCH_RESULTS";
+ZmCsfeException.NO_SUCH_COS="account.NO_SUCH_COS";
+ZmCsfeException.SIGNATURE_EXISTS="account.SIGNATURE_EXISTS";
+ZmCsfeException.CANNOT_CHANGE_VOLUME="volume.CANNOT_CHANGE_TYPE_OF_CURRVOL";
+ZmCsfeException.CANNOT_DELETE_VOLUME_IN_USE="volume.CANNOT_DELETE_VOLUME_IN_USE";
+ZmCsfeException.NO_SUCH_VOLUME="volume.NO_SUCH_VOLUME";
+ZmCsfeException.ALREADY_EXISTS="volume.ALREADY_EXISTS";
+ZmCsfeException.VOLUME_NO_SUCH_PATH="volume.NO_SUCH_PATH";
+ZmCsfeException.MAIL_ALREADY_EXISTS="mail.ALREADY_EXISTS";
+ZmCsfeException.MAIL_IMMUTABLE="mail.IMMUTABLE_OBJECT";
+ZmCsfeException.MAIL_INVALID_NAME="mail.INVALID_NAME";
+ZmCsfeException.MAIL_INVITE_OUT_OF_DATE="mail.INVITE_OUT_OF_DATE";
+ZmCsfeException.MAIL_MAINTENANCE_MODE="mail.MAINTENANCE";
+ZmCsfeException.MAIL_MESSAGE_TOO_BIG="mail.MESSAGE_TOO_BIG";
+ZmCsfeException.MAIL_MUST_RESYNC="mail.MUST_RESYNC";
+ZmCsfeException.MAIL_NO_SUCH_CALITEM="mail.NO_SUCH_CALITEM";
+ZmCsfeException.MAIL_NO_SUCH_CONV="mail.NO_SUCH_CONV";
+ZmCsfeException.MAIL_NO_SUCH_CONTACT="mail.NO_SUCH_CONTACT";
+ZmCsfeException.MAIL_NO_SUCH_FOLDER="mail.NO_SUCH_FOLDER";
+ZmCsfeException.MAIL_NO_SUCH_ITEM="mail.NO_SUCH_ITEM";
+ZmCsfeException.MAIL_NO_SUCH_MOUNTPOINT="mail.NO_SUCH_MOUNTPOINT";
+ZmCsfeException.MAIL_NO_SUCH_MSG="mail.NO_SUCH_MSG";
+ZmCsfeException.MAIL_NO_SUCH_PART="mail.NO_SUCH_PART";
+ZmCsfeException.MAIL_NO_SUCH_TAG="mail.NO_SUCH_TAG";
+ZmCsfeException.MAIL_QUERY_PARSE_ERROR="mail.QUERY_PARSE_ERROR";
+ZmCsfeException.MAIL_QUOTA_EXCEEDED="mail.QUOTA_EXCEEDED";
+ZmCsfeException.MAIL_SEND_ABORTED_ADDRESS_FAILURE="mail.SEND_ABORTED_ADDRESS_FAILURE";
+ZmCsfeException.MAIL_SEND_FAILURE="mail.SEND_FAILURE";
+ZmCsfeException.MAIL_TOO_MANY_CONTACTS="mail.TOO_MANY_CONTACTS";
+ZmCsfeException.MAIL_TOO_MANY_TERMS="mail.TOO_MANY_QUERY_TERMS_EXPANDED";
+ZmCsfeException.MAIL_UNABLE_TO_IMPORT_APPOINTMENTS="mail.MAIL_UNABLE_TO_IMPORT_APPOINTMENTS";
+ZmCsfeException.MAIL_UNABLE_TO_IMPORT_CONTACTS="mail.UNABLE_TO_IMPORT_CONTACTS";
+ZmCsfeException.MODIFY_CONFLICT="mail.MODIFY_CONFLICT";
+ZmCsfeException.TOO_MANY_TAGS="mail.TOO_MANY_TAGS";
+ZmCsfeException.CANNOT_RENAME="mail.CANNOT_RENAME";
+ZmCsfeException.CANNOT_UNLOCK="mail.CANNOT_UNLOCK";
+ZmCsfeException.CANNOT_LOCK="mail.CANNOT_LOCK";
+ZmCsfeException.LOCKED="mail.LOCKED";
+ZmCsfeException.UPLOAD_REJECTED="mail.UPLOAD_REJECTED";
+ZmCsfeException.MUST_BE_ORGANIZER="mail.MUST_BE_ORGANIZER";
+ZmCsfeException.OFFLINE_ONLINE_ONLY_OP="offline.ONLINE_ONLY_OP"
+}
+if(AjxPackage.define("zimbra.csfe.ZmCsfeResult")){
+ZmCsfeResult=function(e,t,a){
+this.set(e,t,a)
+};
+ZmCsfeResult.prototype.isZmCsfeResult=true;
+ZmCsfeResult.prototype.toString=function(){
+return"ZmCsfeResult"
+};
+ZmCsfeResult.prototype.set=function(e,t,a){
+this._data=e;
+this._isException=(t===true);
+this._header=a
+};
+ZmCsfeResult.prototype.getResponse=function(){
+if(this._isException){
+throw this._data
+}else{
+return this._data
+}};
+ZmCsfeResult.prototype.getException=function(){
+return this._isException?this._data:null
+};
+ZmCsfeResult.prototype.isException=function(){
+return this._isException
+};
+ZmCsfeResult.prototype.getHeader=function(){
+return this._header
+}
+}
+if(AjxPackage.define("zimbra.common.ZmBaseSplashScreen")){
+ZmBaseSplashScreen=function(t,e,a){
+if(arguments.length==0){
+return
+}
+if(!(t instanceof DwtShell)){
+throw new AjxException("Parent must be a DwtShell",AjxException.INVALIDPARENT,"ZSplashScreen")
+}
+a=a||"ZSplashScreen";
+DwtControl.call(this,{
+parent:t,className:a,posStyle:Dwt.ABSOLUTE_STYLE}
+);
+this.__createContents()
+};
+ZmBaseSplashScreen.prototype=new DwtControl;
+ZmBaseSplashScreen.prototype.constructor=ZmBaseSplashScreen;
+ZmBaseSplashScreen.prototype.getHtml=function(){};
+ZmBaseSplashScreen.prototype.setVisible=function(e){
+if(e==this.getVisible()){
+return
+}
+if(e){
+this.__createContents()
+}
+DwtControl.prototype.setVisible.call(this,e);
+if(!e){
+this.getHtmlElement().innerHTML=""
+}};
+ZmBaseSplashScreen.prototype.__createContents=function(){
+var a=this.getHtmlElement();
+a.style.zIndex=Dwt.Z_SPLASH;
+var t=document.createElement("table");
+t.border=t.cellSpacing=t.cellPadding=0;
+Dwt.setSize(t,"100%","100%");
+var i=t.insertRow(0);
+var e=i.insertCell(0);
+e.vAlign="middle";
+e.align="center";
+e.innerHTML=this.getHtml();
+a.appendChild(t);
+a.style.cursor="wait"
+}
+}
+if(AjxPackage.define("zimbra.common.ZmErrorDialog")){
+ZmErrorDialog=function(t,a){
+this._strNav=this._getNavigatorInfo();
+this._subjPfx=this._getSubjectPrefix();
+var i=new DwtDialog_ButtonDescriptor(ZmErrorDialog.REPORT_BUTTON,a.report,DwtDialog.ALIGN_LEFT);
+var e=new DwtDialog_ButtonDescriptor(ZmErrorDialog.DETAIL_BUTTON,a.showDetails,DwtDialog.ALIGN_LEFT);
+DwtMessageDialog.call(this,{
+parent:t,extraButtons:[i,e],id:"ErrorDialog"}
+);
+this.registerCallback(ZmErrorDialog.REPORT_BUTTON,this._reportCallback,this);
+this.registerCallback(ZmErrorDialog.DETAIL_BUTTON,this.showDetail,this);
+this._showDetailsMsg=a.showDetails;
+this._hideDetailsMsg=a.hideDetails;
+this._setAllowSelection()
+};
+ZmErrorDialog.prototype=new DwtMessageDialog;
+ZmErrorDialog.prototype.constructor=ZmErrorDialog;
+ZmErrorDialog.prototype.toString=function(){
+return"ZmErrorDialog"
+};
+ZmErrorDialog.REPORT_BUTTON="Report";
+ZmErrorDialog.DETAIL_BUTTON="Detail";
+ZmErrorDialog.DEFAULT_REPORT_URL="//www.zimbra.com/e/";
+ZmErrorDialog.prototype._detailsVisible=false;
+ZmErrorDialog.prototype.CONTROLS_TEMPLATE="zimbra.Widgets#ZmErrorDialogControls";
+ZmErrorDialog.prototype.reset=function(){
+this.setDetailString();
+DwtMessageDialog.prototype.reset.call(this)
+};
+ZmErrorDialog.prototype.setDetailString=function(e){
+if(!(this._button[ZmErrorDialog.DETAIL_BUTTON])){
+return
+}
+this._button[ZmErrorDialog.DETAIL_BUTTON].setVisible(e!=null);
+this._detailStr=e
+};
+ZmErrorDialog.prototype.setMessage=function(e,i,t,a){
+this._msgStr=e;
+this.setDetailString(i);
+this._msgStyle=t;
+this._msgTitle=a;
+this._detailsVisible=false;
+this._button[ZmErrorDialog.DETAIL_BUTTON].setText(this._showDetailsMsg);
+this._updateContent()
+};
+ZmErrorDialog.prototype._updateContent=function(){
+var t={
+message:this._msgStr,detail:this._detailStr,showDetails:this._detailsVisible};
+var e=AjxTemplate.expand("zimbra.Widgets#ZmErrorDialogContent",t);
+this.setSize(Dwt.CLEAR,this._detailsVisible?"300":Dwt.CLEAR);
+DwtMessageDialog.prototype.setMessage.call(this,e,this._msgStyle,this._msgTitle)
+};
+ZmErrorDialog.prototype.popup=function(e,t){
+if(t){
+this.setButtonVisible(ZmErrorDialog.REPORT_BUTTON,false)
+}
+DwtMessageDialog.prototype.popup.call(this,e)
+};
+ZmErrorDialog.prototype.popdown=function(){
+DwtMessageDialog.prototype.popdown.call(this);
+this.setSize(Dwt.CLEAR,Dwt.CLEAR);
+this.setButtonVisible(ZmErrorDialog.REPORT_BUTTON,true)
+};
+ZmErrorDialog.prototype._getNavigatorInfo=function(){
+var a=[];
+var e=0;
+a[e++]="\n\n";
+a[e++]="href: ";
+a[e++]=location.href;
+a[e++]="\n";
+for(var t in navigator){
+if(typeof navigator[t]=="function"){
+continue
+}
+if(typeof navigator[t]=="unknown"){
+continue
+}
+if(AjxEnv.isIE&&t==="mimeTypes"){
+continue
+}
+a[e++]=t+": "+navigator[t]+"\n"
+}
+return a.join("")
+};
+ZmErrorDialog.prototype._getSubjectPrefix=function(){
+var t=[];
+var e=0;
+t[e++]="ER: ";
+if(AjxEnv.isIE){
+t[e++]="IE "
+}else{
+if(AjxEnv.isFirefox){
+t[e++]="FF "
+}else{
+if(AjxEnv.isMozilla){
+t[e++]="MOZ "
+}else{
+if(AjxEnv.isSafari){
+t[e++]="SAF "
+}else{
+if(AjxEnv.isOpera){
+t[e++]="OPE "
+}else{
+t[e++]="UKN "
+}}}}}
+if(AjxEnv.isWindows){
+t[e++]="WIN "
+}else{
+if(AjxEnv.isLinux){
+t[e++]="LNX "
+}else{
+if(AjxEnv.isMac){
+t[e++]="MAC "
+}else{
+t[e++]="UNK "
+}}}
+t[e++]=appCtxt.get(ZmSetting.CLIENT_VERSION)+" ";
+return t.join("")
+};
+ZmErrorDialog.prototype._getUserPrefs=function(){
+var o=appCtxt.getCurrentSearch();
+var a=[];
+var e=0;
+a[e++]="\n\n";
+a[e++]="username: ";
+a[e++]=appCtxt.get(ZmSetting.USERNAME);
+a[e++]="\n";
+if(o){
+a[e++]="currentSearch: ";
+a[e++]=o.query;
+a[e++]="\n"
+}
+for(var t in ZmSetting.INIT){
+if(ZmSetting.INIT[t][0]){
+a[e++]=ZmSetting.INIT[t][0];
+a[e++]=": ";
+a[e++]=(""+ZmSetting.INIT[t][3]);
+a[e++]="\n"
+}}
+return a.join("")
+};
+ZmErrorDialog.prototype._reportCallback=function(){
+this._iframe=document.createElement("iframe");
+this._iframe.style.width=this._iframe.style.height=0;
+this._iframe.style.visibility="hidden";
+var a=this._getContentDiv();
+a.appendChild(this._iframe);
+var h=this._getUserPrefs();
+var r=Dwt.getNextId();
+var o=[];
+var s=0;
+var n=this._subjPfx+this._detailStr.substring(0,40);
+var t=(location.protocol=="https:")?"https:":"http:";
+o[s++]="<html><head></head><body><form id='";
+o[s++]=r;
+o[s++]="' method='POST' action='";
+o[s++]=t;
+o[s++]=appCtxt.get(ZmSetting.ERROR_REPORT_URL)||ZmErrorDialog.DEFAULT_REPORT_URL;
+o[s++]="'>";
+o[s++]="<textarea name='details'>";
+o[s++]=this._detailStr;
+o[s++]="version - ";
+o[s++]=appCtxt.get(ZmSetting.CLIENT_VERSION);
+o[s++]="\n";
+o[s++]="release - ";
+o[s++]=appCtxt.get(ZmSetting.CLIENT_RELEASE);
+o[s++]="\n";
+o[s++]="date - ";
+o[s++]=appCtxt.get(ZmSetting.CLIENT_DATETIME);
+o[s++]="</textarea><textarea name='navigator'>";
+o[s++]=this._strNav;
+o[s++]="</textarea><textarea name='prefs'>";
+o[s++]=h;
+o[s++]="</textarea><textarea name='subject'>";
+o[s++]=n;
+o[s++]="</textarea></form></body></html>";
+var i=Dwt.getIframeDoc(this._iframe);
+i.open();
+i.write(o.join(""));
+i.close();
+var e=i.getElementById(r);
+if(e){
+e.submit();
+appCtxt.setStatusMsg(ZmMsg.errorReportSent)
+}
+this.popdown()
+};
+ZmErrorDialog.prototype.showDetail=function(){
+this._detailsVisible=!this._detailsVisible;
+this._updateContent();
+this._button[ZmErrorDialog.DETAIL_BUTTON].setText(this._detailsVisible?this._hideDetailsMsg:this._showDetailsMsg)
+}
+}
+if(AjxPackage.define("zimbra.common.ZLoginFactory")){
+ZLoginFactory=function(){};
+ZLoginFactory.USER_ID="ZLoginUserName";
+ZLoginFactory.PASSWORD_ID="ZLoginPassword";
+ZLoginFactory.REMEMBER_ME_ID="rememberMe";
+ZLoginFactory.REMEMBER_ME_CONTAINER_ID="ZLoginRememberMeContainer";
+ZLoginFactory.NEW_PASSWORD_ID="newpass1";
+ZLoginFactory.NEW_PASSWORD_TR_ID="ZLoginNewPassword1Tr";
+ZLoginFactory.PASSWORD_CONFIRM_TR_ID="ZLoginNewPassword2Tr";
+ZLoginFactory.PASSWORD_CONFIRM_ID="newpass2";
+ZLoginFactory.LOGIN_BUTTON_ID="ZLoginButton";
+ZLoginFactory.MORE_ID="ZLoginMore";
+ZLoginFactory.TEXT_TYPE=0;
+ZLoginFactory.CHECKBOX_TYPE=1;
+ZLoginFactory.BUTTON_TYPE=2;
+ZLoginFactory.TAB_ORDER=[ZLoginFactory.USER_ID,ZLoginFactory.PASSWORD_ID,ZLoginFactory.NEW_PASSWORD_ID,ZLoginFactory.PASSWORD_CONFIRM_ID,ZLoginFactory.REMEMBER_ME_ID,ZLoginFactory.LOGIN_BUTTON_ID];
+ZLoginFactory.VISIBILITY=[ZLoginFactory.USER_ID,ZLoginFactory.PASSWORD_ID,ZLoginFactory.NEW_PASSWORD_TR_ID,ZLoginFactory.PASSWORD_CONFIRM_TR_ID,ZLoginFactory.REMEMBER_ME_CONTAINER_ID,ZLoginFactory.LOGIN_BUTTON_ID];
+ZLoginFactory.TAB_TYPE=[ZLoginFactory.TEXT_TYPE,ZLoginFactory.TEXT_TYPE,ZLoginFactory.TEXT_TYPE,ZLoginFactory.TEXT_TYPE,ZLoginFactory.CHECKBOX_TYPE,ZLoginFactory.BUTTON_TYPE];
+ZLoginFactory.copyDefaultParams=function(e){
+return{
+showPanelBorder:true,companyURL:e.splashScreenCompanyURL||"",shortVersion:"",longVersion:"",appName:e.splashScreenAppName||"",productName:"",showError:false,errorMsg:"",showLongVersion:false,showAbout:false,aboutMsg:"",showLoading:false,loadingMsg:e.splashScreenLoading||"",showForm:false,showUserField:false,userNameMsg:e.username?e.username+":":"",showMoreField:false,moreMsg:e.more||"",showPasswordField:false,passwordMsg:e.password?e.password+":":"",showNewPasswordFields:false,newPassword1Msg:e.newPassword+":"||"",newPassword2Msg:e.confirm+":"||"",showLicenseMsg:false,licenseMsg:"",showRememberMeCheckbox:false,rememberMeMsg:e.rememberMe||"",showLogOff:false,logOffMsg:e.loginAsDiff||"",logOffAction:"",showButton:true,buttonName:e.login||"",copyrightText:e.splashScreenCopyright||""}
+};
+ZLoginFactory.getLoginPanel=function(){
+var e=document.getElementsByName("loginForm");
+return e
+};
+ZLoginFactory.showErrorMsg=function(e){
+this.setHTML("ZLoginErrorMsg",e);
+this.show("ZLoginErrorPanel");
+this._flickerErrorMessagePanel()
+};
+ZLoginFactory.hideErrorMsg=function(){
+this.hide("ZLoginErrorPanel")
+};
+ZLoginFactory.getErrorMsgPanel=function(){
+return this.get("ZLoginErrorPanel")
+};
+ZLoginFactory.showAboutMsg=function(e){
+this.setHTML("ZLoginAboutPanel",e);
+this.show("ZLoginAboutPanel")
+};
+ZLoginFactory.hideAboutMsg=function(){
+this.hide("ZLoginAboutPanel")
+};
+ZLoginFactory.getAboutMsg=function(){
+return this.get("ZLoginAboutPanel")
+};
+ZLoginFactory.showLoadingMsg=function(e){
+this.setHTML("ZLoginLoadingMsg",e);
+this.show("ZLoginAboutPanel")
+};
+ZLoginFactory.hideLoadingMsg=function(){
+this.hide("ZLoginAboutPanel")
+};
+ZLoginFactory.getLoadingMsg=function(){
+return this.get("ZLoginAboutPanel")
+};
+ZLoginFactory.showForm=function(){
+this.show("ZLoginFormPanel")
+};
+ZLoginFactory.hideForm=function(){
+this.hide("ZLoginFormPanel")
+};
+ZLoginFactory.getForm=function(){
+return this.get("ZLoginFormPanel")
+};
+ZLoginFactory.showMoreField=function(e){
+this.setValue(ZLoginFactory.MORE_ID,e);
+this.show(ZLoginFactory.MORE_ID)
+};
+ZLoginFactory.hideMoreField=function(){
+this.hide(ZLoginFactory.MORE_ID)
+};
+ZLoginFactory.getMoreField=function(){
+return this.get(ZLoginFactory.MORE_ID)
+};
+ZLoginFactory.showUserField=function(e){
+this.setValue(ZLoginFactory.USER_ID,e);
+this.show(ZLoginFactory.USER_ID)
+};
+ZLoginFactory.hideUserField=function(){
+this.hide(ZLoginFactory.USER_ID)
+};
+ZLoginFactory.getUserField=function(){
+return this.get(ZLoginFactory.USER_ID)
+};
+ZLoginFactory.showPasswordField=function(e){
+this.show(ZLoginFactory.PASSWORD_ID)
+};
+ZLoginFactory.hidePasswordField=function(){
+this.hide(ZLoginFactory.PASSWORD_ID)
+};
+ZLoginFactory.getPasswordField=function(){
+return this.get(ZLoginFactory.PASSWORD_ID)
+};
+ZLoginFactory.showNewPasswordFields=function(){
+this.show(ZLoginFactory.NEW_PASSWORD_TR_ID);
+this.show(ZLoginFactory.PASSWORD_CONFIRM_TR_ID)
+};
+ZLoginFactory.hideNewPasswordFields=function(){
+this.hide(ZLoginFactory.NEW_PASSWORD_TR_ID);
+this.hide(ZLoginFactory.PASSWORD_CONFIRM_TR_ID)
+};
+ZLoginFactory.areNewPasswordFieldsShown=function(){
+return this.isShown(ZLoginFactory.NEW_PASSWORD_TR_ID)
+};
+ZLoginFactory.getNewPasswordField=function(){
+return this.get(ZLoginFactory.NEW_PASSWORD_ID)
+};
+ZLoginFactory.getPasswordConfirmField=function(){
+return this.get(ZLoginFactory.PASSWORD_CONFIRM_ID)
+};
+ZLoginFactory.showRememberMeCheckbox=function(){
+this.show(ZLoginFactory.REMEMBER_ME_CONTAINER_ID)
+};
+ZLoginFactory.hideRememberMeCheckbox=function(){
+this.hide(ZLoginFactory.REMEMBER_ME_CONTAINER_ID)
+};
+ZLoginFactory.showLogOff=function(){
+this.show("ZLoginLogOffContainer")
+};
+ZLoginFactory.hideLogOff=function(){
+this.hide("ZLoginLogOffContainer")
+};
+ZLoginFactory.setLoginButtonName=function(e){
+this.setHTML("ZLoginButtonText",e)
+};
+ZLoginFactory.setLoginButtonAction=function(t){
+var e=document.getElementById(ZLoginFactory.LOGIN_BUTTON_ID);
+if(e){
+e.onclick=t
+}};
+ZLoginFactory.getLoginButton=function(){
+return this.get(ZLoginFactory.LOGIN_BUTTON_ID)
+};
+ZLoginFactory.getLoginDialogHTML=function(t){
+var e=["<div ",(t.showAbout?" ":"class='center'"),">","<div class='contentBox'>","<h1><a href='"+t.companyURL+"' id='bannerLink' target='_new'>","<span class='ImgLoginBanner'></span>","</a></h1>","<div id='ZLoginErrorPanel' ",(t.showError?" ":"style='display:none'"),">","<table><tr><td width='40'><div class='ImgCritical_32'></div></td><td width='*'><span class='errorText' id='ZLoginErrorMsg'></span></td></tr></table>","</div>","<form name='loginForm' method='POST'>","<table class='form' ",(t.showForm?" ":"style='display:none'"),">","<tr ",(t.showMoreField?" ":"style='display:none'"),">","<td></td>","<td><span class='Img ImgInformation_xtra_small'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><label for='",ZLoginFactory.MORE_ID,"'>",t.moreMsg,"</label></td>","</tr>","<tr ",(t.showLoading?" ":"style='display:none'"),">","<td colspan=2 class='ZLoadingMessage'>",t.loadingMsg,"</td>","</tr>","<tr id='ZLoginLicenseMsgContainer' ",(t.showLicenseMsg?" ":"style='display:none'"),">","<td colspan=3 id='ZLoginLicenseMsg'>",t.licenseMsg,"</td>","</tr>","<tr ",(t.showUserField?" ":"style='display:none'"),">","<td><label for='",ZLoginFactory.USER_ID,"'>",t.userNameMsg,"</label></td>","<td><input id='",ZLoginFactory.USER_ID,"' name='",ZLoginFactory.USER_ID,"' class='zLoginField' type='text' size='40' autocomplete=OFF/></td>","</tr>","<tr ",(t.showPasswordField?" ":"style='display:none'"),">","<td><label for=",ZLoginFactory.PASSWORD_ID,">",t.passwordMsg,"</label></td>","<td><input id=",ZLoginFactory.PASSWORD_ID," class='zLoginField' name=",ZLoginFactory.PASSWORD_ID," type='password' autocomplete=OFF size='40'/></td>","</tr>","<tr id=",ZLoginFactory.NEW_PASSWORD_TR_ID,(t.showNewPasswordFields?" ":" style='display:none'"),">","<td><label for='",ZLoginFactory.NEW_PASSWORD_ID,"'>",t.newPassword1Msg,"</label></td>","<td><input id='",ZLoginFactory.NEW_PASSWORD_ID,"' class='zLoginField' name='",ZLoginFactory.NEW_PASSWORD_ID,"' type='password' autocomplete=OFF size='40'/></td>","</tr>","<tr id=",ZLoginFactory.PASSWORD_CONFIRM_TR_ID,(t.showNewPasswordFields?" ":" style='display:none'"),">","<td><label for='",ZLoginFactory.PASSWORD_CONFIRM_ID,"'>",t.newPassword2Msg,"</label></td>","<td><input id='",ZLoginFactory.PASSWORD_CONFIRM_ID,"' class='zLoginField' name='",ZLoginFactory.PASSWORD_CONFIRM_ID,"' type='password' autocomplete=OFF size='40'/></td>","</tr>","<tr>","<td>&nbsp;</td>","<td class='submitTD'>","<input id='",ZLoginFactory.LOGIN_BUTTON_ID,"' class='ZLoginButton DwtButton' type='button' onclick='",t.loginAction,";return false' value='",t.buttonName,(t.showButton?"'/>":"' style='display:none'/>"),"<input id='",ZLoginFactory.REMEMBER_ME_ID,"' value='1' type='checkbox' name='",ZLoginFactory.REMEMBER_ME_ID,"'  ",(t.showRememberMeCheckbox?"":"style='display:none'"),"/>","<label ",(t.showRememberMeCheckbox?"":"style='display:none'")," for='",ZLoginFactory.REMEMBER_ME_ID,"'>",t.rememberMeMsg,"</label>","</td>","</tr>","</table>","</form>","<div id='ZLoginAboutPanel' ",(t.showAbout?"":"style='display:none'"),">",t.aboutMsg,"</div>","<div id='ZLoginLongVersion' class='version' ",(t.showLongVersion?"":"style='display:none'"),">",t.longVersion,"</div>","</div>","<div class='decor1'></div>","</div>","<div class='Footer'>","<div id='ZLoginNotice'>",t.clientLevelNotice,"</div>","<div class='copyright'>",t.copyrightText,"</div>","</div>","<div class='decor2'></div>"].join("");
+return e
+};
+ZLoginFactory.setHTML=function(a,e){
+var t=document.getElementById(a);
+if(t&&e!=null){
+t.innerHTML=e
+}};
+ZLoginFactory.setValue=function(a,e){
+var t=document.getElementById(a);
+if(t&&e!=null){
+t.value=e
+}};
+ZLoginFactory.show=function(a,e){
+var t=document.getElementById(a);
+if(t){
+t.style.display=""
+}};
+ZLoginFactory.isShown=function(t){
+var e=document.getElementById(t);
+return e?(e.style.display!="none"):false
+};
+ZLoginFactory.hide=function(t){
+var e=document.getElementById(t);
+if(e){
+e.style.display="none"
+}};
+ZLoginFactory.get=function(e){
+return document.getElementById(e)
+};
+ZLoginFactory.handleKeyPress=function(r){
+r=r||window.event;
+if(r==null){
+return true
+}
+var n=r.target?r.target:r.srcElement;
+if(!n){
+return true
+}
+var l=r.keyCode;
+var e=false;
+if(l==13){
+if(n.id==ZLoginFactory.USER_ID||n.id==ZLoginFactory.NEW_PASSWORD_ID){
+e=true
+}else{
+var t=ZLoginFactory.get(ZLoginFactory.LOGIN_BUTTON_ID).onclick;
+if(t){
+t.call(n)
+}
+ZLoginFactory._cancelEvent(r);
+return false
+}}
+if(e||(l==9)){
+var h=ZLoginFactory.TAB_ORDER.length-1;
+for(var a=0;
+a<ZLoginFactory.TAB_ORDER.length;
+a++){
+if(ZLoginFactory.TAB_ORDER[a]==n.id){
+h=a;
+break
+}}
+var o=!r.shiftKey;
+var d=ZLoginFactory._getTabToIndex(h,o);
+var s=ZLoginFactory.TAB_ORDER[d];
+var c=ZLoginFactory.TAB_TYPE[d];
+ZLoginFactory._onFocusChange(c,s,n);
+ZLoginFactory._cancelEvent(r)
+}};
+ZLoginFactory._cancelEvent=function(e){
+if(e.stopPropagation){
+e.stopPropagation()
+}
+if(e.preventDefault){
+e.preventDefault()
+}
+e.cancelBubble=true;
+e.returnValue=false
+};
+ZLoginFactory._onFocusChange=function(t,n,o){
+if(t==ZLoginFactory.TEXT_TYPE){
+var a=ZLoginFactory.get(n);
+a.focus();
+a.select()
+}else{
+if(t==ZLoginFactory.CHECKBOX_TYPE){
+var i=ZLoginFactory.get(n);
+i.focus()
+}else{
+var e=ZLoginFactory.get(n);
+e.focus()
+}}};
+ZLoginFactory._getTabToIndex=function(n,e){
+var t=n;
+do{
+var o;
+if(e){
+t=(t==(ZLoginFactory.TAB_ORDER.length-1))?0:t+1
+}else{
+t=(t==0)?(ZLoginFactory.TAB_ORDER.length-1):t-1
+}
+var s=ZLoginFactory.TAB_ORDER[t];
+var a=ZLoginFactory.VISIBILITY[t];
+var i=ZLoginFactory.get(s);
+if(ZLoginFactory.isShown(a)&&!ZLoginFactory.get(s).disabled){
+return t
+}}
+while(t!=n);
+return 0
+};
+ZLoginFactory._loginButtonFocus=function(e){
+e.className="DwtButton-focused"
+};
+ZLoginFactory._flickerErrorMessagePanel=function(){
+ZLoginFactory.getErrorMsgPanel().style.visibility="hidden";
+window.setTimeout(ZLoginFactory._showErrorMessagePanel,8)
+};
+ZLoginFactory._showErrorMessagePanel=function(){
+ZLoginFactory.getErrorMsgPanel().style.visibility="visible"
+}
+}}
+if(AjxPackage.define("zimbra.Widgets")){
+AjxTemplate.register("zimbra.Widgets#ZmErrorDialogControls",function(t,n,o,e){
+var i=Boolean(e);
+o=(typeof o=="string"?{
+id:o}
+:o)||{};
+e=e||[];
+var a=e.length;
+e[a++]="<div id='";
+e[a++]=o.id;
+e[a++]="_buttons' class='DwtDialogButtonBar'>";
+if(AjxEnv.isNav){
+e[a++]="<input type='button' id='";
+e[a++]=o.id;
+e[a++]="_focus' style='height:0px;width:0px;display:none;'>"
+}
+e[a++]="</div>";
+return i?e.length:e.join("")
+}
+,{
+id:"zimbra.Widgets#ZmErrorDialogControls",height:"32",width:"20"}
+,false);
+AjxTemplate.register("zimbra.Widgets",AjxTemplate.getTemplate("zimbra.Widgets#ZmErrorDialogControls"),AjxTemplate.getParams("zimbra.Widgets#ZmErrorDialogControls"));
+AjxTemplate.register("zimbra.Widgets#ZmErrorDialogContent",function(t,n,o,e){
+var i=Boolean(e);
+o=(typeof o=="string"?{
+id:o}
+:o)||{};
+e=e||[];
+var a=e.length;
+e[a++]="<table role=\"presentation\" width='100%' height='100%'><tr><td>";
+e[a++]=o.message;
+e[a++]="</td></tr>";
+if(o.showDetails){
+e[a++]="<tr><td><hr/></td></tr><tr><td style='height:100%;vertical-align:top;'>\n";
+e[a++]="\t\t\t\t";
+e[a++]=o.detail;
+e[a++]="\n";
+e[a++]="\t\t\t</td></tr>"
+}
+e[a++]="</table>";
+return i?e.length:e.join("")
+}
+,{
+id:"zimbra.Widgets#ZmErrorDialogContent"}
+,false);
+AjxTemplate.register("zimbra.Widgets#ZmColorMenuItem",function(t,n,o,e){
+var i=Boolean(e);
+o=(typeof o=="string"?{
+id:o}
+:o)||{};
+e=e||[];
+var a=e.length;
+e[a++]="<table role=\"presentation\" class='ZWidgetTable ZMenuItemTable ZMenuItemBorder'><tr><td id='";
+e[a++]=o.id;
+e[a++]="_title' class='ZWidgetTitle'></td></tr></table>";
+return i?e.length:e.join("")
+}
+,{
+id:"zimbra.Widgets#ZmColorMenuItem","class":"ZWidget"}
+,false)
+};

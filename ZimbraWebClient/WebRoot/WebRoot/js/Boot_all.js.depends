@@ -1,0 +1,10 @@
+/data/zimbra-foss/ZimbraWebClient/build/WebRoot/js/Boot.js
+/data/zimbra-foss/ZimbraWebClient/build/WebRoot/js/ajax/3rdparty/modernizr/modernizr.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxJson.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxEnv.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxCallback.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxLoader.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxPackage.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxTemplate.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxTemplateCompiler.js
+/data/zimbra-foss/ZimbraWebClient/WebRoot/js/ajax/boot/AjxDispatcher.js
