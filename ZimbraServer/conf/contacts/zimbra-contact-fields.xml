@@ -238,42 +238,6 @@ type attribute:
         <column name="Notes" field="notes"/>
     </format>
 
-    <format name="thunderbird-csv" type="csv" locale="da"> <!-- From da Messenger -->
-        <column name="Fornavn" field="firstName"/>
-        <column name="Efternavn" field="lastName"/>
-        <column name="Vis navn" field="fullName"/>
-        <column name="Alias" field="nickname"/>
-        <column name="Primær mail" field="email"/>
-        <column name="Sekundær mail" field="email2"/>
-        <column name="Skærmnavn" field="aimId"/>
-        <column name="Arbejdstelefon" field="workPhone"/>
-        <column name="Hjemmetelefon" field="homePhone"/>
-        <column name="Faxnummer" field="workFax"/>
-        <column name="Personsøgernummer" field="pager"/>
-        <column name="Mobilnummer" field="mobilePhone"/>
-        <column name="Hjemmeadresse,Hjemmeadresse 2" field="homeStreet" type="multivalue"/>
-        <column name="Hjemmeby" field="homeCity"/>
-        <column name="Hjemmestat" field="homeState"/>
-        <column name="Hjemmepostnummer" field="homePostalCode"/>
-        <column name="Hjemmeland" field="homeCountry"/>
-        <column name="Arbejdsadresse,Arbejdsadresse 2" field="workStreet" type="multivalue"/>
-        <column name="Arbejdsby" field="workCity"/>
-        <column name="Arbejdsstat" field="workState"/>
-        <column name="Arbejdspostnummer" field="workPostalCode"/>
-        <column name="Arbejdsland" field="workCountry"/>
-        <column name="Job titel" field="jobTitle"/>
-        <column name="Afdeling" field="department"/>
-        <column name="Organisation" field="company"/>
-        <column name="Hjemmeside 1" field="workURL"/>
-        <column name="Hjemmeside 2" field="homeURL"/>
-        <column name="Fødselsmåned,Fødselsdag,Fødselsår" field="birthday" type="multivalue"/>
-        <column name="Brugerdef. 1" field="custom1"/>
-        <column name="Brugerdef. 2" field="custom2"/>
-        <column name="Brugerdef. 3" field="custom3"/>
-        <column name="Brugerdef. 4" field="custom4"/>
-        <column name="Notater" field="notes"/>
-    </format>
-
     <format name="thunderbird-csv" type="csv" locale="de">
         <column name="Vorname" field="firstName"/>
         <column name="Nachname" field="lastName"/>
