@@ -7,6 +7,12 @@
 - libnet-ldap-perl
 
 
+## App banner
+
+
+./ZimbraWebClient/WebRoot/skins/_base/logos/AppBanner_white.png
+
+
 ## zimbra deb repositories
 
 <pre>
