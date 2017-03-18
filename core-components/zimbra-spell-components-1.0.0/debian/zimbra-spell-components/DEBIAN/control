@@ -1,0 +1,11 @@
+Package: zimbra-spell-components
+Version: 1.0.0-2hernad
+Architecture: all
+Maintainer: bring.out <hernad@bring.out.ba>
+Installed-Size: 8
+Depends: zimbra-spell-base, zimbra-aspell-de, zimbra-aspell-en, zimbra-httpd, zimbra-php, zimbra-aspell-zimbra
+Section: mail
+Priority: optional
+Description: Zimbra components for spell package
+ Zimbra spell components pulls in all the packages used by
+ zimbra-spell

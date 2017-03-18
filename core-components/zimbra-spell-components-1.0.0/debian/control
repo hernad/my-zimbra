@@ -1,0 +1,17 @@
+Source: zimbra-spell-components
+Section: mail
+Priority: optional
+Maintainer: bring.out <hernad@bring.out.ba>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+
+Package: zimbra-spell-components
+Architecture: all
+Depends: ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends},
+ zimbra-spell-base, zimbra-aspell-de,
+ zimbra-aspell-en, 
+ zimbra-httpd,
+ zimbra-php, zimbra-aspell-zimbra
+Description: Zimbra components for spell package
+ Zimbra spell components pulls in all the packages used by
+ zimbra-spell

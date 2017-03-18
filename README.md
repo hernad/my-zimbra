@@ -16,6 +16,16 @@ deb-src [arch=amd64] https://repo.zimbra.com/apt/87 xenial zimbra
 </pre>
 
 
+## deb-s
+
+Large debs:
+
+<pre>
+-rw-r--r-- 1 vagrant vagrant  174M Jun 10  2016 zimbra-openjdk_1.8.0u92b14-1zimbra8.7b3.16.04_amd64.deb
+-rw-r--r-- 1 vagrant vagrant  110M Jun 10  2016 zimbra-clamav-db_1.0.0-1zimbra8.7b1.16.04_all.deb
+</pre>
+
+
 ## my-patch.sh
 
 
