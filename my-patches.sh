@@ -10,7 +10,12 @@ sed -i -e 's/displayLicense$/echo "no license question"/'  ZimbraBuild/corebuild
 sed -i -e 's/displayThirdPartyLicenses$/echo "no third party licenses question"/'  ZimbraBuild/corebuild/opt/zimbra/libexec/installer/install.sh
 sed -i -e 's/configurePackageServer$/echo "no configurePackageServer - no setup zimbra deb repository"/'  ZimbraBuild/corebuild/opt/zimbra/libexec/installer/install.sh
 
-sed -i -e 's/askYN.*Do you wish to upgrade.*Y.*$/response="yes"/' ZimbraBuild/corebuild/opt/zimbra/libexec/installer/util/utilfunc.sh
+
+FILE=ZimbraBuild/corebuild/opt/zimbra/libexec/installer/util/utilfunc.sh
+sed -i -e 's/askYN.*Do you wish to upgrade.*Y.*$/response="yes"/' $FILE
+sed -i -e 'verifyUpgrade$/echo "no verifyUpgrade"/' $FILE
+
+
 
 FILE="ZimbraBuild/corebuild/opt/zimbra/libexec/installer/util/modules/packages.sh
 # $PACKAGEDOWNLOAD $repocomp >> $LOGFILE 2>&1
