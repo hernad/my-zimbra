@@ -224,7 +224,7 @@ sub upgrade {
   ($targetMicroMicro, $targetType) = $targetMicro =~ /(\d+)_(.*)/;
 
   if ($startMajor < 7) {
-    main::progress("ERROR: Upgrading from a ZCS version less than 7.0.0_GA is not supported\n");
+    main::progress("ERROR: $startMajor / $startMinor / $startMicro Upgrading from a ZCS version less than 7.0.0_GA is not supported\n");
     return 1;
   }
 
