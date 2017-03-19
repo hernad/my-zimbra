@@ -28,7 +28,7 @@ sed -i -e 's/.*\$PACKAGEDOWNLOAD \$repocomp.*$/echo "no remote package download"
 sed -i -e 's/.*\$REPOINST \$repocomp.*$/echo "no remote package install"/' $FILE
 
 
-splashScreenCompanyURL = https://www.zimbra.com
+#splashScreenCompanyURL = https://www.zimbra.com
 
 MY_COMPANY_URL='https:\/\/github.com\/hernad\/my-zimbra'
 
