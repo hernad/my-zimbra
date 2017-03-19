@@ -655,7 +655,12 @@ checkExistingInstall() {
     isInstalled $i
     if [ x"$PKGINSTALLED" != "x" ]; then
       echo "FOUND $PKGINSTALLED"
-      INSTALLED="yes"
+      if x$ZIMBRA_FORCE_NEW_INSTALL = xyes ] ; then
+         # hernad: ignore installed packages
+         INSTALLED="no"
+      else
+         INSTALLED="yes"
+      fi
       INSTALLED_PACKAGES="$INSTALLED_PACKAGES $i"
     else
       if [ x$i = "xzimbra-archiving" ]; then
@@ -663,13 +668,6 @@ checkExistingInstall() {
           echo "FOUND zimbra-cms"
           INSTALLED_PACKAGES="$INSTALLED_PACKAGES zimbra-archiving"
         else
-#          echo "NOT FOUND"
-#        fi
-#      elif [ x$i = "xzimbra-syncshare" ]; then
-#        if [ -f "/opt/zimbra/lib/ext/zimbramezeo/zimbramezeo.jar" -a -f "/opt/zimbra/zimlets-network/com_zimbra_zss.zip" ]; then
-#          echo "FOUND zimbra-syncshare"
-#          INSTALLED_PACKAGES="$INSTALLED_PACKAGES zimbra-syncshare"
-#        else
           echo "NOT FOUND"
         fi
       else
@@ -703,6 +701,11 @@ determineVersionType() {
     ZM_CUR_MAJOR=$(perl -e '$v=$ENV{ZMVERSION_CURRENT}; $v =~ s/^(\d+\.\d+\.[^_]*_[^_]+_[^.]+).*/\1/; ($maj,$min,$mic) = $v =~ m/^(\d+)\.(\d+)\.(\d+)/; print "$maj\n"')
     ZM_CUR_MINOR=$(perl -e '$v=$ENV{ZMVERSION_CURRENT}; $v =~ s/^(\d+\.\d+\.[^_]*_[^_]+_[^.]+).*/\1/; ($maj,$min,$mic) = $v =~ m/^(\d+)\.(\d+)\.(\d+)/; print "$min\n"')
     ZM_CUR_MICRO=$(perl -e '$v=$ENV{ZMVERSION_CURRENT}; $v =~ s/^(\d+\.\d+\.[^_]*_[^_]+_[^.]+).*/\1/; ($maj,$min,$mic) = $v =~ m/^(\d+)\.(\d+)\.(\d+)/; print "$mic\n"')
+
+  else
+    ZM_CUR_MAJOR=0
+    ZM_CUR_MINOR=0
+    ZM_CUR_MICRO=0
   fi
 
   # if we are removing the install we don't need the rest of the info
@@ -739,52 +742,6 @@ determineVersionType() {
 
   checkVersionDowngrade
 
-  if [ x"$ZMTYPE_CURRENT" = "xNETWORK" ] && [ x"$ZMTYPE_INSTALLABLE" = "xFOSS" ]; then
-    echo "Warning: You are about to upgrade from the Network Edition to the"
-    echo "Open Source Edition.  This will remove all Network features, including"
-    echo "Attachment Searching, Zimbra Mobile, Backup/Restore, and support for the "
-    echo "Zimbra Connector for Outlook."
-    while :; do
-     askYN "Do you wish to continue?" "N"
-     if [ $response = "no" ]; then
-      askYN "Exit?" "N"
-      if [ $response = "yes" ]; then
-        echo "Exiting."
-        exit 1
-      fi
-     else
-      break
-     fi
-    done
-  fi
-
-  if [ x"$ZMTYPE_CURRENT" = "xNETWORK" ]; then
-    echo $ZM_INST_RTYPE | grep -v GA$ > /dev/null 2>&1
-    if [ $? = 0 ]; then
-      if [ ${ZM_CUR_MAJOR} -lt ${ZM_INST_MAJOR} ]; then
-        echo "This is a Network Edition ${ZM_INST_RTYPE} build and is not intended for production."
-        if [ x"$BETA_SUPPORT" = "x" ]; then
-          echo "Upgrades from $ZMVERSION_CURRENT are not supported."
-          exit 1
-        else
-          echo "Support for developer versions of ZCS maybe limited to bugzilla and Zimbra forums."
-          #echo "Installing non-GA versions in production is not recommended."
-          while :; do
-            askYN "Do you wish to continue?" "N"
-            if [ $response = "no" ]; then
-              askYN "Exit?" "N"
-              if [ $response = "yes" ]; then
-                echo "Exiting."
-                exit 1
-              fi
-            else
-              break
-            fi
-          done
-        fi
-      fi
-    fi
-  fi
 }
 
 verifyUpgrade() {
@@ -1433,6 +1390,12 @@ EOF
         INSTALLED="yes"
       fi
     done
+
+    if [ x$ZIMBRA_FORCE_NEW_INSTALL = "xyes" ] ; then
+        # hernad: ignore DETECTDIRS
+        INSTALLED="no"
+    fi
+
     if [ x$INSTALLED = "xyes" ]; then
       echo ""
       echo "The Zimbra Collaboration Server does not appear to be installed,"
@@ -1768,6 +1731,12 @@ removeExistingPackages() {
 }
 
 removeExistingInstall() {
+
+  if [ x$ZIMBRA_FORCE_NEW_INSTALL = xyes ] ; then
+     # hernad: don't do cleanup, we suppose everything is clean already
+     return 0
+  fi
+
   if [ $INSTALLED = "yes" ]; then
     echo ""
     echo "Shutting down zimbra mail"

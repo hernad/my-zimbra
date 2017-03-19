@@ -176,19 +176,7 @@ if [ -f /etc/debian_version ]; then
   exit 0
 fi
 
-if [ -f /etc/mandriva-release ]; then
-  echo "MANDRIVAUNKNOWN"
-  exit 0
-fi
 
-if [ -f /etc/release ]; then
-  egrep 'Solaris 10.*X86' /etc/release > /dev/null 2>&1
-  if [ $? = 0 ]; then
-    echo "SOLARISX86"
-    exit 0
-  fi
-  echo "SOLARISUNKNOWN"
-fi
 
 a=`uname -a | awk '{print $1}'`
 p=`uname -p`

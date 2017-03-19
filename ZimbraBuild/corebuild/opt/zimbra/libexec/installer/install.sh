@@ -173,11 +173,6 @@ fi
 
 checkExistingInstall
 
-if [ x"$INSTALLED" != "xyes" ] && [ x"$ACTIVATION" != "x" ]; then
-  echo "License activation file option is only available on upgrade."
-  usage
-fi
-
 if [ x$UNINSTALL = "xyes" ]; then
 	askYN "Completely remove existing installation?" "N"
 	if [ $response = "yes" ]; then
