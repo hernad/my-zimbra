@@ -81,7 +81,6 @@ my @packageList = (
   "zimbra-spell",
   "zimbra-memcached",
   "zimbra-proxy",
-  "zimbra-archiving",
 );
 
 my %packageServiceMap = (
@@ -100,7 +99,6 @@ my %packageServiceMap = (
   stats     => "zimbra-core",
   memcached => "zimbra-memcached",
   proxy     => "zimbra-proxy",
-  archiving => "zimbra-archiving",
   service   => "zimbra-store",
   zimbra    => "zimbra-store",
   zimbraAdmin   => "zimbra-store",
@@ -4405,6 +4403,7 @@ sub createMainMenu {
     "prompt" => "Common Configuration:",
     "submenu" => $submenu,
   };
+
   $i++;
   foreach my $package (@packageList) {
     if ($package eq "zimbra-core") {next;}
@@ -4442,12 +4441,7 @@ sub createMainMenu {
     $i++;
   }
   $i = &preinstall::mainMenuExtensions(\%mm, $i);
-#  $mm{menuitems}{r} = {
-#    "prompt" => "Start servers after configuration",
-#    "callback" => \&toggleYN,
-#    "var" => \$config{STARTSERVERS},
-#    "arg" => "STARTSERVERS"
-#    };
+
   if ($config{EXPANDMENU} eq "yes") {
     $mm{menuitems}{c} = {
       "prompt" => "Collapse menu",
@@ -6397,10 +6391,6 @@ sub configInitMta {
       if ($config{RUNAV} eq "yes") {
         push(@enabledServiceList, ('zimbraServiceEnabled', 'antivirus'));
       }
-      if ($config{RUNARCHIVING} eq "yes") {
-        push(@installedServiceList, ('zimbraServiceInstalled', 'archiving'));
-        push(@enabledServiceList, ('zimbraServiceEnabled', 'archiving'));
-      }
       if ($config{RUNSA} eq "yes") {
         push(@enabledServiceList, ('zimbraServiceEnabled', 'antispam'));
       }
@@ -6488,7 +6478,7 @@ sub configSetEnabledServices {
       next;
     }
     if ($p eq "zimbra-apache") {next;}
-    if ($p eq "zimbra-archiving") {next;}
+    if ($p eq "zimbra-memcached") {next;} # hernad: don't mark zimbraServiceInstalled ?
     $p =~ s/zimbra-//;
     if ($p eq "store") {$p = "mailbox";}
     push(@installedServiceList, ('zimbraServiceInstalled', "$p"));
@@ -6500,7 +6490,6 @@ sub configSetEnabledServices {
       next;
     }
     if ($p eq "zimbra-apache") {next;}
-    if ($p eq "zimbra-archiving") {next;}
     if ($enabledPackages{$p} eq "Enabled") {
       $p =~ s/zimbra-//;
       if ($p eq "store") {
