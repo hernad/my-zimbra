@@ -1,6 +1,0 @@
-#
-# crontab.ldap
-#
-# Monitor MDB database size
-*/30 * * * * /opt/zimbra/libexec/zmldapmonitordb > /dev/null 2>&1
-#
