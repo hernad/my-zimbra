@@ -36,5 +36,7 @@ for f in ZimbraWebClient/WebRoot/messages/ZmMsg*.properties
 do
    echo $f
    sed -i -e "s/splashScreenCompanyURL.*$/splashScreenCompanyURL = $MY_COMPANY_URL/" $f
+   sed -i -e "s/logoURL.*$/logoURL = $MY_COMPANY_URL/" $f
 done
+
 
