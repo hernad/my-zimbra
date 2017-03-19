@@ -1631,9 +1631,6 @@ sub setDefaults {
         progress("\n\nDNS ERROR resolving $config{HOSTNAME}\n");
         progress("It is suggested that the hostname be resolvable via DNS\n");
         # hernad: don't do these operations in setup, just report them
-        #if (askYN("Change hostname","Yes") eq "yes") {
-        #  setHostName();
-        #}
       }
     }
 
@@ -1645,9 +1642,6 @@ sub setDefaults {
         progress("\n\nDNS ERROR resolving MX for $config{CREATEDOMAIN}\n");
         progress("It is suggested that the domain name have an MX record configured in DNS\n");
         # hernad: don't do thes operations in setup
-        #if (askYN("Change domain name?","Yes") eq "yes") {
-        #  setCreateDomain();
-        #}
       } elsif (isEnabled("zimbra-mta")) {
 
         my @answer = $ans->answer;
@@ -6478,7 +6472,8 @@ sub configSetEnabledServices {
       next;
     }
     if ($p eq "zimbra-apache") {next;}
-    if ($p eq "zimbra-memcached") {next;} # hernad: don't mark zimbraServiceInstalled ?
+    # hernad: don't mark zimbraServiceInstalled ?
+    if ($p eq "zimbra-memcached") {next;}
     $p =~ s/zimbra-//;
     if ($p eq "store") {$p = "mailbox";}
     push(@installedServiceList, ('zimbraServiceInstalled', "$p"));
@@ -6531,9 +6526,6 @@ sub applyConfig {
       saveConfig();
     }
     # hernad: I know what I'm doing, I am administrator :)
-    #if (askYN("The system will be modified - continue?", "No") eq "no") {
-    #  return 1;
-    #}
   } else {
     saveConfig();
   }
@@ -6616,7 +6608,7 @@ sub applyConfig {
     configSetTimeZonePref();
 
     # 32295
-    setLdapGlobalConfig("zimbraSkinLogoURL", "https://github.com/hernad/my-zimbra")
+    setLdapGlobalConfig("zimbraSkinLogoURL", "https://github.com/hernad/my-zimbra");
   }
 
   if ($newinstall && isInstalled("zimbra-proxy")) {
@@ -6739,7 +6731,6 @@ sub applyConfig {
   progress ( "\n\n" );
   if (!defined ($options{c})) {
     # hernad: unattended setup please
-    # ask("Configuration complete - press return to exit", "");
     print "\n\n";
     close LOGFILE;
     exit 0;

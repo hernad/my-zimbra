@@ -655,7 +655,7 @@ checkExistingInstall() {
     isInstalled $i
     if [ x"$PKGINSTALLED" != "x" ]; then
       echo "FOUND $PKGINSTALLED"
-      if x$ZIMBRA_FORCE_NEW_INSTALL = xyes ] ; then
+      if [ x$ZIMBRA_FORCE_NEW_INSTALL = xyes ] ; then
          # hernad: ignore installed packages
          INSTALLED="no"
       else
@@ -740,7 +740,8 @@ determineVersionType() {
   #echo "TYPE: CURRENT: $ZMTYPE_CURRENT INSTALLABLE: $ZMTYPE_INSTALLABLE"
   #echo "VERSION: CURRENT: $ZM_CUR_MAJOR INSTALLABLE: $ZM_INST_MAJOR"
 
-  checkVersionDowngrade
+  # hernad - no downgrade
+  #checkVersionDowngrade
 
 }
 
@@ -2443,8 +2444,10 @@ startServers() {
 
 verifyExecute() {
   while :; do
-    askYN "The system will be modified.  Continue?" "N"
-
+    # hernad: unattended
+    # askYN "The system will be modified.  Continue?" "N"
+    response = "yes"
+    
     if [ $response = "no" ]; then
       askYN "Exit?" "N"
       if [ $response = "yes" ]; then
