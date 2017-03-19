@@ -19,7 +19,7 @@ sed -i -e 's/askYN.*Do you wish to upgrade.*Y.*$/response="yes"/' $FILE
 sed -i -e 's/verifyUpgrade$/echo "no verifyUpgrade"/' $FILE
 
 
-FILE=ZimbraBuild/rpmconf/Install/Util/modules/ ZimbraBuild/packages.sh
+FILE=ZimbraBuild/rpmconf/Install/Util/modules/packages.sh
 # $PACKAGEDOWNLOAD $repocomp ...
 sed -i -e 's/.*\$PACKAGEDOWNLOAD \$repocomp.*$/echo "no remote package download"/' $FILE
 
