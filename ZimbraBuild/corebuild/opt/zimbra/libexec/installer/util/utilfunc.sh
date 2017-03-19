@@ -1645,6 +1645,12 @@ removeErrorMessage() {
 }
 
 removeExistingPackages() {
+
+  if [ x$ZIMBRA_FORCE_NEW_INSTALL = xyes ] ; then
+     # hernad: don't do cleanup, we suppose everything is clean already
+     return 0
+  fi
+
   echo ""
   echo "Removing existing packages"
   echo ""

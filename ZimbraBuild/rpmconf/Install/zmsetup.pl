@@ -5921,9 +5921,6 @@ sub configSetCEFeatures {
   }
 }
 
-sub configSetNEFeatures {
-  return unless isNetwork();
-}
 
 sub configInitDomainAdminGroups {
   return if ($config{DOCREATEDOMAIN} eq "no");
@@ -6895,15 +6892,9 @@ sub applyConfig {
 
     configSetCEFeatures() if isZCS();
 
-    configSetNEFeatures() if isNetwork();
-
     configSetStoreDefaults();
   }
 
-  if (isNetwork() && isEnabled("zimbra-convertd")) {
-    configConvertdURL();
-    runAsZimbra("/opt/zimbra/libexec/zmconvertdmod -e");
-  }
 
   if (isEnabled("zimbra-dnscache")) {
     configSetDNSCacheDefaults();
@@ -6913,8 +6904,7 @@ sub applyConfig {
     configSetTimeZonePref();
 
     # 32295
-    setLdapGlobalConfig("zimbraSkinLogoURL", "http://www.zimbra.com")
-      if isFoss();
+    setLdapGlobalConfig("zimbraSkinLogoURL", "https://github.com/hernad/my-zimbra")
   }
 
   if ($newinstall && isInstalled("zimbra-proxy")) {

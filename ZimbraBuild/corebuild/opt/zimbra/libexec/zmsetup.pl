@@ -79,7 +79,6 @@ my @packageList = (
   "zimbra-store",
   "zimbra-apache",
   "zimbra-spell",
-  "zimbra-convertd",
   "zimbra-memcached",
   "zimbra-proxy",
   "zimbra-archiving",
@@ -99,11 +98,9 @@ my %packageServiceMap = (
   ldap      => "zimbra-ldap",
   spell     => "zimbra-spell",
   stats     => "zimbra-core",
-  'vmware-ha' => "zimbra-core",
   memcached => "zimbra-memcached",
   proxy     => "zimbra-proxy",
   archiving => "zimbra-archiving",
-  convertd  => "zimbra-convertd",
   service   => "zimbra-store",
   zimbra    => "zimbra-store",
   zimbraAdmin   => "zimbra-store",
@@ -398,7 +395,6 @@ sub checkPortConflicts {
     7025 => 'zimbra-store',
     7071 => 'zimbra-store',
     7072 => 'zimbra-store',
-    7047 => 'zimbra-convertd',
     7306 => 'zimbra-store',
     7307 => 'zimbra-store',
     7780 => 'zimbra-spell',
@@ -1179,16 +1175,6 @@ sub setLdapDefaults {
     $config{VIRUSQUARANTINE} = "virus-quarantine.".lc(genRandomPass()).'@'.$config{CREATEDOMAIN};
   }
 
-  if (isNetwork() && isEnabled("zimbra-store")) {
-    $config{zimbraBackupReportEmailRecipients} = getLdapConfigValue("zimbraBackupReportEmailRecipients");
-    $config{zimbraBackupReportEmailRecipients} = $config{CREATEADMIN}
-      if ($config{zimbraBackupReportEmailRecipients} eq "");
-
-    $config{zimbraBackupReportEmailSender} = getLdapConfigValue("zimbraBackupReportEmailSender");
-    $config{zimbraBackupReportEmailSender} = $config{CREATEADMIN}
-      if ($config{zimbraBackupReportEmailSender} eq "");
-  }
-
   $config{zimbraVersionCheckInterval} =
     getLdapConfigValue("zimbraVersionCheckInterval");
   if ($config{zimbraVersionCheckInterval} eq "") {
@@ -1537,17 +1523,6 @@ sub setDefaults {
       $config{VIRUSQUARANTINE} .= '@'.$config{CREATEDOMAIN};
     }
 
-    # license files locations this is associated with the store
-    # for now as there is a dependancy on the store jar file.
-    if (isNetwork()) {
-      $config{DEFAULTLICENSEFILE} = "/opt/zimbra/conf/ZCSLicense.xml";
-      if (!-f $config{DEFAULTLICENSEFILE}) {
-        $config{DEFAULTLICENSEFILE} = "/opt/zimbra/conf/ZCSLicense-Trial.xml";
-      }
-    }
-
-    $config{LICENSEFILE} = $config{DEFAULTLICENSEFILE}
-      if (-f "$config{DEFAULTLICENSEFILE}" && isNetwork());
 
     if (!$newinstall) {
       $config{zimbraFeatureBriefcasesEnabled} = "Enabled"
@@ -1627,10 +1602,6 @@ sub setDefaults {
   $config{SMTPNOTIFY} = "yes";
   $config{STARTSERVERS} = "yes";
 
-  if (isEnabled("zimbra-store") && isNetwork()) {
-    $config{zimbraBackupReportEmailRecipients} = $config{CREATEADMIN};
-    $config{zimbraBackupReportEmailSender} = $config{CREATEADMIN};
-  }
 
   if (isEnabled("zimbra-mta")) {
     progress  "setting defaults for zimbra-mta.\n" if $options{d};
@@ -1661,9 +1632,10 @@ sub setDefaults {
       if (lookupHostName ($config{HOSTNAME}, 'AAAA')) {
         progress("\n\nDNS ERROR resolving $config{HOSTNAME}\n");
         progress("It is suggested that the hostname be resolvable via DNS\n");
-        if (askYN("Change hostname","Yes") eq "yes") {
-          setHostName();
-        }
+        # hernad: don't do these operations in setup, just report them
+        #if (askYN("Change hostname","Yes") eq "yes") {
+        #  setHostName();
+        #}
       }
     }
 
@@ -1674,9 +1646,10 @@ sub setDefaults {
       if (!defined($ans)) {
         progress("\n\nDNS ERROR resolving MX for $config{CREATEDOMAIN}\n");
         progress("It is suggested that the domain name have an MX record configured in DNS\n");
-        if (askYN("Change domain name?","Yes") eq "yes") {
-          setCreateDomain();
-        }
+        # hernad: don't do thes operations in setup
+        #if (askYN("Change domain name?","Yes") eq "yes") {
+        #  setCreateDomain();
+        #}
       } elsif (isEnabled("zimbra-mta")) {
 
         my @answer = $ans->answer;
@@ -3364,17 +3337,6 @@ sub setEnabledDependencies {
     }
   }
 
-  if (isEnabled("zimbra-core")) {
-    if ($newinstall) {
-      $config{RUNVMHA} = "no";
-    } else {
-      if(isNetwork()) {
-        $config{RUNVMHA} = (isServiceEnabled("vmware-ha") ? "yes" : "no");
-      } else {
-        $config{RUNVMHA} = "no";
-      }
-    }
-  }
 
   if (isEnabled("zimbra-spell")) {
     $config{USESPELL} = "yes";
@@ -3422,9 +3384,6 @@ sub genSubMenu {
   return \%lm;
 }
 
-sub isNetwork {
-  return((-f "/opt/zimbra/bin/zmbackup") ? 1 : 0);
-}
 
 sub isLdapMaster {
   return(($config{LDAPHOST} eq $config{HOSTNAME}) ? 1 : 0);
@@ -4284,16 +4243,7 @@ sub createStoreMenu {
       "arg" => "UIWEBAPPS"
     };
     $i++;
-    # only prompt for license if we are network install and
-    # a license doesn't exist in /opt/zimbra/conf or ldap.
-    if (isNetwork() && !-f $config{DEFAULTLICENSEFILE} && !isLicenseInstalled() ) {
-      $$lm{menuitems}{$i} = {
-        "prompt" => "License filename:",
-        "var" => \$config{LICENSEFILE},
-        "callback" => \&setLicenseFile,
-        };
-      $i++;
-    }
+
   }
   return $lm;
 }
@@ -4459,10 +4409,9 @@ sub createMainMenu {
   foreach my $package (@packageList) {
     if ($package eq "zimbra-core") {next;}
     if ($package eq "zimbra-apache") {next;}
-    if ($package eq "zimbra-archiving") {next;}
     if ($package eq "zimbra-memcached") {next;}
     if (defined($installedPackages{$package})) {
-      if ($package =~ /logger|spell|convertd/) {
+      if ($package =~ /logger|spell/) {
         $mm{menuitems}{$i} = {
           "prompt" => "$package:",
           "var" => \$enabledPackages{$package},
@@ -4483,21 +4432,7 @@ sub createMainMenu {
       #push @mm, "$package not installed";
     }
   }
-  if (defined($installedPackages{"zimbra-core"}) && isNetwork()) {
-    # simple test to see if we are running in a VM.
-    if ( -x "/usr/lib/vmware-tools/sbin64/vmware-checkvm") {
-      my $rc = runAsRoot("/usr/lib/vmware-tools/sbin64/vmware-checkvm");
-      if ($rc == 0) {
-        $mm{menuitems}{$i} = {
-          "prompt" => "Enable VMware HA:",
-          "var" => \$config{RUNVMHA},
-          "callback" => \&toggleYN,
-          "arg" => "RUNVMHA",
-          };
-        $i++;
-      }
-    }
-  }
+
   if (defined($installedPackages{"zimbra-store"})) {
     my $submenu = createCOSMenu("cos");
     $mm{menuitems}{$i} = {
@@ -5253,9 +5188,6 @@ sub configSetupLdap {
       open(ER,">>$file");
       close ER;
     }
-    if (isNetwork()) {
-      setLdapGlobalConfig("zimbraRedoLogDeleteOnRollover", "FALSE");
-    }
   } elsif (isEnabled("zimbra-ldap")) {
     my $rc;
     if ($newinstall) {
@@ -5696,21 +5628,6 @@ sub configSpellServer {
   configLog("configSpellServer");
 }
 
-sub configConvertdURL {
-  my $tmpval = getLdapConfigValue("zimbraConvertdURL");
-  if ( $tmpval eq "" ) {
-    my $host;
-    if (!$newinstall) {
-      $host = $config{zimbra_server_hostname};
-    } else {
-      $host = lc($config{HOSTNAME});
-    }
-    progress("Setting convertd URL...");
-    my $rc = setLdapGlobalConfig("zimbraConvertdURL", "http://$host:7047/convert");
-    progress(($rc == 0) ? "done.\n" : "failed.\n");
-
-  }
-}
 
 sub configSetStoreDefaults {
   if(isEnabled("zimbra-proxy") || $config{zimbraMailProxy} eq "TRUE" || $config{zimbraWebProxy} eq "TRUE") {
@@ -5741,9 +5658,7 @@ sub configSetStoreDefaults {
   if (!isStoreServiceNode()) {
     $config{zimbraMtaAuthTarget}="FALSE";
   }
-  if ($newinstall && isNetwork() && isStoreServiceNode()) {
-    setLdapGlobalConfig("+zimbraReverseProxyUpstreamEwsServers", "$config{HOSTNAME}");
-  }
+
   if ($newinstall && isStoreWebNode()) {
     setLdapGlobalConfig("+zimbraReverseProxyUpstreamLoginServers", "$config{HOSTNAME}");
   }
@@ -5921,67 +5836,8 @@ sub configSetCEFeatures {
   }
 }
 
-sub configSetNEFeatures {
-  return unless isNetwork();
-}
 
-sub configInitDomainAdminGroups {
-  return if ($config{DOCREATEDOMAIN} eq "no");
-  main::progress ("Setting up default domain admin UI components...");
 
-  $config{zimbraDefaultDomainName} = getLdapConfigValue("zimbraDefaultDomainName") || $config{CREATEDOMAIN};
-  my $domainGroup = "zimbraDomainAdmins\@".
-    (($newinstall) ? "$config{CREATEDOMAIN}" : "$config{zimbraDefaultDomainName}");
-  my $rc = main::runAsZimbra("$ZMPROV cdl $domainGroup ".
-    "zimbraIsAdminGroup TRUE ".
-    "zimbraHideInGal TRUE ".
-    "zimbraMailStatus disabled ".
-    "displayname 'Zimbra Domain Admins' ".
-    "zimbraAdminConsoleUIComponents accountListView ".
-    "zimbraAdminConsoleUIComponents aliasListView ".
-    "zimbraAdminConsoleUIComponents DLListView ".
-    "zimbraAdminConsoleUIComponents resourceListView ".
-    "zimbraAdminConsoleUIComponents saveSearch ");
-  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
-
-  main::progress ("Granting group $domainGroup domain right +domainAdminConsoleRights on $config{zimbraDefaultDomainName}...");
-  $rc = main::runAsZimbra("$ZMPROV grr domain $config{zimbraDefaultDomainName} grp $domainGroup +domainAdminConsoleRights");
-  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
-
-  main::progress ("Granting group $domainGroup global right +domainAdminZimletRights...");
-  $rc = main::runAsZimbra("$ZMPROV grr global grp $domainGroup +domainAdminZimletRights");
-  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
-
-  main::progress ("Setting up global distribution list admin UI components..");
-  $domainGroup = "zimbraDLAdmins\@".
-    (($newinstall) ? "$config{CREATEDOMAIN}" : "$config{zimbraDefaultDomainName}");
-  my $rc = main::runAsZimbra("$ZMPROV cdl $domainGroup ".
-    "zimbraIsAdminGroup TRUE ".
-    "zimbraHideInGal TRUE ".
-    "zimbraMailStatus disabled ".
-    "displayname 'Zimbra DL Admins' ".
-    "zimbraAdminConsoleUIComponents DLListView ");
-  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
-
-  main::progress ("Granting group $domainGroup global right +adminConsoleDLRights...");
-  $rc = main::runAsZimbra("$ZMPROV grr global grp $domainGroup +adminConsoleDLRights");
-  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
-  main::progress ("Granting group $domainGroup global right +listAccount...");
-  $rc = main::runAsZimbra("$ZMPROV grr global grp $domainGroup +listAccount");
-  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
-
-}
-
-sub configInitBackupPrefs {
-  if (isEnabled("zimbra-store") && isNetwork()) {
-    foreach my $recip (split(/\n/, $config{zimbraBackupReportEmailRecipients})) {
-      setLdapGlobalConfig("+zimbraBackupReportEmailRecipients", $recip);
-    }
-    foreach my $sender (split(/\n/, $config{zimbraBackupReportEmailSender})) {
-      setLdapGlobalConfig("+zimbraBackupReportEmailSender", $sender);
-    }
-  }
-}
 
 sub setProxyBits {
   detail("Setting Proxy pieces\n");
@@ -6118,79 +5974,6 @@ sub configSetProxyPrefs {
    }
 }
 
-sub removeNetworkComponents {
-    my $components = getLdapConfigValue("zimbraComponentAvailable");
-    my @zmprov_args = ();
-    foreach my $component (split(/\n/,$components)) {
-      push(@zmprov_args, ('-zimbraComponentAvailable', $component))
-        if ($component =~ /HSM|convertd|archiving|hotbackup/);
-
-      if ($component =~ /convertd/) {
-        my $rc = 0;
-        progress ("Removing convertd mime tree from ldap...");
-        my $ldap_pass = getLocalConfig("zimbra_ldap_password");
-        my $ldap_master_url = getLocalConfig("ldap_master_url");
-        my $ldap;
-        my @masters=split(/ /, $ldap_master_url);
-        my $master_ref=\@masters;
-        unless($ldap = Net::LDAP->new($master_ref)) {
-          detail("Unable to contact $ldap_master_url: $!");
-          $rc = 1;
-        }
-        my $ldap_dn = $config{zimbra_ldap_userdn};
-        my $ldap_base = "";
-
-        my $result = $ldap->bind($ldap_dn, password => $ldap_pass);
-        if ($result->code()) {
-          detail("ldap bind failed for $ldap_dn");
-          $rc = 1;
-        } else {
-          $result = $ldap->modify('cn=text/enriched,cn=mime,cn=config,cn=zimbra',
-            replace => [ 'zimbraMimeHandlerClass' => 'TextEnrichedHandler' ] );
-
-          $result = $ldap->modify('cn=text/plain,cn=mime,cn=config,cn=zimbra',
-            replace => [ 'zimbraMimeHandlerClass' => 'TextPlainHandler' ] );
-
-          $result = $ldap->modify('cn=all,cn=mime,cn=config,cn=zimbra',
-            changes => [
-              replace => [ 'zimbraMimeHandlerClass' => 'UnknownTypeHandler' ],
-              delete => [ 'zimbraMimeHandlerExtension' => []]
-            ] );
-
-          $result = $ldap->delete('cn=application/x-zip-compressed,cn=mime,cn=config,cn=zimbra');
-          $result = $ldap->delete('cn=application/zip,cn=mime,cn=config,cn=zimbra');
-          $result = $ldap->delete('cn=text/rtf,cn=mime,cn=config,cn=zimbra');
-          $result = $ldap->delete('cn=unsupported,cn=mime,cn=config,cn=zimbra');
-
-          $result = $ldap->unbind;
-          $result = $ldap->disconnect;
-        }
-        progress (($rc == 0) ? "done.\n" : "failed. This may impact system functionality.\n");
-
-        progress ("Removing convertd from zimbraServiceEnabled list...");
-        my $rc = setLdapServerConfig($config{HOSTNAME}, '-zimbraServiceEnabled', 'convertd');
-        progress (($rc == 0) ? "done.\n" : "failed. This may impact system functionality.\n");
-      }
-    }
-	if (@zmprov_args) {
-      progress ("Removing network components from ldap...");
-      my $rc = setLdapGlobalConfig( @zmprov_args );
-      progress (($rc == 0) ? "done.\n" : "failed. This may impact system functionality.\n");
-    }
-    foreach my $zimlet (qw(com_zimbra_backuprestore com_zimbra_convertd com_zimbra_domainadmin com_zimbra_hsm com_zimbra_license com_zimbra_mobilesync zimbra_xmbxsearch com_zimbra_xmbxsearch com_zimbra_smime_cert_admin com_zimbra_delegatedadmin com_zimbra_smime com_zimbra_two_factor_auth)) {
-      system("rm -rf $config{mailboxd_directory}/webapps/service/zimlet/$zimlet")
-        if (-d "$config{mailboxd_directory}/webapps/service/zimlet/$zimlet" );
-      system("rm -rf /opt/zimbra/zimlets-deployed/$zimlet")
-        if (-d "/opt/zimbra/zimlets-deployed/$zimlet" );
-    }
-
-    if (isEnabled("zimbra-ldap") && -x "/opt/zimbra/libexec/zmconvertdmod") {
-      progress ("Removing convertd mime tree from ldap...");
-      my $rc = runAsZimbra("/opt/zimbra/libexec/zmconvertdmod -d");
-      progress (($rc == 0) ? "done.\n" : "failed. This may impact system functionality.\n");
-    }
-    setLdapGlobalConfig("zimbraReverseProxyUpstreamEwsServers","");
-}
 
 sub countReverseProxyLookupTargets {
   my $count = 0;
@@ -6277,22 +6060,7 @@ sub removeNetworkZimlets {
     return 1;
   } else {
     detail("ldap bind done for $ldap_dn");
-    progress("Checking for network zimlets in LDAP...");
-    $result = $ldap->search(base => $ldap_base, scope => 'one', filter => "(|(cn=com_zimbra_backuprestore)(cn=com_zimbra_domainadmin)(cn=com_zimbra_mobilesync)(cn=com_zimbra_hsm)(cn=com_zimbra_convertd)(cn=com_zimbra_license)(cn=zimbra_xmbxsearch)(cn=com_zimbra_xmbxsearch)(cn=com_zimbra_smime)(cn=com_zimbra_smime_cert_admin)(cn=com_zimbra_two_factor_auth))", attrs => ['cn']);
-    progress (($result->code()) ? "failed.\n" : "done.\n");
-    return $result if ($result->code());
 
-    detail("Processing ldap search results");
-    progress("Removing network zimlets...\n");
-    foreach my $entry ($result->all_entries) {
-      my $zimlet = $entry->get_value('cn');
-      if ( $zimlet ne "" ) {
-        progress("\tRemoving $zimlet...");
-        my $rc = runAsZimbra("/opt/zimbra/bin/zmzimletctl -l undeploy $zimlet");
-        progress (($rc == 0) ? "done.\n" : "failed. This may impact system functionality.\n");
-      }
-    }
-    progress("Finished removing network zimlets.\n");
   }
   $result = $ldap->unbind;
   return 0;
@@ -6317,18 +6085,6 @@ sub zimletCleanup {
     return 1;
   } else {
     detail("ldap bind done for $ldap_dn");
-    $result = $ldap->search(base => $ldap_base, scope => 'one', filter => "(|(cn=convertd)(cn=hsm)(cn=hotbackup)(cn=zimbra_cert_manager)(cn=com_zimbra_search)(cn=zimbra_xmbxsearch)(cn=com_zimbra_domainadmin)(cn=com_zimbra_tinymce)(cn=com_zimbra_tasksreminder)(cn=com_zimbra_linkedin)(cn=com_zimbra_social)(cn=com_zimbra_dnd))", attrs => ['cn']);
-    return $result if ($result->code());
-    detail("Processing ldap search results");
-    foreach my $entry ($result->all_entries) {
-      my $zimlet = $entry->get_value('cn');
-      if ( $zimlet ne "" ) {
-        detail("Removing $zimlet");
-        runAsZimbra("/opt/zimbra/bin/zmzimletctl -l undeploy $zimlet");
-        system("rm -rf $config{mailboxd_directory}/webapps/service/zimlet/$zimlet")
-          if (-d "$config{mailboxd_directory}/webapps/service/zimlet/$zimlet" );
-      }
-    }
   }
   $result = $ldap->unbind;
   return 0;
@@ -6386,26 +6142,6 @@ sub configInstallZimlets {
     progress ( "Finished installing common zimlets.\n" );
   }
 
-  # Install zimlets
-  if (opendir DIR, "/opt/zimbra/zimlets-network") {
-    progress ( "Installing network zimlets...\n" );
-    my @zimlets = grep { !/^\./ } readdir(DIR);
-    foreach my $zimletfile (@zimlets) {
-      my $zimlet = $zimletfile;
-      $zimlet =~ s/\.zip$//;
-      progress  ("\t$zimlet...");
-      my $rc = runAsZimbra ("/opt/zimbra/bin/zmzimletctl -l deploy zimlets-network/$zimletfile");
-      progress (($rc == 0) ? "done.\n" : "failed. This may impact system functionality.\n");
-      # disable click2call zimlets by default.  #73987
-      setLdapCOSConfig("+zimbraZimletAvailableZimlets", "-$zimlet")
-        if ($zimlet =~ /click2call/);
-
-      if (($rc == 0) && ($zimlet eq "com_zimbra_smime") && ($config{UIWEBAPPS} eq "yes")) {
-        system("cp /opt/zimbra/zimlets-deployed/com_zimbra_smime/com_zimbra_smime.jarx /opt/zimbra/jetty/webapps/zimbra/public/com_zimbra_smime.jarx");
-      }
-    }
-    progress ( "Finished installing network zimlets.\n" );
-  }
 
   # Reinstall extras that are deployed on upgrade
   if (!$newinstall) {
@@ -6474,8 +6210,7 @@ sub configCreateDomain {
       progress(($rc == 0) ? "done.\n" : "failed.\n");
     }
 
-    configInitDomainAdminGroups()
-      if (isNetwork() && isLdapMaster() && isZCS());
+
   }
   if (isEnabled("zimbra-store")) {
     if ($config{DOCREATEADMIN} eq "yes") {
@@ -6634,14 +6369,7 @@ sub configInitCore {
     configLog("configInitCore");
     return 0;
   }
-  if (isEnabled("zimbra-core")) {
-    progress ( "Initializing core config..." );
-    if(isNetwork()) {
-      if ($config{RUNVMHA} eq "yes") {
-        push(@enabledServiceList, ('zimbraServiceEnabled', 'vmware-ha'));
-      }
-    }
-  }
+
   configLog("configInitCore");
 }
 
@@ -6757,14 +6485,6 @@ sub configSetEnabledServices {
   foreach my $p (keys %installedPackages) {
     if ($p eq "zimbra-core") {
       push(@installedServiceList, ('zimbraServiceInstalled','stats'));
-      if(isNetwork()) {
-        if ( -x "/usr/lib/vmware-tools/sbin64/vmware-checkvm" || $config{INSTVMHA} eq "yes") {
-          my $rc = runAsRoot("/usr/lib/vmware-tools/sbin64/vmware-checkvm");
-          if ($rc == 0 || $config{INSTVMHA} eq "yes") {
-            push(@installedServiceList, ('zimbraServiceInstalled','vmware-ha'));
-          }
-        }
-      }
       next;
     }
     if ($p eq "zimbra-apache") {next;}
@@ -6821,9 +6541,10 @@ sub applyConfig {
     if (askYN("Save configuration data to a file?", "Yes") eq "yes") {
       saveConfig();
     }
-    if (askYN("The system will be modified - continue?", "No") eq "no") {
-      return 1;
-    }
+    # hernad: I know what I'm doing, I am administrator :)
+    #if (askYN("The system will be modified - continue?", "No") eq "no") {
+    #  return 1;
+    #}
   } else {
     saveConfig();
   }
@@ -6891,19 +6612,12 @@ sub applyConfig {
 
     configSetKeyboardShortcutsPref() if (!$newinstall);
 
-    configInitBackupPrefs();
-
     configSetCEFeatures() if isZCS();
-
-    configSetNEFeatures() if isNetwork();
 
     configSetStoreDefaults();
   }
 
-  if (isNetwork() && isEnabled("zimbra-convertd")) {
-    configConvertdURL();
-    runAsZimbra("/opt/zimbra/libexec/zmconvertdmod -e");
-  }
+
 
   if (isEnabled("zimbra-dnscache")) {
     configSetDNSCacheDefaults();
@@ -6913,8 +6627,7 @@ sub applyConfig {
     configSetTimeZonePref();
 
     # 32295
-    setLdapGlobalConfig("zimbraSkinLogoURL", "http://www.zimbra.com")
-      if isFoss();
+    setLdapGlobalConfig("zimbraSkinLogoURL", "https://github.com/hernad/my-zimbra")
   }
 
   if ($newinstall && isInstalled("zimbra-proxy")) {
@@ -6958,7 +6671,6 @@ sub applyConfig {
 
   if (isFoss() && !$newinstall) {
     startLdap() if ($ldapConfigured);
-    removeNetworkComponents();
   }
 
   setLdapServerConfig($config{HOSTNAME}, 'zimbraServerVersion', $curVersion);
@@ -7006,7 +6718,8 @@ sub applyConfig {
       if (isEnabled("zimbra-store"));
   }
 
-  postinstall::notifyZimbra();
+  # hernad: 1) this is FOSS software, 2) unattended setup goal
+  # postinstall::notifyZimbra();
 
   setupCrontab();
 
@@ -7036,7 +6749,8 @@ sub applyConfig {
   }
   progress ( "\n\n" );
   if (!defined ($options{c})) {
-    ask("Configuration complete - press return to exit", "");
+    # hernad: unattended setup please
+    # ask("Configuration complete - press return to exit", "");
     print "\n\n";
     close LOGFILE;
     exit 0;

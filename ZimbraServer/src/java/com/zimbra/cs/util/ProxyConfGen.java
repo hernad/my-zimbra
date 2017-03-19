@@ -737,7 +737,7 @@ class MemcacheServersVar extends ProxyConfVar {
             }
         }
         if (servers.isEmpty()) {
-            throw new ProxyConfException ("No available memcached servers could be contacted");
+            throw new ProxyConfException ("pu");
         }
         mValue = servers;
     }

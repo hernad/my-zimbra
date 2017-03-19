@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Zimbra Collaboration Suite Server
 # Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2013, 2014, 2015, 2016 Synacor, Inc.
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 # ***** END LICENSE BLOCK *****
-# 
+#
 
 LOGFILE=`mktemp -t install.log.XXXXXXXX 2> /dev/null` || { echo "Failed to create tmpfile"; exit 1; }
 PLATFORM=`bin/get_plat_tag.sh`
@@ -55,12 +55,10 @@ INSTALLED="no"
 INSTALLED_PACKAGES=""
 REMOVE="no"
 UPGRADE="no"
-HOSTNAME=`hostname --fqdn`
-ZIMBRAINTERNAL=no
-echo $HOSTNAME | egrep -qe 'eng.vmware.com$|eng.zimbra.com$|lab.zimbra.com$' > /dev/null 2>&1
-if [ $? = 0 ]; then
-  ZIMBRAINTERNAL=yes
-fi
+
+ZIMBRA_DOMAIN=${ZIMBRA_DOMAIN:-$(hostname -d)}
+HOSTNAME=${ZIMBRA_HOSTNAME:-$(hostname --fqdn)}
+
 
 LDAPHOST=""
 LDAPPORT=389
@@ -86,15 +84,12 @@ LDAPPOSTPW=""
 LDAPREPPW=""
 LDAPAMAVISPW=""
 LDAPNGINXPW=""
-if [ x"$ZIMBRAINTERNAL" = "xno" ]; then
-  CREATEDOMAIN=$(hostname -d) # May be empty
-  CREATEDOMAIN=${CREATEDOMAIN:-$HOSTNAME} # only go with fqdn if domain is empty
-else
-  CREATEDOMAIN=$HOSTNAME
-fi
+
+CREATEDOMAIN=$ZIMBRA_DOMAIN
+CREATEDOMAIN=${CREATEDOMAIN:-$HOSTNAME} # only go with fqdn if domain is empty
 
 CREATEADMIN="admin@${CREATEDOMAIN}"
-CREATEADMINPASS=""
+CREATEADMINPASS="test01" # hernad: I want have unattended setup
 MODE="http"
 ALLOWSELFSIGNED="yes"
 RUNAV=""
