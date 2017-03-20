@@ -2541,20 +2541,9 @@ sub setLdapNginxPass {
 }
 
 sub setAdminPass {
-  if ($config{CREATEADMIN} ne "") {
-    while (1) {
-      if ($config{CREATEADMINPASS} eq "") { $config{CREATEADMINPASS} = genRandomPass(); }
-      my $new =
-        askPassword("Password for $config{CREATEADMIN} (min 6 characters):",
-          $config{CREATEADMINPASS});
-      if (length($new) >= 6) {
-        $config{CREATEADMINPASS} = $new;
-        return;
-      } else {
-        print "Minimum length of 6 characters!\n";
-      }
-    }
-  }
+
+  $config{CREATEADMINPASS} = "test01";
+
 }
 
 sub setSmtpSource {
