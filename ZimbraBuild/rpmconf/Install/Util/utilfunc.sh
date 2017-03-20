@@ -2361,7 +2361,7 @@ getInstallPackages() {
     fi
 
   done
-  checkRequiredSpace
+  #checkRequiredSpace
 
   isInstalled zimbra-store
   isToBeInstalled zimbra-store

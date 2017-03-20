@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Zimbra Collaboration Suite Server
 # Copyright (C) 2005, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2016 Synacor, Inc.
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 # ***** END LICENSE BLOCK *****
-# 
+#
 
 postInstallConfig() {
 	echo ""
@@ -84,7 +84,7 @@ postInstallConfig() {
 			if [ x$CREATEADMIN != "x" ]; then
 				echo -n "Creating admin account $CREATEADMIN..."
 				runAsZimbra "zmprov ca $CREATEADMIN $CREATEADMINPASS zimbraIsAdminAccount TRUE"
-				LOCALHOSTNAME=`hostname --fqdn`
+				LOCALHOSTNAME=${ZIMBRA_HOSTNAME:-$(hostname --fqdn)}
 				if [ $LOCALHOSTNAME = $CREATEDOMAIN ]; then
 					runAsZimbra "zmprov aaa $CREATEADMIN postmaster@$HOSTNAME"
 				fi

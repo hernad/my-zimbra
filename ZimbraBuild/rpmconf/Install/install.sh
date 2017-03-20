@@ -194,7 +194,7 @@ if [ $AUTOINSTALL = "yes" ]; then
 	loadConfig $DEFAULTFILE
 fi
 
-checkRequired
+#checkRequired
 
 checkPackages
 

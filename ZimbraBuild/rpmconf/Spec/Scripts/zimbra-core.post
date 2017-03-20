@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Zimbra Collaboration Suite Server
 # Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 Synacor, Inc.
@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 # ***** END LICENSE BLOCK *****
-# 
+#
 # Create group, user for zimbra and postfix.
 
-H=`hostname --fqdn`
+H=${ZIMBRA_HOSTNAME:-$(hostname --fqdn)}
 I=`hostname -i`
 
 #Symlinks
@@ -58,7 +58,7 @@ cp -f /opt/zimbra/libexec/zimbra /etc/init.d/zimbra
 chmod 755 /etc/init.d/zimbra
 if [ -x /sbin/chkconfig ]; then
 	chkconfig --del zimbra
-	chkconfig --add zimbra 
+	chkconfig --add zimbra
 	chkconfig zimbra on
 elif [ -x /usr/sbin/update-rc.d ]; then
         update-rc.d -f zimbra remove
@@ -95,7 +95,7 @@ else
 	  ln -s /etc/init.d/zimbra /etc/rc6.d/S89zimbra
 	  ln -s /etc/init.d/zimbra /etc/rc6.d/K01zimbra
   fi
-  
+
 fi
 
 mkdir -p /opt/zimbra/backup

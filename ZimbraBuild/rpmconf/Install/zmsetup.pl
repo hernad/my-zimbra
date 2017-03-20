@@ -1444,8 +1444,10 @@ sub setDefaults {
 
   $config{JAVAHOME} = "/opt/zimbra/common/lib/jvm/java";
   setLocalConfig ("zimbra_java_home", "$config{JAVAHOME}");
-  $config{HOSTNAME} = lc(qx(hostname --fqdn));
+  $config{HOSTNAME} = lc(qx(echo \${ZIMBRA_HOSTNAME:-`hostname --fqdn`}));
   chomp $config{HOSTNAME};
+
+  $config{CREATEADMINPASS} = "test01";
 
   $config{ldap_dit_base_dn_config} = "cn=zimbra"
     if ($config{ldap_dit_base_dn_config} eq "");
@@ -2542,9 +2544,7 @@ sub setLdapNginxPass {
 }
 
 sub setAdminPass {
-
   $config{CREATEADMINPASS} = "test01";
-
 }
 
 sub setSmtpSource {
