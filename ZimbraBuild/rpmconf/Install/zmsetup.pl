@@ -1817,10 +1817,11 @@ sub getInstallStatus {
     $newinstall = 1;
   }
 
+  # 8.7.1_GA_h40 - h40 -> hernad build 40, to be distinct from upstream build
   ($prevVersionMajor,$prevVersionMinor,$prevVersionMicro,$prevVersionBuild) =
-    $prevVersion =~ /(\d+)\.(\d+)\.(\d+_[^_]*)_(\d+)/;
+    $prevVersion =~ /(\d+)\.(\d+)\.(\d+_[^_]*)_.*(\d+)/;
   ($curVersionMajor,$curVersionMinor,$curVersionMicro,$curVersionBuild) =
-    $curVersion =~ /(\d+)\.(\d+)\.(\d+_[^_]*)_(\d+)/;
+    $curVersion =~ /(\d+)\.(\d+)\.(\d+_[^_]*)_.*(\d+)/;
   ($curVersionMicroMicro, $curVersionType) = $curVersionMicro =~ /(\d+)_(.*)/;
 
   if ($options{d}) {
