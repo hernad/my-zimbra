@@ -1630,7 +1630,6 @@ sub setDefaults {
       if (lookupHostName ($config{HOSTNAME}, 'AAAA')) {
         progress("\n\nDNS ERROR resolving $config{HOSTNAME}\n");
         progress("It is suggested that the hostname be resolvable via DNS\n");
-        # hernad: don't do these operations in setup, just report them
       }
     }
 
@@ -1641,7 +1640,6 @@ sub setDefaults {
       if (!defined($ans)) {
         progress("\n\nDNS ERROR resolving MX for $config{CREATEDOMAIN}\n");
         progress("It is suggested that the domain name have an MX record configured in DNS\n");
-        # hernad: don't do thes operations in setup
       } elsif (isEnabled("zimbra-mta")) {
 
         my @answer = $ans->answer;
@@ -6472,7 +6470,6 @@ sub configSetEnabledServices {
       next;
     }
     if ($p eq "zimbra-apache") {next;}
-    # hernad: don't mark zimbraServiceInstalled ?
     if ($p eq "zimbra-memcached") {next;}
     $p =~ s/zimbra-//;
     if ($p eq "store") {$p = "mailbox";}
@@ -6522,10 +6519,7 @@ sub failConfig {
 sub applyConfig {
   defineInstallWebapps();
   if (!(defined ($options{c})) && $newinstall ) {
-    if (askYN("Save configuration data to a file?", "Yes") eq "yes") {
       saveConfig();
-    }
-    # hernad: I know what I'm doing, I am administrator :)
   } else {
     saveConfig();
   }
@@ -6699,9 +6693,6 @@ sub applyConfig {
       if (isEnabled("zimbra-store"));
   }
 
-  # hernad: 1) this is FOSS software, 2) unattended setup goal
-  # postinstall::notifyZimbra();
-
   setupCrontab();
 
   if ($newinstall) {
@@ -6730,7 +6721,6 @@ sub applyConfig {
   }
   progress ( "\n\n" );
   if (!defined ($options{c})) {
-    # hernad: unattended setup please
     print "\n\n";
     close LOGFILE;
     exit 0;

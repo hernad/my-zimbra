@@ -3,11 +3,6 @@
 echo "exclude notify from install procedure"
 
 
-FILE=ZimbraBuild/rpmconf/Install/zmsetup.pl
-sed -i -e 's/postinstall::notifyZimbra\(\).*$/print "no zimbra notify\\\n";/' $FILE
-
-echo "no license question"
-
 FILE=ZimbraBuild/rpmconf/Install/install.sh
 sed -i -e 's/displayLicense$/echo "no license question"/' $FILE
 sed -i -e 's/displayThirdPartyLicenses$/echo "no third party licenses question"/'  $FILE
