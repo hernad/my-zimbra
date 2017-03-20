@@ -97,6 +97,6 @@ cd $PATHDIR
 echo "Starting ZCS build"
 mkdir -p $PATHDIR/../logs
 mkdir -p $PATHDIR/../ZimbraCommon/jars-internal/jars
-make -f Makefile allclean
+make -f Makefile ciclean
 make -f Makefile $TARGETS | tee $PATHDIR/../logs/FOSS-build.log
 exit 0;
