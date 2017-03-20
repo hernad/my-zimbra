@@ -2445,9 +2445,9 @@ startServers() {
 verifyExecute() {
   while :; do
     # hernad: unattended
-    # askYN "The system will be modified.  Continue?" "N"
-    response = "yes"
-    
+    # askYN  The system will be modified.  Continue? N
+    response="yes"
+
     if [ $response = "no" ]; then
       askYN "Exit?" "N"
       if [ $response = "yes" ]; then
