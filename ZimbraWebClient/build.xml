@@ -50,8 +50,6 @@
     <property name='server.dist.dir' value='${server.build.dir}/dist'/>
 
 
-	  <property name='license.dir' value='${this.zwc.basedir}/../ZimbraLicenses'/>
-
     <property name='lib.dir' value='${this.zwc.basedir}/jars'/>
     <property name="jsdoctoolkit.dir" location="${lib.dir}/jsdoc-toolkit-2.3.0" />
 
@@ -1194,10 +1192,11 @@ ext = BeanUtils.cook(ext);
                             <header filtering="no" trimleading="yes">
                                 /* Copyright (C) 2005-2009 Zimbra Inc. http://www.zimbra.com/ */
                             </header>
-              -->
+
                             <fileset file='@{var}${jsmin.ext}'/>
                         </concat>
                         <gzip destfile="@{var}${compress.ext}" src="@{var}${license.ext}"/>
+                -->
                     </then>
                 </if>
             </sequential>
