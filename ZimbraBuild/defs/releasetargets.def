@@ -18,7 +18,7 @@ $(SOAP_DIR)/package-soap-api-changelog:
 		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
 		-Dzimbra.buildinfo.host=$(HOST) package-soap-api-changelog ; )
 
-zcs_stage: $(SOAP_DIR)/package-soap-api-doc $(SOAP_DIR)/package-soap-api-changelog
+zcs_stage: $(SOAP_DIR)/package-soap-api-doc $(SOAP_DIR)/package-soap-api-changelog:
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/packages
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/data
