@@ -89,7 +89,7 @@
 
     <!-- customizations -->
     <property name="aux.jars.dir" location="${server.dir}/build/auxjars"/>
-    
+
     <!-- Platform -->
     <condition property="native.os" value="MacOSX">
         <os name="Mac OS X"/>
@@ -148,12 +148,6 @@
       </filterchain>
     </loadfile>
 
-    <loadfile property="zimbra.buildinfo.relnum" srcFile="${zimbra.root.dir}/ZimbraBuild/RE/RELEASE">
-      <filterchain>
-        <striplinebreaks/>
-      </filterchain>
-    </loadfile>
-
     <loadfile property="zimbra.buildinfo.buildnum" srcFile="${zimbra.root.dir}/ZimbraBuild/RE/BUILD">
       <filterchain>
         <striplinebreaks/>
@@ -187,11 +181,7 @@
                    regexp="([0-9]+)\.([0-9]+)\.([0-9]+)_([A-Z]+)"
                    select="\4"
                    casesensitive="false" />
-    <propertyregex property="zimbra.buildinfo.relnum"
-                   input="${zimbra.buildinfo.version}"
-                   regexp="([0-9]+)\.([0-9]+)\.([0-9]+)_([A-Z]+)([0-9]+)(\.|_)?"
-                   select="\5"
-                   casesensitive="false" />
+
 
     <propertyregex property="zimbra.buildinfo.buildnum"
                    input="${zimbra.buildinfo.version}"
@@ -199,9 +189,7 @@
                    select="\6"
                    casesensitive="false" />
 
-    <condition property="zimbra.buildinfo.relnum" value="0">
-        <not><isset property="${zimbra.buildinfo.relnum}"/></not>
-    </condition>
+
 
     <condition property="zimbra.buildinfo.type" value="">
         <not><isset property="${zimbra.buildinfo.type}"/></not>
@@ -356,8 +344,8 @@
         <classpath location="${build.instrumented.dir}" />
         <classpath refid="class.path"/>
         <classpath path="${test.classes.dir}"/>
-        <jvmarg value="-Demma.coverage.out.file=${build.coverage.dir}/coverage.emma" /> 
-        <jvmarg value="-Demma.coverage.out.merge=true" /> 
+        <jvmarg value="-Demma.coverage.out.file=${build.coverage.dir}/coverage.emma" />
+        <jvmarg value="-Demma.coverage.out.merge=true" />
         <formatter type="xml"/>
         <batchtest todir="${test.dir}/output">
           <fileset dir="${test.src.dir}">
@@ -381,7 +369,7 @@
           <xml outfile="${build.coverage.dir}/coverage.xml" />
         </report>
       </emma>
-      <echo>Test Report: ${test.dir}/report/index.html</echo> 
+      <echo>Test Report: ${test.dir}/report/index.html</echo>
       <fail if="junit.failure" message="Unit test failed"/>
     </target>
 

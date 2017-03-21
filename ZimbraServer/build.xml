@@ -70,7 +70,7 @@
 	<property name="war.web.xml" location="${war.web.xml}${production.suffix}"/>
     <property name="jetty.xml.file" location='${config.dir}/jetty/jetty.xml' />
     <property name="jetty.policy.file" location="${config.dir}/jetty/zimbra.policy.example"/>
-	
+
     <property name="spnego.dir" location="${config.dir}/jetty/spnego"/>
 
     <property name="deploy.war" value="${warfile}"/>
@@ -240,7 +240,6 @@
                 public static final String MINORVERSION = "${zimbra.buildinfo.minorversion}";
                 public static final String MICROVERSION = "${zimbra.buildinfo.microversion}";
                 public static final String RELCLASS = "${zimbra.buildinfo.relclass}";
-                public static final String RELNUM = "${zimbra.buildinfo.relnum}";
                 public static final String BUILDNUM = "${zimbra.buildinfo.buildnum}";
                 public static final String VERSION = "${zimbra.buildinfo.version}";
                 public static final String TYPE = "${zimbra.buildinfo.type}";
@@ -363,14 +362,14 @@
         </antcall>
     	<antcall target="generate-provisioning"/>
     </target>
-	
+
 	<target name="p4-open">
 		<exec executable="/usr/local/bin/p4">
 	      <arg value="open"/>
 	      <arg value="${open.file}"/>
 		</exec>
 	</target>
-	
+
 	<target name="p4-revert-unchanged-file">
 		<exec executable="/usr/local/bin/p4" outputproperty="diff.output">
 	      <arg value="diff"/>
@@ -388,7 +387,7 @@
 		  </then>
 	    </if>
 	</target>
-	
+
 	<path id="p4-prov-files">
 	  <pathelement location="${src.java.dir}/com/zimbra/cs/account/ZAttrAccount.java"/>
 	  <pathelement location="${src.java.dir}/com/zimbra/cs/account/ZAttrCalendarResource.java"/>
@@ -409,13 +408,13 @@
 	    <path refid="p4-prov-files"/>
 	  </foreach>
 	</target>
-	
+
 	<target name="p4-revert-unchanged-prov">
       <foreach target="p4-revert-unchanged-file" param="revert.file">
 		<path refid="p4-prov-files"/>
       </foreach>
 	</target>
-	
+
     <target name="generate-getter">
        <java classname="com.zimbra.cs.account.AttributeManagerUtil" fork="true" classpathref="class.path"
               failonerror="true">
@@ -515,7 +514,7 @@
           <include name="libidn*.jar"/>
           <include name="jdom*.jar"/>
           <include name="json.jar"/>
-          <include name="junixsocket*.jar"/>  
+          <include name="junixsocket*.jar"/>
           <include name="unboundid*.jar"/>
           <include name="testng*.jar"/>
           <include name="jython*.jar"/>
@@ -826,7 +825,7 @@
         </chmod>
     	<delete file="${zimbra.home.dir}/jetty/start.ini"/>
         <delete file="${zimbra.home.dir}/jetty/start.d/http.ini"/>
-    	
+
         <!-- ant does not preserve perms on copy -->
     </target>
 
@@ -910,11 +909,11 @@
         <copy todir="${dist.dir}/conf" file="${config.dir}/datasource.xml" overwrite="true"/>
         <copy tofile="${dist.dir}/conf/zimbra-contact-fields.xml"
               file="${config.dir}/contacts/zimbra-contact-fields.xml" overwrite="true"/>
-        
+
         <java classname="com.zimbra.cs.ldap.ZLdapFilterFactory" fork="true" classpathref="class.path" failonerror="true">
           <arg line="${dist.dir}/conf/ldap-filters.csv"/>
         </java>
-        
+
         <if>
           <not><isset property="is-production"/></not>
           <then>
@@ -970,7 +969,7 @@
         <copy todir="${dist.dir}/lib/jars-ant">
             <fileset dir="${web.client.dir}/jars/ant" includes="ant-1.*.jar"/>
         </copy>
-    	
+
         <!-- jetty windows service wrapper -->
         <if>
             <isset property="is-windows"/>
@@ -1045,7 +1044,7 @@
     <copy tofile="${dist.jetty.dir}/etc/webdefault.xml"
           file="${config.dir}/jetty/webdefault.xml${production.suffix}" overwrite="true"/>
   	<copy todir="${dist.jetty.dir}/modules" overwrite="true">
-  	  <fileset dir="${config.dir}/jetty/modules"/> 
+  	  <fileset dir="${config.dir}/jetty/modules"/>
   	</copy>
     <if>
       <isset property="is-windows"/>
@@ -1092,7 +1091,7 @@
         <include name="libidn*.jar"/>
         <include name="jdom*.jar"/>
         <include name="json.jar"/>
-        <include name="junixsocket*.jar"/>    
+        <include name="junixsocket*.jar"/>
         <include name="unboundid*.jar"/>
         <include name="testng*.jar"/>
         <include name="guava*.jar"/>
@@ -1267,7 +1266,7 @@
         <copy todir="${zimbra.home.dir}/unittest" overwrite="true">
             <fileset dir="data/unittest" includes="**"/>
         </copy>
-        
+
         <mkdir dir="${zimbra.home.dir}/unittest/ldap/InMemoryLdapServer"/>
         <java classname="com.zimbra.cs.ldap.unboundid.InMemoryLdapServer" fork="true" classpathref="class.path" failonerror="true">
             <arg line="${zimbra.home.dir}/unittest/ldap/InMemoryLdapServer"/>
@@ -2406,44 +2405,44 @@
       </then>
     </if>
   </target>
-    
- 
-  <property name="provtest.dir" location="${build.dir}/provtest"/>  
- 
+
+
+  <property name="provtest.dir" location="${build.dir}/provtest"/>
+
   <target name="prov-test-setup" description="Setup tasks before running Provisioning tests">
       <if>
           <isset property="inmem"/>
           <then>
               <!-- real ldap server is not needed for inmem test mode, stop it to be sure -->
-              <antcall target="stop-ldap"/> 
-             
-              <!-- turn on inmem mode --> 
+              <antcall target="stop-ldap"/>
+
+              <!-- turn on inmem mode -->
               <antcall target="zmlocalconfig">
                   <param name="localconfig-args" value="-e debug_use_in_memory_ldap_server=true"/>
               </antcall>
           </then>
-      </if>    
-      
+      </if>
+
       <!-- turn on unittes mode for RightManager so it allows unittest rights-->
       <antcall target="zmlocalconfig">
           <param name="localconfig-args" value="-e debug_running_unittest=true"/>
       </antcall>
-      
+
       <!-- install init test rights -->
       <copy todir="${zimbra.home.dir}/conf/rights" failonerror="true" overwrite="true" force="true">
           <fileset dir="data/unittest/ldap" includes="rights-unittest.xml"/>
       </copy>
-      
+
       <!-- restart ZCS server -->
       <antcall target="stop-webserver"/>
       <antcall target="start-webserver"/>
   </target>
-    
-  <target name="prov-test-cleanup" description="Cleanup tasks before running Provisioning tests">  
-      
+
+  <target name="prov-test-cleanup" description="Cleanup tasks before running Provisioning tests">
+
       <!-- uninstall init test rights -->
       <delete file="${zimbra.home.dir}/conf/rights/rights-unittest.xml" failonerror="true"/>
-      
+
       <!-- turn off unittes mode for RightManager so it allows unittest rights-->
       <antcall target="zmlocalconfig">
           <param name="localconfig-args" value="-u debug_running_unittest"/>
@@ -2454,20 +2453,20 @@
           <then>
               <!-- bring back real ldap server -->
               <antcall target="start-ldap"/>
-             
+
               <!-- turn off inmem mode -->
               <antcall target="zmlocalconfig">
                   <param name="localconfig-args" value="-u debug_use_in_memory_ldap_server"/>
               </antcall>
           </then>
-      </if>          
-      
+      </if>
+
       <!-- restart ZCS server -->
       <antcall target="stop-webserver"/>
       <antcall target="start-webserver"/>
   </target>
-    
-    
+
+
   <!--
      To run a particular test:
      ant -Dtest={java class name} prov-test
@@ -2476,24 +2475,24 @@
       <delete dir="${provtest.dir}" quiet="true"/>
       <mkdir dir="${provtest.dir}/output"/>
       <mkdir dir="${provtest.dir}/report"/>
-      
+
       <antcall target="prov-test-setup"/>
-      
+
       <!-- Note: Assertion statements are ignored in non-forked mode. -->
       <junit printsummary="on" failureproperty="junit.failure" tempdir="${provtest.dir}" fork="yes" forkmode="perBatch">
           <classpath refid="class.path"/>
-          
+
           <!-- for native lib for ldapi -->
           <jvmarg value="-Djava.library.path=/opt/zimbra/lib"/>
 
           <!-- ignored unless fork="yes" in junit element-->
           <assertions><enable/></assertions>
-          
+
           <formatter type="xml"/>
-          
-          <!-- 
+
+          <!--
               =========================
-              either run one test class 
+              either run one test class
               =========================
           -->
           <batchtest todir="${provtest.dir}/output" if="test">
@@ -2501,10 +2500,10 @@
                   <include name="**/com/zimbra/qa/unittest/prov/ldap/${test}.java"/>
               </fileset>
           </batchtest>
-          
-          <!-- 
+
+          <!--
               ================
-              or run all tests 
+              or run all tests
               ================
           -->
           <batchtest todir="${provtest.dir}/output" unless="test">
@@ -2514,7 +2513,7 @@
                   <exclude name="**/com/zimbra/qa/unittest/prov/ldap/TestLdapConnectivity.java"/>
               </fileset>
           </batchtest>
-          
+
           <!-- test must run in its own JVM -->
           <!--
           <batchtest todir="${provtest.dir}/output" unless="test">
@@ -2523,18 +2522,18 @@
               </fileset>
           </batchtest>
           -->
-          
+
           <!-- run soap tests in a seperate batch, ZCS must be up for this batch -->
           <batchtest todir="${provtest.dir}/output" unless="test">
               <fileset dir="${src.java.dir}">
                   <include name="**/com/zimbra/qa/unittest/prov/soap/Test*.java"/>
               </fileset>
           </batchtest>
-                  
+
       </junit>
-      
-      <!-- 
-          run TestLdapConnectivity in a seperate JVM, with assertion disabled, 
+
+      <!--
+          run TestLdapConnectivity in a seperate JVM, with assertion disabled,
           run only if not inmem, and not running a single class
       -->
       <if>
@@ -2545,7 +2544,7 @@
           <then>
               <junit printsummary="on" failureproperty="junit.failure" tempdir="${provtest.dir}" fork="yes" forkmode="perBatch">
                   <classpath refid="class.path"/>
-         
+
                   <formatter type="xml"/>
 
                   <batchtest todir="${provtest.dir}/output" unless="test">
@@ -2556,30 +2555,30 @@
               </junit>
           </then>
       </if>
-      
+
       <junitreport todir="${provtest.dir}/report">
           <fileset dir="${provtest.dir}/output"/>
           <report todir="${provtest.dir}/report"/>
       </junitreport>
-      
+
       <echo>Test Report: ${provtest.dir}/report/index.html</echo>
-      
+
       <antcall target="prov-test-cleanup"/>
-      
+
       <!-- don't fail it so after tasks in prov-test-inmem will be run
       <fail if="junit.failure" message="Provisioning test failed"/>
       -->
-  </target> 
-    
+  </target>
+
   <!--
      To run a particular test:
      ant -Dtest={java class name} prov-test-inmem
-  -->  
+  -->
   <target name="prov-test-inmem" description="Run Provisioning tests with in memory LDAP server for LDAP tests">
       <property name="inmem" value="true"/>
-      
+
       <!-- run tests -->
       <antcall target="prov-test"/>
-  </target>  
+  </target>
 
 </project>
