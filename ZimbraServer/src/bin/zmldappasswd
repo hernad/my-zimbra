@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Zimbra Collaboration Suite Server
 # Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 Synacor, Inc.
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 # ***** END LICENSE BLOCK *****
-# 
+#
 #
 # Change password for zimbra_ldap_password, and optionally for
 # ldap_root_password.  Updates both the Zimbra local config file and
@@ -118,7 +118,7 @@ if ( $options{r}) {
     $mesg = $ldap->bind("cn=config", password=>"$cur_rootdn_passwd");
     my $entry = Net::LDAP::Entry->new;
     $entry->changetype ( "modify" );
-    $entry->dn('olcDatabase={0}config,cn=config'); 
+    $entry->dn('olcDatabase={0}config,cn=config');
     $entry->replace(
       olcRootPW=> "$ssha_password",
     );
@@ -153,7 +153,7 @@ if ( $options{r}) {
         $ldifout->write($entry);
       }
     }
-    $ldifin->done ( ); 
+    $ldifin->done ( );
     $ldifout->done ( );
     if ( -s $outfile ) {
       my $rc=0xffff & system("/bin/mv -f $infile $infile.bak");
@@ -221,7 +221,7 @@ if ( $options{r}) {
       $ldifout->write($entry);
     }
   }
-  $ldifin->done ( ); 
+  $ldifin->done ( );
   $ldifout->done ( );
   if ( -s $outfile ) {
     my $rc=0xffff & system("/bin/mv -f $infile $infile.bak");
@@ -265,7 +265,7 @@ if ( $options{r}) {
       $ldifout->write($entry);
     }
   }
-  $ldifin->done ( ); 
+  $ldifin->done ( );
   $ldifout->done ( );
   if ( -s $outfile ) {
     my $rc=0xffff & system("/bin/mv -f $infile $infile.bak");
@@ -309,7 +309,7 @@ if ( $options{r}) {
       $ldifout->write($entry);
     }
   }
-  $ldifin->done ( ); 
+  $ldifin->done ( );
   $ldifout->done ( );
   if ( -s $outfile ) {
     my $rc=0xffff & system("/bin/mv -f $infile $infile.bak");
@@ -328,12 +328,14 @@ if ( $options{r}) {
     }
   }
 } elsif ( $options{b} ) {
+=for comment
   setLocalConfig("ldap_bes_searcher_password", "$password");
   my $mesg = $ldap->bind('uid=zmbes-searcher,cn=appaccts,cn=zimbra', password=>"$password");
   if ($mesg->code) {
     $mesg = $ldap->bind("cn=config", password=>"$cur_rootdn_passwd");
     $mesg = $ldap->set_password(user=>"uid=zmbes-searcher,cn=appaccts,cn=zimbra",newpasswd=>$password);
   }
+=cut
   my $infile = "/opt/zimbra/conf/zimbra.ldif";
   my $outfile = "$zimbra_tmp_directory/zimbra.ldif.$$";
   my $ldifin = Net::LDAP::LDIF->new( "$infile", "r", onerror => 'undef' );
@@ -345,15 +347,17 @@ if ( $options{r}) {
       print "Error msg: ", $ldifin->error ( ), "\n";
       print "Error lines:\n", $ldifin->error_lines ( ), "\n";
     } else {
+=for comment
       if ($entry->dn() eq "uid=zmbes-searcher,cn=appaccts,cn=zimbra") {
         $entry->replace (
           userPassword => "$ssha_password",
         );
       }
+=cut
       $ldifout->write($entry);
     }
   }
-  $ldifin->done ( ); 
+  $ldifin->done ( );
   $ldifout->done ( );
   if ( -s $outfile ) {
     my $rc=0xffff & system("/bin/mv -f $infile $infile.bak");
@@ -398,7 +402,7 @@ if ( $options{r}) {
       $ldifout->write($entry);
     }
   }
-  $ldifin->done ( ); 
+  $ldifin->done ( );
   $ldifout->done ( );
   if ( -s $outfile ) {
     my $rc=0xffff & system("/bin/mv -f $infile $infile.bak");
