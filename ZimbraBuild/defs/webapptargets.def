@@ -3,7 +3,7 @@
 
 BUILD_TYPE := FOSS
 
-MWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSExchangeMigrationWizard*)
+#MWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSExchangeMigrationWizard*)
 #GMW32DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x86.zip)
 #GMW64DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x64.zip)
 #IWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSPSTImportWizard*)
