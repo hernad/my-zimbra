@@ -63,7 +63,7 @@ function () {
 * @param xModelMetaData - XModel metadata that describes data model
 * @param xFormMetaData - XForm metadata that describes the form
 **/
-ZaMigrationWizView.prototype.initForm = 
+ZaMigrationWizView.prototype.initForm =
 function (xModelMetaData, xFormMetaData) {
 	if(xModelMetaData == null || xFormMetaData == null)
 		throw new AjxException("Metadata for XForm and/or XModel are not defined", AjxException.INVALID_PARAM, "ZaMigrationWizView.prototype.initForm");
@@ -78,9 +78,9 @@ function (xModelMetaData, xFormMetaData) {
 	this._drawn = true;
 }
 
-ZaMigrationWizView.myXFormModifier = function(xFormObject) {	
+ZaMigrationWizView.myXFormModifier = function(xFormObject) {
 	xFormObject.tableCssStyle="width:100%;overflow:auto;";
-	xFormObject.itemDefaults = {_SEPARATOR_: {containerCssStyle:"padding-right:3px;padding-left:3px;"}};	
+	xFormObject.itemDefaults = {_SEPARATOR_: {containerCssStyle:"padding-right:3px;padding-left:3px;"}};
 	xFormObject.items = [
 			{type:_OUTPUT_, label:null, value:ZaMsg.DOWNLOAD_PAGE_0, colSpan:"*", cssStyle:"font-size:12pt;	font-weight: bold;"},
 			{type: _GROUP_, numCols: 2, colSpan: "*", items: [
@@ -91,60 +91,6 @@ ZaMigrationWizView.myXFormModifier = function(xFormObject) {
 			{type:_SPACER_, colSpan:"*"},
 			{type:_OUTPUT_, label:null, value:ZaMsg.DOWNLOAD_FOR_ADMIN, colSpan:"*", cssStyle:"font-size:10pt;font-weight: bold;"},
 			{type:_SPACER_, colSpan:"*"},
-			{type:_GROUP_, numCols:1, colSpan:"*", zName:"DownloadsForAdmin",
-				items: [
-                    // bug 70664, new genaral migration tool that will replace the original exchange/domino migration tool
-				    {type:_GROUP_, numCols:3,
-				    	items: [
-				    	    {type:_OUTPUT_, value:AjxImg.getImageHtml("Migration")},
-				    	    {type:_OUTPUT_, cssStyle:"font-size:12px", labelLocation:_NONE_, label:null,
-				    	     id:"general_migration_x86_link",
-				    	     value: ZaMigrationWizView.getDownloadLink(ZaMsg.GENERAL_MIG_WIZ_X86_DOWNLOAD_LINK, ZaMsg.GENERAL_MIG_WIZ_X86_DOWNLOAD_LINK_MSG)
-				    	    },
-				    	    {type:_OUTPUT_, cssStyle:"font-size:12px", labelLocation:_NONE_, label:null,
-				    	     id:"general_migration_x64_link",
-				    	     value: ZaMigrationWizView.getDownloadLink(ZaMsg.GENERAL_MIG_WIZ_X64_DOWNLOAD_LINK, ZaMsg.GENERAL_MIG_WIZ_X64_DOWNLOAD_LINK_MSG)
-				    	    }
-				    	]
-				    },
-				    {type:_OUTPUT_, cssClass:"ZaDownloadText", label: null, value:ZaMsg.GENERAL_MIG_WIZ_DOWNLOAD_TEXT},
-
-					//Groupwise Mig Wiz
-					/*Disable it for bug 19041
-					{type:_GROUP_,numCols:2,
-						items: [
-							{type:_OUTPUT_,  value:AjxImg.getImageHtml("MigrationWiz")},
-							{type:_OUTPUT_, cssStyle:"font-size:12px;", labelLocation:_NONE_, label:null, value:ZaMsg.GROUPWISE_MIG_WIZ_DOWNLOAD_LINK}
-							
-						]
-					},
-					{type:_OUTPUT_, cssClass:"ZaDownloadText", label: null, value:ZaMsg.GROUPWISE_MIG_WIZ_DOWNLOAD_TEXT},
-					*/
-					//Domino Mig Wiz
-					{type:_GROUP_,numCols:2,
-						items: [
-							{type:_OUTPUT_,  value:AjxImg.getImageHtml("Migration")},
-							{type:_OUTPUT_, cssStyle:"font-size:12px;", labelLocation:_NONE_, label:null,
-							id:"domino_migration_link",
-                                value: ZaMigrationWizView.getDownloadLink(ZaMsg.DOMINO_MIG_WIZ_DOWNLOAD_LINK, ZaMsg.DOMINO_MIG_WIZ_DOWNLOAD_LINK_MSG)
-                            }
-						]
-					},
-					{type:_OUTPUT_, cssClass:"ZaDownloadText", label: null, value:ZaMsg.DOMINO_MIG_WIZ_DOWNLOAD_TEXT},
-
-					//Exchange Mig Wiz
-					{type:_GROUP_,numCols:2,
-						items: [
-							{type:_OUTPUT_,  value:AjxImg.getImageHtml("Migration")},
-							{type:_OUTPUT_, cssStyle:"font-size:12px;", labelLocation:_NONE_, label:null,
-								id:"exchange_migration_link",
-								value: ZaMigrationWizView.getDownloadLink(ZaMsg.MIG_WIZ_DOWNLOAD_LINK, ZaMsg.MIG_WIZ_DOWNLOAD_LINK_MSG)
-							}
-						]
-					},
-					{type:_OUTPUT_, cssClass:"ZaDownloadText", label: null, value:ZaMsg.MIG_WIZ_DOWNLOAD_TEXT},
-				]
-			},
 			{type:_SPACER_, colSpan:"*"},
 			{type:_OUTPUT_, label:null, value:ZaMsg.DOWNLOAD_FOR_USER,  colSpan:"*", cssStyle:"font-size:10pt;font-weight: bold;"},
 			{type:_SPACER_, colSpan:"*"},
@@ -163,18 +109,7 @@ ZaMigrationWizView.myXFormModifier = function(xFormObject) {
                                 value:["(<A target='_blank' onclick='ZaZimbraAdmin.unloadHackCallback();' HREF='",location.pathname,"adminhelp/pdf/User Instructions for ZCS Import Wizard.pdf?locid=",AjxEnv.DEFAULT_LOCALE,"'>",ZaMsg.IMPORT_WIZ_DOWNLOAD_HELP,"</a>)"].join("")}
 						]
 					},
-					{type:_OUTPUT_, cssClass:"ZaDownloadText", label: null, value:ZaMsg.IMPORT_WIZ_DOWNLOAD_TEXT}/*,
-					
-					//TOASTER
-					{type:_GROUP_,numCols:2,
-						items: [
-							{type:_OUTPUT_, value:AjxImg.getImageHtml("MigrationWiz")},
-							{type:_OUTPUT_, cssStyle:"font-size:12px;", labelLocation:_NONE_, label:null,
-                                value:ZaMigrationWizView.getDownloadLink(ZaMsg.ZIMBRA_TOASTER_DOWNLOAD_LINK, ZaMsg.ZIMBRA_TOASTER_DOWNLOAD_LINK_MSG)
-                            }
-						]
-					},
-					{type:_OUTPUT_, cssClass:"ZaDownloadText", label: null, value:ZaMsg.ZIMBRA_TOASTER_DOWNLOAD_TEXT} */
+					{type:_OUTPUT_, cssClass:"ZaDownloadText", label: null, value:ZaMsg.IMPORT_WIZ_DOWNLOAD_TEXT}
 				]
 			}
 		];

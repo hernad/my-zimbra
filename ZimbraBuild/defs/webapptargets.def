@@ -1,21 +1,16 @@
 
-# __WAR 
+# __WAR
 
 BUILD_TYPE := FOSS
 
 MWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSExchangeMigrationWizard*)
-GMW32DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x86.zip)
-GMW64DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x64.zip)
-IWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSPSTImportWizard*)
-CN32DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraConnectorOLK*x86.msi)
-CN64DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraConnectorOLK*x64.msi)
-CMDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZmCus*)
-DMDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSDominoMigrationWizard*)
-#ZTDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraToast*)
-#ZDMDOWNLOAD = $(shell cd $(THIRD_PARTY_BUILDS)/zdesktop; ls zdesktop*.dmg)
-#ZDLDOWNLOAD = $(shell cd $(THIRD_PARTY_BUILDS)/zdesktop; ls zdesktop*.sh)
-#ZDWDOWNLOAD = $(shell cd $(THIRD_PARTY_BUILDS)/zdesktop; ls zdesktop*.exe)
-GWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSGroupwiseMigrationWizard*)
+#GMW32DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x86.zip)
+#GMW64DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x64.zip)
+#IWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSPSTImportWizard*)
+#CMDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZmCus*)
+#DMDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSDominoMigrationWizard*)
+
+#GWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSGroupwiseMigrationWizard*)
 
 $(WEBAPP_DIR)/service.war: $(WEBAPP_DIR) $(WEBAPP_STAGE_DIR)/service/service.war
 	-mkdir $(WEBAPP_DIR)/service
@@ -38,55 +33,7 @@ $(WEBAPP_STAGE_DIR)/service/service.war: $(SERVICE_DIR)/$(WEBAPP_BUILD_DIR)/serv
 $(WEBAPP_DIR)/zimbraAdmin.war: $(WEBAPP_DIR) $(WEBAPP_STAGE_DIR)/admin/zimbraAdmin.war $(WEBAPP_DIR)/zimbra/downloads
 	mkdir $(WEBAPP_DIR)/zimbraAdmin
 	(cd $(WEBAPP_DIR)/zimbraAdmin; jar xf $(WEBAPP_STAGE_DIR)/admin/zimbraAdmin.war)
-	for download in $(IWDOWNLOAD); do \
-		echo "IMPORT_WIZ_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-	for download in $(MWDOWNLOAD); do \
-		echo "MIG_WIZ_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-	for download in $(GMW32DOWNLOAD); do \
-		echo "GENERAL_MIG_WIZ_X86_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-	for download in $(GMW64DOWNLOAD); do \
-		echo "GENERAL_MIG_WIZ_X64_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-	for download in $(CN32DOWNLOAD); do \
-		echo "CONNECTOR_32_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-	for download in $(CN64DOWNLOAD); do \
-		echo "CONNECTOR_64_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-	for download in $(CMDOWNLOAD); do \
-		echo "CONNECTOR_MSI_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-	for download in $(DMDOWNLOAD); do \
-		echo "DOMINO_MIG_WIZ_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-#	for download in $(ZTDOWNLOAD); do \
-#		echo "ZIMBRA_TOASTER_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-#	done
-#	for download in $(ZDLDOWNLOAD); do \
-#		echo "ZDESKTOP_LINUX_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-#	done
-#	for download in $(ZDMDOWNLOAD); do \
-#		echo "ZDESKTOP_MAC_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-#	done
-#	for download in $(ZDWDOWNLOAD); do \
-#		echo "ZDESKTOP_WINDOWS_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-#	done
-#	@(for download in $(ZDMDOWNLOAD); do \
-#		echo "ZDESKTOP_MAC_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-#	done)
-#	@(for download in $(ZDLDOWNLOAD); do \
-#		echo "ZDESKTOP_LINUX_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-#	done)
-#	@(for download in $(ZDWDOWNLOAD); do \
-#		echo "ZDESKTOP_WIN_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-#	done)
-	for download in $(GWDOWNLOAD); do \
-		echo "GROUPWISE_MIG_WIZ_DOWNLOAD_LINK = /downloads/$$download" >> $(WEBAPP_DIR)/zimbraAdmin/WEB-INF/classes/messages/ZaMsg.properties; \
-	done
-#
+
 
 $(CONSOLE_DIR)/$(WEBAPP_BUILD_DIR)/zimbraAdmin.war:
 	(cd $(CONSOLE_DIR); $(ANT) $(ANT_DEBUG) \
@@ -95,13 +42,8 @@ $(CONSOLE_DIR)/$(WEBAPP_BUILD_DIR)/zimbraAdmin.war:
 		-Dzimbra.buildinfo.version=$(SOURCE_TAG) \
 		-Dzimbra.buildinfo.type=$(BUILD_TYPE) \
 		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
-		-Dzimbra.buildinfo.host=$(HOST) clean admin prod war package-jsapi-zimbra-doc package-jsapi-inventory package-jsapi-changelog ; )
-	#rm -rf zimbraAdminConf
-	#mkdir zimbraAdminConf
-	#cp $(CONSOLE_DIR)/build/web.xml zimbraAdminConf/web.xml
-	#cp $(CONSOLE_DIR)/build/docs/jsapi-inventory.zip $(PACKAGE_DIR)/jsapi-inventory.zip
-	#cp $(CONSOLE_DIR)/build/docs/jsapi-zimbra-doc.zip $(PACKAGE_DIR)/jsapi-zimbra-doc.zip
-	#cp $(CONSOLE_DIR)/build/docs/jsapi-changelog.zip $(PACKAGE_DIR)/jsapi-changelog.zip
+		-Dzimbra.buildinfo.host=$(HOST) clean admin prod war ; )
+
 
 $(WEBAPP_STAGE_DIR)/admin/zimbraAdmin.war: $(CONSOLE_DIR)/$(WEBAPP_BUILD_DIR)/zimbraAdmin.war
 	@($(ECHO) "*** Staging zimbraAdmin.war")
@@ -131,9 +73,7 @@ $(CONSOLE_DIR)/$(WEBAPP_BUILD_DIR)/zimbra.war:  $(TAGLIB_DIR)/build/zimbrataglib
 		-Dzimbra.buildinfo.type=$(BUILD_TYPE) \
 		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
 		-Dzimbra.buildinfo.host=$(HOST) clean prod-build; )
-	#rm -rf zimbraConf
-	#mkdir zimbraConf
-	#cp $(CONSOLE_DIR)/build/web.xml zimbraConf
+
 
 $(WEBAPP_STAGE_DIR)/zimbra/zimbra.war: $(CONSOLE_DIR)/$(WEBAPP_BUILD_DIR)/zimbra.war
 	@($(ECHO) "*** Staging zimbra.war")
@@ -149,4 +89,3 @@ $(TAGLIB_DIR)/build/zimbrataglib.jar:
 		-Dzimbra.buildinfo.type=$(BUILD_TYPE) \
 		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
 		-Dzimbra.buildinfo.host=$(HOST) clean jar ; )
-

@@ -133,7 +133,6 @@ $(CORE_DEST_DIR)/docs:
 	mkdir -p $@
 	cp $(SERVICE_DIR)/docs/*txt $@
 	cp $(SERVICE_DIR)/docs/*md $@
-	cp $(MIG_TOOLS_DIR)/ReadMe.txt $@/zmztozmig.txt
 
 $(CORE_DEST_DIR)/logger/db/work: $(CORE_DEST_DIR)/common/lib/perl5 $(CORE_DEST_DIR)/common/lib/jylibs $(CORE_DEST_DIR)/conf/crontabs $(CORE_DEST_DIR)
 	mkdir -p $@
