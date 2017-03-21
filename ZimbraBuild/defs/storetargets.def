@@ -119,6 +119,7 @@ store_stage: $(STORE_COMPONENTS) $(ZIMLET_COMPONENTS)
 $(STORE_DEST_DIR):
 	mkdir -p $@
 
+
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin: $(STORE_DEST_DIR) force
 	@echo "*** Creating $(MAILBOXD_SERVER)"
 	(cd $(STORE_DEST_DIR); tar xzf $(MAILBOXD_SOURCE).tar.gz;)
@@ -127,8 +128,6 @@ $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin: $(STORE_DEST_DIR) force
 		$(STORE_DEST_DIR)/lib/libsetuid.so
 	-(rm $(@D)/start.ini $(@D)/etc/keystore)
 
-
-$(STORE_DEST_DIR)/$(MAILBOXD_DIR): $(STORE_DEST_DIR) $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/conf $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/lib $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/endorsed
 
 
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc: force
@@ -190,6 +189,10 @@ $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/resources/log4j.properties: $(STORE_DEST_DIR)/
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp: force
 	mkdir -p $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp
 	touch $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp/.emptyfile
+
+
+ß$(STORE_DEST_DIR)/$(MAILBOXD_DIR): $(STORE_DEST_DIR) $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/conf $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/lib $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/endorsed
+
 
 $(WEBAPP_DIR):
 	mkdir -p $@
