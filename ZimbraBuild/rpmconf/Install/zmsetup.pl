@@ -3593,6 +3593,7 @@ sub createLdapMenu {
         };
       $i++;
     }
+=for comment
     if ($config{HOSTNAME} eq $config{LDAPHOST} || $config{LDAPREPLICATIONTYPE} ne "replica" ) {
       if ($config{ldap_bes_searcher_password} eq "") {
         $config{LDAPBESSEARCHSET} = "UNSET";
@@ -3607,6 +3608,7 @@ sub createLdapMenu {
       $i++;
     }
   }
+=cut
   return $lm;
 }
 sub createCOSMenu {
@@ -4524,6 +4526,7 @@ sub ldapIsAvailable {
     setLdapDefaults() if ($config{LDAPHOST} ne $config{HOSTNAME});
   }
 
+=for comment
   # check zmbes searcher binding to the master
   if ($config{LDAPHOST} eq $config{HOSTNAME}) {
     if ($config{ldap_bes_searcher_password} eq "") {
@@ -4540,6 +4543,8 @@ sub ldapIsAvailable {
       $config{LDAPBESSEARCHSET} = "set";
     }
   }
+=cut
+
   # check nginx user binding to the master
   if (isInstalled("zimbra-proxy")) {
     if ($config{ldap_nginx_password} eq "") {
@@ -5152,12 +5157,14 @@ sub configSetupLdap {
          runAsZimbra ("/opt/zimbra/bin/zmldappasswd -n \'$config{ldap_nginx_password}\'");
          progress ( "done.\n" );
       }
+=for comment
       if ($ldapBesSearcherChanged == 1) {
          progress ( "Setting BES searcher password..." );
          runAsZimbra ("/opt/zimbra/bin/zmldappasswd -b \'$config{ldap_bes_searcher_password}\'");
          progress ( "done.\n" );
       }
     }
+=cut
     if ($config{FORCEREPLICATION} eq "yes") {
       my $rc = runAsZimbra ("/opt/zimbra/libexec/zmldapenablereplica");
       my $file="/opt/zimbra/.enable_replica";
