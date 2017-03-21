@@ -3,14 +3,6 @@
 
 BUILD_TYPE := FOSS
 
-#MWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSExchangeMigrationWizard*)
-#GMW32DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x86.zip)
-#GMW64DOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZimbraMigration_*_x64.zip)
-#IWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSPSTImportWizard*)
-#CMDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZmCus*)
-#DMDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSDominoMigrationWizard*)
-
-#GWDOWNLOAD = $(shell cd $(WEBAPP_DIR)/zimbra/downloads; ls ZCSGroupwiseMigrationWizard*)
 
 $(WEBAPP_DIR)/service.war: $(WEBAPP_DIR) $(WEBAPP_STAGE_DIR)/service/service.war
 	-mkdir $(WEBAPP_DIR)/service
@@ -30,7 +22,7 @@ $(WEBAPP_STAGE_DIR)/service/service.war: $(SERVICE_DIR)/$(WEBAPP_BUILD_DIR)/serv
 	@($(MKDIR) -p $(@D))
 	@($(CP) $(SERVICE_DIR)/$(WEBAPP_BUILD_DIR)/service.war $@)
 
-$(WEBAPP_DIR)/zimbraAdmin.war: $(WEBAPP_DIR) $(WEBAPP_STAGE_DIR)/admin/zimbraAdmin.war $(WEBAPP_DIR)/zimbra/downloads
+$(WEBAPP_DIR)/zimbraAdmin.war: $(WEBAPP_DIR) $(WEBAPP_STAGE_DIR)/admin/zimbraAdmin.war
 	mkdir $(WEBAPP_DIR)/zimbraAdmin
 	(cd $(WEBAPP_DIR)/zimbraAdmin; jar xf $(WEBAPP_STAGE_DIR)/admin/zimbraAdmin.war)
 
