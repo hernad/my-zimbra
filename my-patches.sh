@@ -33,4 +33,8 @@ do
    sed -i -e "s/logoURL.*$/logoURL = $MY_COMPANY_URL/" $f
 done
 
-
+for lang in ar en_AU en_GB es eu fr hi hu in it iw ja ko lo ms nl pl pt pt_BR ro su sv th tr uk zh_CN zh_HK zh_TW 
+do
+    echo "erasing localication for: $lang"
+    find . -name "*_zh_CN.properties" -exec rm {} \;
+done
