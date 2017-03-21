@@ -50,9 +50,9 @@ $(WEBAPP_STAGE_DIR)/admin/zimbraAdmin.war: $(CONSOLE_DIR)/$(WEBAPP_BUILD_DIR)/zi
 	@($(MKDIR) -p $(@D))
 	@($(CP) $(CONSOLE_DIR)/$(WEBAPP_BUILD_DIR)/zimbraAdmin.war $@)
 	@($(CP) $(CONSOLE_DIR)/build/web.xml $(@D)/web.xml)
-	@($(CP) $(CONSOLE_DIR)/build/docs/jsapi-inventory.zip $(@D)/jsapi-inventory.zip)
-	@($(CP) $(CONSOLE_DIR)/build/docs/jsapi-zimbra-doc.zip $(@D)/jsapi-zimbra-doc.zip)
-	@($(CP) $(CONSOLE_DIR)/build/docs/jsapi-changelog.zip $(@D)/jsapi-changelog.zip)
+	#@($(CP) $(CONSOLE_DIR)/build/docs/jsapi-inventory.zip $(@D)/jsapi-inventory.zip)
+	#@($(CP) $(CONSOLE_DIR)/build/docs/jsapi-zimbra-doc.zip $(@D)/jsapi-zimbra-doc.zip)
+	#@($(CP) $(CONSOLE_DIR)/build/docs/jsapi-changelog.zip $(@D)/jsapi-changelog.zip)
 
 $(WEBAPP_DIR)/zimbra/robots.txt: $(WEBAPP_DIR)/zimbra.war
 	cp $(SERVICE_DIR)/conf/robots.txt $@
