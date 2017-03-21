@@ -3,11 +3,11 @@
     <import file="../ZimbraCustomerServices/hosted/YahooSmb/ZimbraAdminExt/build.xml" optional="true" />
     <property file="build.properties"/>
     <property environment="env"/>
-	
+
 	<!-- set up dependency on ZimbraServer -->
 	<condition property="zimbraServer.dir" value="${env.ZIMBRASERVER_DIR}">
 	    <isset property="env.ZIMBRASERVER_DIR" />
-	</condition>	
+	</condition>
 	<condition property="zimbraServer.dir" value="../ZimbraServer">
 	    <not><isset property="env.ZIMBRASERVER_DIR"/></not>
 	</condition>
@@ -18,11 +18,9 @@
 	<condition property="native.os" value="Linux"><os name="Linux"/></condition>
 	<condition property="native.so" value="jnilib"><os name="Mac OS X"/></condition>
 	<condition property="native.so" value="so"><not><os name="Mac OS X"/></not></condition>
-	
+
 	<!-- src -->
 	<property name="build.dir" location="build" />
-	<property name="network.dir" location="../ZimbraNetwork/ZimbraServer" />
-	<property name="network.classes.dir" location="${network.dir}/build/classes" />	
 	<property name="common.dir" location="../ZimbraCommon" />
 	<property name="common.classes.dir" location="${common.dir}/build/classes" />
 	<property name="common.jars.dir" location="${common.dir}/jars" />
@@ -32,17 +30,17 @@
 	<!-- build -->
 	<property name="build.classes.dir" location="${build.dir}/classes" />
 	<property name="build.zimlet.dir" location="${build.dir}/zimlets" />
-	
+
 	<!-- dist -->
 	<property name="dist.dir" location="build/dist"/>
 	<property name="dist.lib.dir" location="${dist.dir}/lib"/>
 	<property name="dist.lib.ext.dir" location="${dist.lib.dir}/ext"/>
 	<property name="zimlet.dist.dir" location="${dist.dir}/zimlets"/>
 	<property name="zimbrasoap.dir" location="../ZimbraSoap" />
-	
+
 
 	<!-- deploy -->
-	<property name="zimbra.home.dir" location="/opt/zimbra" />	
+	<property name="zimbra.home.dir" location="/opt/zimbra" />
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
@@ -51,11 +49,11 @@
     </taskdef>
 
 	<target name="build-init">
-	   	<mkdir dir="${build.zimlet.dir}" /> 
-		<mkdir dir="${build.classes.dir}" /> 
+	   	<mkdir dir="${build.zimlet.dir}" />
+		<mkdir dir="${build.classes.dir}" />
 		<mkdir dir="${dist.dir}"/>
-		<mkdir dir="${dist.lib.dir}"/>		
-		<mkdir dir="${dist.lib.ext.dir}"/>			
+		<mkdir dir="${dist.lib.dir}"/>
+		<mkdir dir="${dist.lib.ext.dir}"/>
 		<mkdir dir="${zimlet.dist.dir}"/>
 	</target>
 
@@ -71,11 +69,10 @@
 		<delete dir="${build.dir}" />
 		<delete dir="${dist.dir}" />
 	</target>
-		
+
     <path id="class.path">
         <pathelement location="${client.classes.dir}" />
         <pathelement location="${common.classes.dir}" />
-        <pathelement location="${network.classes.dir}" />
         <pathelement location="${build.classes.dir}" />
         <pathelement location="${zimbraServer.dir}/build/classes"/>
         <pathelement location="${zimbrasoap.dir}/build/classes" />
@@ -106,7 +103,7 @@
 		<java classname="com.zimbra.cs.zimlet.ZimletUtil" fork="true" classpathref="class.path" failonerror="true">
 			<arg line="undeploy ${ext.name}" />
 		</java>
-	</target>	
+	</target>
 
 	<target name="deploy-zimlet" depends='package-zimlet' description="install UI files, deploy zimlet to LDAP">
 		<echo>Deploying zimlet: ${ext.name}</echo>
@@ -127,10 +124,10 @@
 			<src refid="all.java.path" />
 		</javac>
 	</target>
-				
+
 	<target name="jar" depends="compile" description="Creates the jar file">
 		<jar manifest="${ext.dir}/conf/MANIFEST.MF" destfile="${build.dir}/${ext.name}.jar" basedir="${build.classes.dir}" />
-	</target>	
+	</target>
 
     <target name="deploy-server-extension" depends="jar">
         <ant dir="${zimbraServer.dir}" target="stop-webserver" inheritAll="false"/>
@@ -258,7 +255,7 @@
 
 	  	</antcall>
 	  	-->
-	</target>    	
+	</target>
 
     <target name="deploy-dev-cert" depends="package-zimlet, jar, copy-files-to-dev-machine" description="Deploy the extension"/>
 
@@ -272,7 +269,7 @@
 			<param name="ext.name" value="com_zimbra_proxy_config" />
 		</antcall>
 	</target>
-	
+
 	<target name="deploy-certmgr" description="deploy certificate manager">
 		<antcall target="deploy">
 			<param name="ext.dir" value="CertificateMgr"/>
@@ -286,7 +283,7 @@
 			<param name="ext.name" value="com_zimbra_tooltip"/>
 		</antcall>
 	</target>
-	
+
 	<target name="deploy-bulkprovision" description="deploy Bulk Provision">
 		<antcall target="deploy">
 			<param name="ext.dir" value="BulkProvision"/>
@@ -300,7 +297,7 @@
 			<param name="ext.name" value="com_zimbra_clientuploader" />
 		</antcall>
 	</target>
-	
+
 	<target name="deploy-viewmail" description="deploy view mail extension">
 		<antcall target="deploy-zimlet">
 			<param name="ext.dir" value="com_zimbra_viewmail"/>
@@ -327,5 +324,5 @@
             <param name="ext.name" value="com_zimbra_clientuploader" />
         </antcall>
     </target>
-	
+
 </project>

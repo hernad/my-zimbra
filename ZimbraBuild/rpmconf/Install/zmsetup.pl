@@ -3607,8 +3607,9 @@ sub createLdapMenu {
         };
       $i++;
     }
-  }
 =cut
+  }
+
   return $lm;
 }
 sub createCOSMenu {
@@ -5163,8 +5164,9 @@ sub configSetupLdap {
          runAsZimbra ("/opt/zimbra/bin/zmldappasswd -b \'$config{ldap_bes_searcher_password}\'");
          progress ( "done.\n" );
       }
-    }
 =cut
+    }
+
     if ($config{FORCEREPLICATION} eq "yes") {
       my $rc = runAsZimbra ("/opt/zimbra/libexec/zmldapenablereplica");
       my $file="/opt/zimbra/.enable_replica";

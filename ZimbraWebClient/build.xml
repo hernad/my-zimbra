@@ -10,7 +10,7 @@
 
     <property environment="env"/>
 
-	<property file="${this.zwc.basedir}/../ZimbraCustomerServices/${env.CUSTOMER_SKIN}/ZimbraWebClient/build-custom.properties" />
+	  <property file="${this.zwc.basedir}/../ZimbraCustomerServices/${env.CUSTOMER_SKIN}/ZimbraWebClient/build-custom.properties" />
 
     <property name="zwc.basedir" value="${this.zwc.basedir}" />
     <property name="overlay.dir" value="${env.APP_OVERLAY}" />
@@ -23,37 +23,34 @@
     <property name="webxml.zimbraMailPort" value="7070" />
     <property name="webxml.zimbraMailSSLPort" value="7443" />
     <property name="webxml.zimbraMailTrustedIP" value="" />
-	<property name="webxml.zimbraHttpDosFilterMaxRequestsPerSec" value="30" />
-	<property name="webxml.zimbraHttpContextPathBasedThreadPoolBalancingFilterRules" value="/service:max=10%, /soap:max=40%, /zimbra:max=40%" />
+	  <property name="webxml.zimbraHttpDosFilterMaxRequestsPerSec" value="30" />
+	  <property name="webxml.zimbraHttpContextPathBasedThreadPoolBalancingFilterRules" value="/service:max=10%, /soap:max=40%, /zimbra:max=40%" />
 
     <!-- NOTE: These dirs need to stay ABSOLUTE paths! -->
-	<property name='common.dir' value='${this.zwc.basedir}/../ZimbraCommon'/>
+	  <property name='common.dir' value='${this.zwc.basedir}/../ZimbraCommon'/>
     <property name='common.lib.dir' value='${common.dir}/jars'/>
     <property name='common.build.dir' value='${common.dir}/build'/>
     <property name='common.build.classes.dir' value='${common.build.dir}/classes'/>
 
     <property name='soap.dir' location='${this.zwc.basedir}/../ZimbraSoap'/>
-	<property name='soap.build.dir' value='${soap.dir}/build'/>
+	  <property name='soap.build.dir' value='${soap.dir}/build'/>
 
     <property name="client.dir" location="${this.zwc.basedir}/../ZimbraClient"/>
     <property name="client.build.classes.dir" location="${client.dir}/build/classes" />
-    <property name="client.build.dir" location="${client.dir}/build" />    
+    <property name="client.build.dir" location="${client.dir}/build" />
     <property name="client.jarfile" location="${client.dir}/build/zimbraclient.jar"/>
 
     <property name='taglib.dir' value='${this.zwc.basedir}/../ZimbraTagLib'/>
     <property name='taglib.build.dir' value='${taglib.dir}/build'/>
-	<property name='taglib.build.classes.dir' value='${taglib.build.dir}/classes'/>
+	  <property name='taglib.build.classes.dir' value='${taglib.build.dir}/classes'/>
 
     <property name='server.dir' value='${this.zwc.basedir}/../ZimbraServer'/>
     <property name='server.build.dir' value='${server.dir}/build'/>
-	<property name='server.build.classes.dir' value='${server.build.dir}/classes'/>
+	  <property name='server.build.classes.dir' value='${server.build.dir}/classes'/>
     <property name='server.dist.dir' value='${server.build.dir}/dist'/>
 
-	<property name='network.dir' value='${this.zwc.basedir}/../ZimbraNetwork' />
-	<property name='network.zwc.dir' value='${network.dir}/ZimbraWebClient' />
-	<property name='network.zwc.help.dir' value='${network.zwc.dir}/WebRoot/help' />
 
-	<property name='license.dir' value='${this.zwc.basedir}/../ZimbraLicenses'/>
+	  <property name='license.dir' value='${this.zwc.basedir}/../ZimbraLicenses'/>
 
     <property name='lib.dir' value='${this.zwc.basedir}/jars'/>
     <property name="jsdoctoolkit.dir" location="${lib.dir}/jsdoc-toolkit-2.3.0" />
@@ -82,17 +79,17 @@
     <property name='build.adminhelp.dir' value='${build.web.dir}/adminhelp'/>
     <property name='build.dist.dir' value='${build.dir}/dist'/>
 
-	<property name='build.docs.dir' value='${build.dir}/docs'/>
-	<property name='build.jsapi-zimbra-doc.dir' value='${build.docs.dir}/jsapi-zimbra-doc'/>
+	  <property name='build.docs.dir' value='${build.dir}/docs'/>
+	  <property name='build.jsapi-zimbra-doc.dir' value='${build.docs.dir}/jsapi-zimbra-doc'/>
     <property name='build.jsapi-inventory.dir' value='${build.docs.dir}/jsapi-inventory'/>
     <property name='build.jsapi-changelog.dir' value='${build.docs.dir}/jsapi-changelog'/>
-	<property name='jsapi-zimbra-doc.file' value='${build.docs.dir}/jsapi-zimbra-doc.zip'/>
-	<property name='jsapi-inventory.file' value='${build.docs.dir}/jsapi-inventory.zip'/>
-	<property name='jsapi-changelog.file' value='${build.docs.dir}/jsapi-changelog.zip'/>
+	  <property name='jsapi-zimbra-doc.file' value='${build.docs.dir}/jsapi-zimbra-doc.zip'/>
+	  <property name='jsapi-inventory.file' value='${build.docs.dir}/jsapi-inventory.zip'/>
+	  <property name='jsapi-changelog.file' value='${build.docs.dir}/jsapi-changelog.zip'/>
 
     <property name='build.img.dir' value='${build.web.dir}/img'/>
-	<property name="build.css.file" value="images"/>
-	<property name="build.css.ext" value=".css"/>
+	  <property name="build.css.file" value="images"/>
+	  <property name="build.css.ext" value=".css"/>
     <property name="build.css.filename" value="${build.css.file}${build.css.ext}"/>
 
     <!-- jamming properties -->
@@ -124,16 +121,7 @@
     <property name="jquery.version" value="1.11.0"/>
     <property name="jquery.dir" value="${build.js.dir}/ajax/3rdparty/jquery"/>
 
-    <!-- ConverseJS INTEGRATION -->
-    <!--<property name="converse.version" value="0.9.4"></property>
-    <property name='converse.root.dir' value='converse' />
-    <property name='converse.js.dir' value='${converse.root.dir}/converse.js-${converse.version}' />
-    <property name='converse.js.build.dir' value='${converse.root.dir}/converse.js-${converse.version}/builds' />
-    <property name='converse.css.dir' value='${converse.root.dir}/converse.js-${converse.version}/css' />
-    <property name='converse.fonticons.dir' value='${converse.root.dir}/converse.js-${converse.version}/fonticons' />
-    <property name='converse.sounds.dir' value='${converse.root.dir}/converse.js-${converse.version}/sounds' />
-    <property name="converse.dir" value="${build.js.dir}/ajax/3rdparty/converse"/>-->
-	
+
 	<!-- customize admin skin -->
 	<if>
 		<isset property='adminSkin'/>
@@ -153,32 +141,30 @@
         <fileset dir="${common.lib.dir}" includes="**/*.jar"/>
         <pathelement location="${common.build.classes.dir}"/>
         <pathelement location="${client.build.classes.dir}"/>
-	<pathelement location="${server.build.classes.dir}"/>
-	<pathelement location="${taglib.build.classes.dir}"/>
+	      <pathelement location="${server.build.classes.dir}"/>
+	      <pathelement location="${taglib.build.classes.dir}"/>
     </path>
 
     <!-- pseudo-fileset so that targets that rely on it don't fail -->
     <fileset id='help.fileset' dir='${build.dir}' excludes='**'/>
-	<fileset id='network.help.fileset' dir='${build.dir}' excludes='**' />
-	<fileset id='customer.web.fileset' dir='${build.dir}' excludes='**'/>
-	<fileset id='customer.img.fileset' dir='${build.dir}' excludes='**' />
-	<fileset id='customer.skins.img.fileset' dir='${build.dir}' excludes='**' />
-	<fileset id='customer.webinf.fileset' dir='${build.dir}' excludes='**'/>
+	  <fileset id='network.help.fileset' dir='${build.dir}' excludes='**' />
+	  <fileset id='customer.web.fileset' dir='${build.dir}' excludes='**'/>
+	  <fileset id='customer.img.fileset' dir='${build.dir}' excludes='**' />
+	  <fileset id='customer.skins.img.fileset' dir='${build.dir}' excludes='**' />
+	  <fileset id='customer.webinf.fileset' dir='${build.dir}' excludes='**'/>
     <fileset id='customer.package.fileset' dir='${build.dir}' excludes='**' />
     <fileset id='customer.jsp.fileset' dir='${build.dir}' excludes='**' />
 
     <!-- Targets -->
 
     <target name='common'>
-		<condition property='build.network'>
-			<equals arg1="${zimbra.buildinfo.type}" arg2="NETWORK" />
-		</condition>
+
         <property name='common.web.includes' value='${custom.web.includes},js/**,css/**'/>
         <property name='common.web.excludes' value='${custom.web.excludes},js/*/package/**,**/AjxTimezoneData.js'/>
         <property name='common.jsp.includes' value='${custom.jsp.includes},**'/>
         <property name='common.jsp.excludes' value='${custom.jsp.excludes}'/>
         <property name='common.img.includes' value='${custom.img.includes},**'/>
-		<property name='common.img.excludes' value='${custom.img.excludes},_*/**,**/_*,**/apple-touch-icon.png'/>
+		    <property name='common.img.excludes' value='${custom.img.excludes},_*/**,**/_*,**/apple-touch-icon.png'/>
         <property name='common.template.includes' value='${custom.template.includes},**/*.template'/>
         <property name='common.template.excludes' value='${custom.template.excludes}'/>
         <property name='common.jam.includes' value='${custom.jam.includes},**/package/*.js'/>
@@ -208,7 +194,7 @@
         <property name='template.excludes' value=''/>
         <property name='jam.includes' value='**/ajax/package/*.js'/>
         <property name='jam.excludes' value=''/>
-		<property name='help.ignore' value='true' />
+		    <property name='help.ignore' value='true' />
         <property name='build.web.includes'
                   value='js/**,img/dwt.gif,img/images.css,skin/**,public/**,templates/**'/>
         <property name='build.web.excludes' value='${common.build.web.excludes}'/>
@@ -282,11 +268,6 @@
     <target name="war"
             depends="templates,timezones,images,styles,settings,jam-files,compress,help"
             description="Builds all dependencies and assembles the war file.">
-        <if><isset property='build.network' />
-            <then>
-                <ant dir="${network.dir}/ZimbraTouch" target="touch"/>
-            </then>
-        </if>
         <antcall target="assemble-war"/>
     </target>
 
@@ -321,7 +302,7 @@
 
             <!-- files from build tree -->
             <zipfileset dir='${build.web.dir}' includes='${build.web.includes}' excludes='${build.web.excludes}'/>
-			<zipfileset dir='${build.web.dir}' includes='js/Boot_all.js${jsmin.ext}' />
+			      <zipfileset dir='${build.web.dir}' includes='js/Boot_all.js${jsmin.ext}' />
 
             <!-- primary files from source trees -->
             <zipfileset refid='customer.web.fileset'/>
@@ -571,7 +552,7 @@
 				<if><available file='${customer.skin.dir}' />
 					<then>
 						<fileset id='customer.skins.img.fileset' dir='${customer.web.dir}'
-								 includes='skins/*/img/**' excludes='skins/*/img/_sourceimages/**' 
+								 includes='skins/*/img/**' excludes='skins/*/img/_sourceimages/**'
 						/>
 					</then>
 				</if>
@@ -1207,11 +1188,13 @@ ext = BeanUtils.cook(ext);
 			                    <!-- do nothing -->
 		                    </finally>
 	                    </try>
+              <!--
                         <echo>Prepending Copyright to @{var}${license.ext}</echo>
                         <concat destfile="@{var}${license.ext}" fixlastline="true">
                             <header filtering="no" trimleading="yes">
                                 /* Copyright (C) 2005-2009 Zimbra Inc. http://www.zimbra.com/ */
                             </header>
+              -->
                             <fileset file='@{var}${jsmin.ext}'/>
                         </concat>
                         <gzip destfile="@{var}${compress.ext}" src="@{var}${license.ext}"/>
@@ -1248,19 +1231,7 @@ ext = BeanUtils.cook(ext);
 	</target>
 
     <target name='help' depends='init' if='build.prod' unless='help.ignore'>
-		<if><isset property='build.network' />
-			<then>
-				<fileset id='network.help.fileset' erroronmissingdir="false"
-          dir='${network.zwc.help.dir}' includes='${help.includes}' excludes='${help.excludes}' />
-				<!-- NOTE:	This allows us to exclude help dirs from the base
-							help dir that are replaced by the network help. -->
-				<dirset id='network.help.dirset' erroronmissingdir="false"
-          dir='${network.zwc.help.dir}' includes='*/*' />
-				<pathconvert property='help.excludes2' pathsep=',' refid="network.help.dirset">
-					<regexpmapper from="^.*/WebRoot/help/(.*)$$" to="\1/**"/>
-				</pathconvert>
-			</then>
-		</if>
+
 		<fileset id='help.fileset' erroronmissingdir="false"
       dir='${help.dir}' includes='${help.includes}' excludes='${help.excludes},${help.excludes2}' />
 	</target>
@@ -1334,6 +1305,8 @@ ext = BeanUtils.cook(ext);
         <delete file="${jsapi-changelog.file}"/>
 	</target>
 
+<!-- hernad: jsdoc takes huge time to build this artifact, temporarily out
+
 	<target name="generate-jsapi-zimbra-doc" depends="clean-jsapi-zimbra-doc">
 	  <java jar="${jsdoctoolkit.dir}/jsrun.jar" fork="true" failonerror="true">
 	    <arg value="${jsdoctoolkit.dir}/app/run.js"/>
@@ -1384,7 +1357,7 @@ ext = BeanUtils.cook(ext);
 	    <arg value="${js.dir}/zimbraMail/tasks"/>
 	  </java>
 	</target>
-	
+
 	<target name="generate-jsapi-changelog" depends="compile,package-jsapi-inventory">
         <mkdir dir="${build.jsapi-changelog.dir}"/>
 		<copy todir="${build.jsapi-changelog.dir}">
@@ -1399,7 +1372,7 @@ ext = BeanUtils.cook(ext);
 		    <arg line="-current.inventory ${jsapi-inventory.file}"/>
 		</java>
 	</target>
-		
+
 	<target name="package-jsapi-zimbra-doc" depends="generate-jsapi-zimbra-doc">
 		<zip destfile="${jsapi-zimbra-doc.file}"
 		       basedir="${build.jsapi-zimbra-doc.dir}" />
@@ -1414,6 +1387,8 @@ ext = BeanUtils.cook(ext);
 		<zip destfile="${jsapi-changelog.file}"
 		       basedir="${build.jsapi-changelog.dir}" />
 	</target>
+
+-->
 
     <!-- image tasks -->
 
@@ -1739,5 +1714,5 @@ ext = BeanUtils.cook(ext);
     <target name="get-converse-version">
         <echo message="${converse.version}" />
     </target>-->
-    
+
 </project>
