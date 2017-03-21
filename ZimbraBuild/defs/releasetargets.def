@@ -1,4 +1,4 @@
-zcs-$(RELEASE).tgz: packages zcs_stage
+zcs-$(RELEASE).tgz: zcs_stage
 
 $(SOAP_DIR)/package-soap-api-doc:
 	(cd $(SOAP_DIR); $(ANT) $(ANT_DEBUG) \
@@ -20,7 +20,10 @@ $(SOAP_DIR)/package-soap-api-doc:
 
 #zcs_stage: $(SOAP_DIR)/package-soap-api-doc $(SOAP_DIR)/package-soap-api-changelog
 
-zcs_stage: $(SOAP_DIR)/package-soap-api-doc
+packages: core mta dns apache store ldap snmp logger spell proxy
+	@echo "*** Creating PACKAGES in $(PACKAGE_DIR)"
+	
+zcs_stage: $(SOAP_DIR)/package-soap-api-doc packages
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/packages
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/data
@@ -53,6 +56,3 @@ zcs_stage: $(SOAP_DIR)/package-soap-api-doc
 	(cd $(PACKAGE_DIR); ln -s zcs-$(RELEASE_VERSION_TAG).$(RELEASE).tgz zcs.tgz)
 	-cp -f $(SOAP_DIR)/build/docs/*.zip $(PACKAGE_DIR)
 	@echo "*** BUILD COMPLETED ***"
-
-packages: core mta dns apache store ldap snmp logger spell proxy
-	@echo "*** Creating PACKAGES in $(PACKAGE_DIR)"
