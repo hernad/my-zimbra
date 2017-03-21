@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Zimbra Collaboration Suite Server
 # Copyright (C) 2009, 2010, 2011, 2013, 2014, 2015, 2016 Synacor, Inc.
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 # ***** END LICENSE BLOCK *****
-# 
+#
 
 PROGDIR=`dirname $0`
 cd $PROGDIR
@@ -91,7 +91,7 @@ do
 	fi
 done
 
-TARGETS="ajaxtar all"
+TARGETS="all"
 cd $PATHDIR
 
 echo "Starting ZCS build"

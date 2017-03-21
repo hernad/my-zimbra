@@ -9,9 +9,7 @@ BUILD_ROOT	:= $(shell pwd)
 DEFS_DIR := $(BUILD_ROOT)/defs
 
 include $(DEFS_DIR)/globals.def
-
 include $(DEFS_DIR)/devglobals.def
-
 include $(DEFS_DIR)/paths.def
 
 # 3rd PARTY INCLUDES
@@ -26,7 +24,6 @@ endif
 include $(DEFS_DIR)/destination.def
 
 # COMPONENTS
-
 include $(DEFS_DIR)/components.def
 
 # PACKAGE TARGETS

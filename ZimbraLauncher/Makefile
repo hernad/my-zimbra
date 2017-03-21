@@ -16,7 +16,7 @@ MACDEF := -DDARWIN
 JAVA_BINARY = /usr/bin/java
 endif
 
-ifeq (MACOSXx86,$(findstring MACOSXx86,$(BUILD_PLATFORM)))   
+ifeq (MACOSXx86,$(findstring MACOSXx86,$(BUILD_PLATFORM)))
 ifeq ($(BUILD_PLATFORM), MACOSXx86)
 MACDEF := -DDARWIN
 else
@@ -56,9 +56,6 @@ LAUNCHER_CFLAGS = \
 	-DZIMBRA_USER='"$(ZIMBRA_USER)"' \
 	-DZIMBRA_CONFIG='"$(ZIMBRA_CONFIG)"'
 
-ifeq ($(ZIMBRA_USE_TOMCAT), 1)
-LAUNCHER_CFLAGS += -DZIMBRA_USE_TOMCAT=1
-endif
 
 $(BUILD)/zmmailboxdmgr: $(SRC)/launcher/zmmailboxdmgr.c
 	gcc $(MACDEF) $(LAUNCHER_CFLAGS) -g -Wall -Wmissing-prototypes -o $@ $<
@@ -73,4 +70,3 @@ clean:
 	$(RM) -r $(BUILD)
 
 FORCE: ;
-
