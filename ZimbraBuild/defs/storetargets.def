@@ -392,8 +392,6 @@ $(ADMIN_EXT_DIR)/build/com_zimbra_bulkprovision.jar:
 $(CORE_DEST_DIR)/lib/ext/com_zimbra_bulkprovision/com_zimbra_bulkprovision.jar: $(CORE_DEST_DIR)/lib/ext/com_zimbra_bulkprovision $(ADMIN_EXT_DIR)/build/com_zimbra_bulkprovision.jar
 	cp -f $(ADMIN_EXT_DIR)/build/com_zimbra_bulkprovision.jar $@
 
-$(CORE_DEST_DIR)/lib/ext/com_zimbra_bulkprovision:
-	mkdir -p $@
 
 $(CORE_DEST_DIR)/lib/ext/com_zimbra_bulkprovision:
 	mkdir -p $@
