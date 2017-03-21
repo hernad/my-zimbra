@@ -6,7 +6,7 @@ store: CUR_PACKAGE_NAME := zimbra-store
 store: $(PACKAGE_DIR) store_stage store_pkg_spec_$(PACKAGE_EXT)
 	(cd $(CUR_DEST_ROOT); \
 		$(PACKAGING_COMMAND) $(PACKAGING_OPTIONS) )
-	@echo "================ store package created ======================="	
+	@echo "================ store package created ======================="
 
 store_pkg_spec_ccs:
 
@@ -128,9 +128,9 @@ $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin: $(STORE_DEST_DIR) force
 	-(rm $(@D)/start.ini $(@D)/etc/keystore)
 
 
-$(STORE_DEST_DIR)/$(MAILBOXD_DIR): $(STORE_DEST_DIR) $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/conf $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/lib $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/endorsed
+$(STORE_DEST_DIR)/$(MAILBOXD_DIR): $(STORE_DEST_DIR) $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/conf $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/lib $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/endorsed
 
-else
+
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc: force
 		mkdir -p $@
 		cp -f $(SERVICE_DIR)/conf/$(MAILBOXD_SERVER)/jettyrc \
@@ -180,13 +180,12 @@ $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc: force
 				-e '/REDIRECTEND/ s/^/%%comment VAR:zimbraMailMode,<!--,redirect%% /' \
 				> $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc/zimbraAdmin.web.xml.in
 
-$(STORE_DEST_DIR)/$(MAILBOXD_DIR): $(STORE_DEST_DIR) $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/lib $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/endorsed
+
 
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/resources/log4j.properties: $(STORE_DEST_DIR)/$(MAILBOXD_DIR)
 	mkdir -p $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/resources
 	cp $(SERVICE_DIR)/build/dist/$(MAILBOXD_SERVER)/resources/log4j.properties $@
 
-endif
 
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp: force
 	mkdir -p $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp
