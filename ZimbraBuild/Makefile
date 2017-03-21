@@ -62,7 +62,7 @@ include $(DEFS_DIR)/patchtargets.def
 
 include $(DEFS_DIR)/spelltargets.def
 
-include $(DEFS_DIR)/devtargets.def
+#include $(DEFS_DIR)/devtargets.def
 
 include $(DEFS_DIR)/clean.def
 
