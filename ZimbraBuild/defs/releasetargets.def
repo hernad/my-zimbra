@@ -22,7 +22,7 @@ $(SOAP_DIR)/package-soap-api-doc:
 
 packages: core mta dns apache store ldap snmp logger spell proxy
 	@echo "*** Creating PACKAGES in $(PACKAGE_DIR)"
-	
+
 zcs_stage: $(SOAP_DIR)/package-soap-api-doc packages
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/packages
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
@@ -46,7 +46,6 @@ zcs_stage: $(SOAP_DIR)/package-soap-api-doc packages
 	cp -f $(BUILD_ROOT)/rpmconf/Build/get_plat_tag.sh zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
 	cp -f $(BUILD_ROOT)/rpmconf/Build/zmValidateLdap.pl zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
 	chmod 755 zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin/zmValidateLdap.pl
-	cp -f $(BUILD_ROOT)/rpmconf/Build/checkLicense.pl zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
 	cp -f $(BUILD_ROOT)/rpmconf/Build/checkService.pl zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
 	cp -f $(SERVICE_DIR)/build/dist/libexec/zmdbintegrityreport zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/bin
 	chmod 755 zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/install.sh
