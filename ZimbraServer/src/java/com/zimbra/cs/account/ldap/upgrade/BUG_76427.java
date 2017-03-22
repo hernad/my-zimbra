@@ -40,7 +40,6 @@ public class BUG_76427 extends UpgradeOp {
     public static Set<String> standardZimlets = new HashSet<String>();
 
     static {
-        standardZimlets.add("com_zimbra_adminversioncheck");
         standardZimlets.add("com_zimbra_archive");
         standardZimlets.add("com_zimbra_attachcontacts");
         standardZimlets.add("com_zimbra_attachmail");
@@ -67,7 +66,6 @@ public class BUG_76427 extends UpgradeOp {
         standardZimlets.add("com_zimbra_url");
         standardZimlets.add("com_zimbra_viewmail");
         standardZimlets.add("com_zimbra_voiceprefs");
-        standardZimlets.add("com_zimbra_webex");
         standardZimlets.add("com_zimbra_xmbxsearch");
         standardZimlets.add("com_zimbra_ymemoticons");
     }

@@ -59,7 +59,6 @@ STORE_COMPONENTS := \
 	$(STORE_DEST_DIR)/lib/ext/clamscanner/clamscanner.jar \
 	$(STORE_DEST_DIR)/lib/ext/zimbraldaputils/zimbraldaputils.jar \
 	$(STORE_DEST_DIR)/lib/ext/nginx-lookup/nginx-lookup.jar \
-	$(STORE_DEST_DIR)/lib/ext/zimbraadminversioncheck/zimbraadminversioncheck.jar \
 	$(STORE_DEST_DIR)/lib/ext/openidconsumer \
 	$(STORE_DEST_DIR)/log \
 	$(STORE_DEST_DIR)/cleanup

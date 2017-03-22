@@ -37,7 +37,6 @@ allclean: clean
 	-(cd $(NATIVE_DIR); $(MAKE) clean)
 	-(cd $(LAUNCHER_DIR); $(MAKE) clean)
 	-(cd $(NGINX_LOOKUP_DIR); $(ANT) clean)
-	-(cd $(ADMIN_VERSIONCHECK_DIR); $(ANT) clean)
 	-(cd $(ZIMLET_DIR); $(ANT) clean)
 
 # jenkins - continous integration
@@ -52,5 +51,4 @@ ciclean: clean
 	-(cd $(NATIVE_DIR); $(MAKE) clean)
 	-(cd $(LAUNCHER_DIR); $(MAKE) clean)
 	-(cd $(NGINX_LOOKUP_DIR); $(ANT) clean)
-	-(cd $(ADMIN_VERSIONCHECK_DIR); $(ANT) clean)
 	-(cd $(ZIMLET_DIR); $(ANT) clean)

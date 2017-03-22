@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 /**
  * AUTO-GENERATED. DO NOT EDIT.
- * 
+ *
  * @author schemers
  *
  */
@@ -15995,102 +15995,7 @@ public class ZAttrProvisioning {
     @ZAttr(id=399)
     public static final String A_zimbraVersion = "zimbraVersion";
 
-    /**
-     * Time interval after which Zimbra version check detects a new version.
-     * Must be in valid duration format: {digits}{time-unit}. digits: 0-9,
-     * time-unit: [hmsd]|ms. h - hours, m - minutes, s - seconds, d - days,
-     * ms - milliseconds. If time unit is not specified, the default is
-     * s(seconds).
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1059)
-    public static final String A_zimbraVersionCheckInterval = "zimbraVersionCheckInterval";
-
-    /**
-     * time Zimbra version was last checked
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1056)
-    public static final String A_zimbraVersionCheckLastAttempt = "zimbraVersionCheckLastAttempt";
-
-    /**
-     * last response of last Zimbra version check. This will be a short XML
-     * that will contain information about available updates.
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1058)
-    public static final String A_zimbraVersionCheckLastResponse = "zimbraVersionCheckLastResponse";
-
-    /**
-     * time Zimbra version was last checked successfully
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1057)
-    public static final String A_zimbraVersionCheckLastSuccess = "zimbraVersionCheckLastSuccess";
-
-    /**
-     * template used to construct the body of an Zimbra version check
-     * notification message
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1066)
-    public static final String A_zimbraVersionCheckNotificationBody = "zimbraVersionCheckNotificationBody";
-
-    /**
-     * email address to send mail to for the Zimbra version check
-     * notification message
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1063)
-    public static final String A_zimbraVersionCheckNotificationEmail = "zimbraVersionCheckNotificationEmail";
-
-    /**
-     * from address for the Zimbra version check notification message
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1064)
-    public static final String A_zimbraVersionCheckNotificationEmailFrom = "zimbraVersionCheckNotificationEmailFrom";
-
-    /**
-     * template used to construct the subject of an Zimbra version check
-     * notification message
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1065)
-    public static final String A_zimbraVersionCheckNotificationSubject = "zimbraVersionCheckNotificationSubject";
-
-    /**
-     * whether to send a notification message if Zimbra version check detects
-     * a new version
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1062)
-    public static final String A_zimbraVersionCheckSendNotifications = "zimbraVersionCheckSendNotifications";
-
-    /**
-     * zimbraId of the server that should perform the Zimbra version checks
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1060)
-    public static final String A_zimbraVersionCheckServer = "zimbraVersionCheckServer";
-
-    /**
-     * URL of the Zimbra version check script
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1061)
-    public static final String A_zimbraVersionCheckURL = "zimbraVersionCheckURL";
+    
 
     /**
      * Whether virtual user set/changed his password after an external
@@ -16525,4 +16430,3 @@ public class ZAttrProvisioning {
 
     ///// END-AUTO-GEN-REPLACE
 }
-

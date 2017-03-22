@@ -78,37 +78,6 @@ if(appNewUI && ZaSettings && ZaSettings.EnabledZimlet["com_zimbra_clientuploader
             return this._controllers[ZaZimbraAdmin._CLIENT_UPLOADER_VIEW];
         }
 
-    ZaClientUploader.versionCheckTreeListener = function (ev) {
-        var clientUploader = new ZaClientUploader();
 
-        if(ZaApp.getInstance().getCurrentController()) {
-            ZaApp.getInstance().getCurrentController().switchToNextView(ZaApp.getInstance().getClientUploadViewController(),ZaClientUploadController.prototype.show, [clientUploader]);
-        } else {
-            ZaApp.getInstance().getClientUploadViewController().show(clientUploader);
-        }
-    }
-
-    ZaClientUploader.versionCheckTreeModifier = function (tree) {
-        var overviewPanelController = this ;
-        if (!overviewPanelController) throw new Exception("ZaClientUploader.versionCheckTreeModifier: Overview Panel Controller is not set.");
-        if(ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.Client_UPLOAD_VIEW] || ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.CARTE_BLANCHE_UI]) {
-            var parentPath = ZaTree.getPathByArray([ZaMsg.OVP_home, ZaMsg.OVP_toolMig]);
-
-            var ti = new ZaTreeItemData({
-                parent:parentPath,
-                id:ZaId.getTreeItemId(ZaId.PANEL_APP,"magHV",null, "ClientUploadHV"),
-                text: com_zimbra_clientuploader.OVP_clientUpload,
-                mappingId: ZaZimbraAdmin._CLIENT_UPLOADER_VIEW});
-            tree.addTreeItemData(ti);
-
-            if(ZaOverviewPanelController.overviewTreeListeners) {
-                ZaOverviewPanelController.overviewTreeListeners[ZaZimbraAdmin._CLIENT_UPLOADER_VIEW] = ZaClientUploader.versionCheckTreeListener;
-            }
-        }
-    }
-
-    if(ZaOverviewPanelController.treeModifiers)
-        ZaOverviewPanelController.treeModifiers.push(ZaClientUploader.versionCheckTreeModifier);
 
 }
-

@@ -479,9 +479,6 @@ public final class AdminConstants {
     public static final String E_MODIFY_SMIME_CONFIG_REQUEST = "ModifySMIMEConfigRequest";
     public static final String E_MODIFY_SMIME_CONFIG_RESPONSE = "ModifySMIMEConfigResponse";
 
-    // Version Check
-    public static final String E_VC_REQUEST = "VersionCheckRequest";
-    public static final String E_VC_RESPONSE = "VersionCheckResponse";
 
     // LicenseAdminService
     public static final String E_INSTALL_LICENSE_REQUEST = "InstallLicenseRequest";
@@ -1403,13 +1400,10 @@ public final class AdminConstants {
     public static final String A_MDAY = "mday";
 
     // Version Check
-    public static final String VERSION_CHECK_STATUS = "status";
-    public static final String VERSION_CHECK_CHECK = "check";
-    public static final String E_VERSION_CHECK = "versionCheck";
+
     public static final String A_UPDATE_TYPE = "type";
     public static final String E_UPDATES= "updates";
     public static final String E_UPDATE = "update";
-    public static final String A_VERSION_CHECK_STATUS = "status";
     public static final String A_CRITICAL = "critical";
     public static final String A_UPDATE_URL = "updateURL";
     public static final String A_SHORT_VERSION = "shortversion";

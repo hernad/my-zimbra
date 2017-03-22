@@ -68769,77 +68769,7 @@ public abstract class ZAttrConfig extends Entry {
         return attrs;
     }
 
-    /**
-     * URL of the Zimbra version check script
-     *
-     * @return zimbraVersionCheckURL, or "https://www.zimbra.com/aus/universal/update.php" if unset
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1061)
-    public String getVersionCheckURL() {
-        return getAttr(Provisioning.A_zimbraVersionCheckURL, "https://www.zimbra.com/aus/universal/update.php");
-    }
 
-    /**
-     * URL of the Zimbra version check script
-     *
-     * @param zimbraVersionCheckURL new value
-     * @throws com.zimbra.common.service.ServiceException if error during update
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1061)
-    public void setVersionCheckURL(String zimbraVersionCheckURL) throws com.zimbra.common.service.ServiceException {
-        HashMap<String,Object> attrs = new HashMap<String,Object>();
-        attrs.put(Provisioning.A_zimbraVersionCheckURL, zimbraVersionCheckURL);
-        getProvisioning().modifyAttrs(this, attrs);
-    }
-
-    /**
-     * URL of the Zimbra version check script
-     *
-     * @param zimbraVersionCheckURL new value
-     * @param attrs existing map to populate, or null to create a new map
-     * @return populated map to pass into Provisioning.modifyAttrs
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1061)
-    public Map<String,Object> setVersionCheckURL(String zimbraVersionCheckURL, Map<String,Object> attrs) {
-        if (attrs == null) attrs = new HashMap<String,Object>();
-        attrs.put(Provisioning.A_zimbraVersionCheckURL, zimbraVersionCheckURL);
-        return attrs;
-    }
-
-    /**
-     * URL of the Zimbra version check script
-     *
-     * @throws com.zimbra.common.service.ServiceException if error during update
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1061)
-    public void unsetVersionCheckURL() throws com.zimbra.common.service.ServiceException {
-        HashMap<String,Object> attrs = new HashMap<String,Object>();
-        attrs.put(Provisioning.A_zimbraVersionCheckURL, "");
-        getProvisioning().modifyAttrs(this, attrs);
-    }
-
-    /**
-     * URL of the Zimbra version check script
-     *
-     * @param attrs existing map to populate, or null to create a new map
-     * @return populated map to pass into Provisioning.modifyAttrs
-     *
-     * @since ZCS 6.0.2
-     */
-    @ZAttr(id=1061)
-    public Map<String,Object> unsetVersionCheckURL(Map<String,Object> attrs) {
-        if (attrs == null) attrs = new HashMap<String,Object>();
-        attrs.put(Provisioning.A_zimbraVersionCheckURL, "");
-        return attrs;
-    }
 
     /**
      * Whether to block archive files that are password protected or

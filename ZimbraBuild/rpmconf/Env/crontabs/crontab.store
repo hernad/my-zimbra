@@ -13,12 +13,7 @@
 # Monitor for multiple mysqld to prevent corruption
 #
 #*/5 * * * * /opt/zimbra/libexec/zmcheckduplicatemysqld -e > /dev/null 2>&1
-#
-# Check zimbraVersionCheckURL for new update. 
-# Only runs if this server matches zimbraVersionCheckServer 
-# Only executes on zimbraVersionCheckInterval. min 2h interval
-#
-18 */2 * * * /opt/zimbra/libexec/zmcheckversion -c >> /dev/null 2>&1
+
 #
 # Invoke "ComputeAggregateQuotaUsageRequest" periodically
 #

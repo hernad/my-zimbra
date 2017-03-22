@@ -279,13 +279,7 @@ $(ZIMLET_DIR)/build/dist/zimlets/nofile:
 		-Dzimbra.buildinfo.version=$(SOURCE_TAG) \
 		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
 		-Dzimbra.buildinfo.host=$(HOST) package-zimlet ; )
-	(cd $(ADMIN_VERSIONCHECK_DIR); $(ANT) $(ANT_DEBUG)\
-		-Dzimbra.buildinfo.platform=$(BUILD_PLATFORM) \
-		-Dis-production=1 \
-		-Dzimbra.buildinfo.type=$(BUILD_TYPE) \
-		-Dzimbra.buildinfo.version=$(SOURCE_TAG) \
-		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
-		-Dzimbra.buildinfo.host=$(HOST) package-zimlet ; )
+
 
 $(ZIMLET_DIR)/build/dist/zimlets-experimental/nofile:
 	(cd $(ZIMLET_DIR); $(ANT) $(ANT_DEBUG)\
@@ -322,7 +316,6 @@ $(STORE_DEST_DIR)/zimlets: $(ZIMLET_DIR)/build/dist/zimlets/nofile
 	mkdir -p $@
 	cp $(ZIMLET_DIR)/build/dist/zimlets/* $@
 	cp $(ADMIN_EXT_DIR)/build/zimlets/* $@
-	cp $(ADMIN_VERSIONCHECK_DIR)/build/zimlet/* $@
 
 $(POSIX_EXT_DIR)/build/zimlet/zimbra_posixaccount.zip:
 	(cd $(POSIX_EXT_DIR); $(ANT) $(ANT_DEBUG)\
@@ -372,9 +365,6 @@ $(STORE_DEST_DIR)/lib/jars:
 	mkdir -p $@
 
 
-
-$(STORE_DEST_DIR)/libexec/zmcheckversion: $(STORE_DEST_DIR)/libexec
-	cp -f $(ADMIN_VERSIONCHECK_DIR)/src/libexec/zmcheckversion $@
 
 $(STORE_DEST_DIR)/libexec:
 	mkdir -p $@
@@ -445,20 +435,6 @@ $(CLAMSCANNER_DIR)/build/clamscanner.jar:
 		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
 		-Dzimbra.buildinfo.host=$(HOST) jar ; )
 
-$(ADMIN_VERSIONCHECK_DIR)/build/zimbraadminversioncheck.jar:
-	(cd $(ADMIN_VERSIONCHECK_DIR); $(ANT) $(ANT_DEBUG)\
-		-Dzimbra.buildinfo.platform=$(BUILD_PLATFORM) \
-		-Dis-production=1 \
-		-Dzimbra.buildinfo.version=$(SOURCE_TAG) \
-		-Dzimbra.buildinfo.type=$(BUILD_TYPE) \
-		-Dzimbra.buildinfo.release=$(RELEASE) -Dzimbra.buildinfo.date=$(DATE) \
-		-Dzimbra.buildinfo.host=$(HOST) jar ; )
-
-$(STORE_DEST_DIR)/lib/ext/zimbraadminversioncheck/zimbraadminversioncheck.jar: $(STORE_DEST_DIR)/lib/ext/zimbraadminversioncheck $(ADMIN_VERSIONCHECK_DIR)/build/zimbraadminversioncheck.jar
-	cp -f $(ADMIN_VERSIONCHECK_DIR)/build/zimbraadminversioncheck.jar $@
-
-$(STORE_DEST_DIR)/lib/ext/zimbraadminversioncheck:
-	mkdir -p $@
 
 $(STORE_DEST_DIR)/lib/ext/zimbraldaputils/zimbraldaputils.jar: $(STORE_DEST_DIR)/lib/ext/zimbraldaputils $(LDAP_EXT_DIR)/build/zimbraldaputils.jar
 	cp -f $(LDAP_EXT_DIR)/build/zimbraldaputils.jar $@
