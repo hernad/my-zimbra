@@ -5133,13 +5133,6 @@ public class ObjectFactory {
         return new testAdminZimletHostConfigInfo();
     }
 
-    /**
-     * Create an instance of {@link testLicenseExpirationInfo }
-     *
-     */
-    public testLicenseExpirationInfo createtestLicenseExpirationInfo() {
-        return new testLicenseExpirationInfo();
-    }
 
     /**
      * Create an instance of {@link testSetPasswordResponse }

@@ -74,7 +74,6 @@ import com.zimbra.soap.admin.message.RenameDistributionListResponse;
 import com.zimbra.soap.admin.type.Attr;
 import com.zimbra.soap.admin.type.CacheEntryType;
 import com.zimbra.soap.admin.type.GranteeSelector.GranteeBy;
-import com.zimbra.soap.admin.type.LicenseExpirationInfo;
 import com.zimbra.soap.admin.type.NetworkInformation;
 import com.zimbra.soap.admin.type.ServerSelector;
 import com.zimbra.soap.admin.type.VersionInfo;
