@@ -45,7 +45,7 @@
  </target>
 
   <property name="project.outputDirectory" value="build" />
-  <property name="jetty.version" value="9.3.5.v20151012" />
+  <property name="jetty.version" value="9.3.16.v20170120" />
   <property name="jetty_run_base" location="/opt/zimbra" />
 
   <path id="jetty.plugin.classpath">
@@ -73,7 +73,7 @@
 	           classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
   <typedef name="webApp" classname="org.eclipse.jetty.ant.AntWebAppContext"
 	          classpathref="jetty.plugin.classpath" loaderref="jetty.loader" />
-	
+
   <target name="jetty.run" depends="jetty.webinf">
     <jetty.run tempDirectory="${project.outputDirectory}" jettyXml="jetty-ant-config.xml">
       <connectors>
@@ -100,7 +100,7 @@
 	  </webApp>
 
       <webApp war="${jetty_run_base}/jetty/webapps/zimbra" contextpath="/">
-        <lib dir="${jetty_run_base}/jetty/common/lib" includes="*.jar" excludes="not-needed.jar" /> 
+        <lib dir="${jetty_run_base}/jetty/common/lib" includes="*.jar" excludes="not-needed.jar" />
         <lib dir="${jetty_run_base}/lib" includes="*.jar" excludes="not-needed.jar" />
         <lib dir="${jetty_run_base}/lib/jars" includes="*.jar" excludes="not-needed.jar" />
        	<attributes>
@@ -114,7 +114,7 @@
         <attributes>
           <attribute name="org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern" value=".*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$"/>
         </attributes>
-   	
+
       </webApp>
 
     </jetty.run>

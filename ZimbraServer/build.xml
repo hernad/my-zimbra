@@ -64,10 +64,10 @@
 
     <property name="lib.dir" location="lib"/>
     <property name="config.dir" location="conf"/>
-	<condition property="war.web.xml" value="${config.dir}/web.xml${production.suffix}">
+	  <condition property="war.web.xml" value="${config.dir}/web.xml${production.suffix}">
 	 	<not><isset property="war.web.xml"/></not>
-	</condition>
-	<property name="war.web.xml" location="${war.web.xml}${production.suffix}"/>
+	  </condition>
+	  <property name="war.web.xml" location="${war.web.xml}${production.suffix}"/>
     <property name="jetty.xml.file" location='${config.dir}/jetty/jetty.xml' />
     <property name="jetty.policy.file" location="${config.dir}/jetty/zimbra.policy.example"/>
 
@@ -98,7 +98,7 @@
     <property name="jetty.home.dir" location="${zimbra.home.dir}/jetty"/>
     <property name="jetty.conf.dir" value="${jetty.home.dir}/etc"/>
     <property name="jetty.src.dir" location="../ThirdParty/jetty"/>
-    <property name="jetty.version" value="9.3.5.v20151012"/>
+    <property name="jetty.version" value="9.3.16.v20170120"/>
     <available property="jetty.start.jar.exists" file="${jetty.home.dir}/start.jar"/>
 
     <property name="ical4j.jar" value="ical4j-0.9.16-patched.jar"/>
@@ -1119,6 +1119,7 @@
         <mkdir dir="${zimbra.home.dir}/data/tmp/jetty"/>
     </target>
 
+<!--
     <target name="install-thirdparty" depends="install-thirdparty-unix,install-thirdparty-windows" description="Installs third party binaries" />
 
     <target name="install-thirdparty-unix" description="Installs third party binaries on unix" if="is-unix">
@@ -1130,7 +1131,6 @@
         </then>
       </if>
 
-      <if><available file="../ZimbraServer/src/perl/install-thirdparty"/> <!-- Not available for community build. -->
         <then>
           <antcall target="stop-webserver"/>
           <antcall target="stop-ldap"/>
@@ -1159,6 +1159,7 @@
         <ant dir="../Zimlet" target="clean" inheritAll="false"/>
         <ant dir="../Zimlet" target="deploy" inheritAll="false"/>
     </target>
+-->
 
     <!-- There are two ways to reset the world:
            (a) If your webserver is a service, use "reset-the-world".

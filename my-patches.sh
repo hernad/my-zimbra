@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ZimbraBuild/defs/plat_common.sh
+
 echo "exclude notify from install procedure"
 
 
@@ -33,8 +35,15 @@ do
    sed -i -e "s/logoURL.*$/logoURL = $MY_COMPANY_URL/" $f
 done
 
-for lang in ar en_AU en_GB es eu fr hi hu in it iw ja ko lo ms nl pl pt pt_BR ro su sv th tr uk zh_CN zh_HK zh_TW 
+for lang in ar en_AU en_GB es eu fr hi hu in it iw ja ko lo ms nl pl pt pt_BR ro su sv th tr uk zh_CN zh_HK zh_TW
 do
     echo "erasing localication for: $lang"
     find . -name "*_zh_CN.properties" -exec rm {} \;
 done
+
+
+cd ThirdParty/jetty
+
+curl -LO http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.16.v20170120/jetty-distribution-${JETTY_VERSION}.gz
+
+cd ../..

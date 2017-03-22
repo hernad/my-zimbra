@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Zimbra Collaboration Suite Server
 # Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 Synacor, Inc.
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 # ***** END LICENSE BLOCK *****
-# 
+#
 
 use strict;
 
@@ -34,7 +34,7 @@ my $COMMON_DEFS = dirname($0) . "/../../../ZimbraBuild/defs/plat_common.def";
 my $P4_ROOT = $THIRD_PARTY_BUILDS_DIR . getPlatformDirName();
 my $JETTY_P4_PATH = "//depot/zimbra/$ARGV[0]/ThirdParty/jetty";
 my %BINARIES = (
-    "jetty" => "distribution-9.3.5.v20151012",
+    "jetty" => "distribution-9.3.16.v20170120",
 );
 my $P4_CMD = "p4";
 
@@ -138,10 +138,10 @@ sub installJunixsocketNativeLib() {
     my $cmd;
     my $srcDir;
     my $srcName;
-    
+
     my $libSrcDir = "/java/junixsocket/";
     my $libPrefix = "libjunixsocket";
-    
+
     if ($^O eq "darwin") {
         $srcDir = $THIRD_PARTY_BUILDS_DIR . "OSXx86_64" . $libSrcDir;
         $srcName = "$libPrefix-macosx-1.5-x86_64.dylib";
@@ -149,25 +149,25 @@ sub installJunixsocketNativeLib() {
         $srcDir = $THIRD_PARTY_BUILDS_DIR . "x86_64" . $libSrcDir;
         $srcName = "$libPrefix-linux-1.5-amd64.so";
     }
-    
+
     my $srcPath = $srcDir . $srcName;
     my $destPath = $LIB_DIR . $srcName;
-    
+
     # print(STDERR "srcPath is: $srcPath\n");
     # print(STDERR "destPath is: $destPath\n");
-    
+
     # Remove old binaries to make sure there's no cruft.
     $cmd = "rm -rf $LIB_DIR" . "$libPrefix*";
     runCommand($cmd);
-    
+
     # Copy file to the third party cache directory if necessary.
     my $cachedPath = "$CACHE_DIR/$srcName";
     if (! -f $cachedPath) {
         $cmd = "$P4_CMD print -o $cachedPath $srcPath";
         runCommand($cmd);
     }
-    
-    # Copy file from the third party cache directory to the destination 
+
+    # Copy file from the third party cache directory to the destination
     $cmd = "cp $cachedPath $destPath";
     runCommand($cmd);
 }

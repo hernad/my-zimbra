@@ -20,7 +20,7 @@ BUNDLE_EXT := tgz
 THIRD_PARTY	:= $(BUILD_ROOT)/../ThirdParty
 THIRD_PARTY_BUILDS	:= $(BUILD_ROOT)/../ThirdPartyBuilds
 
-JETTY_VERSION			:= 9.3.5.v20151012
+JETTY_VERSION			:= 9.3.16.v20170120
 JETTY_DIR					:= jetty-distribution-$(JETTY_VERSION)
 JETTY_HOME				:= /opt/zimbra/$(JETTY_DIR)
 JETTY_SOURCE			:= $(THIRD_PARTY)/jetty/$(JETTY_DIR)
