@@ -1215,13 +1215,6 @@ public class ZMailbox implements ToZJSONObject {
         return getAccountInfo(refresh).getFeatures();
     }
 
-    public ZLicenses getLicenses() throws ServiceException {
-        return getLicenses(false);
-    }
-
-    public ZLicenses getLicenses(boolean refresh) throws ServiceException {
-        return getAccountInfo(refresh).getLicenses();
-    }
 
     private static Set<InfoSection> NOT_ZIMLETS = Collections.unmodifiableSet(
             EnumSet.complementOf(EnumSet.of(InfoSection.zimlets)));
@@ -5635,4 +5628,3 @@ public class ZMailbox implements ToZJSONObject {
         return mTransport;
     }
 }
-

@@ -34,9 +34,7 @@ ZaLoginDialog = function(parent, zIndex, className, appCtxt) {
     htmlElement.style.zIndex = Dwt.Z_DIALOG + 1; //login screen covers all dialogs and error messages
     htmlElement.className = className;
     this.setVisible(false);
-    
-    //license expiration warning won't show before login.
-	//var licenseStatus = ZaZimbraAdmin.getLicenseStatus();
+
 	var params = ZLoginFactory.copyDefaultParams(ZaMsg);
 	params.showPanelBorder = true;
 	params.showForm = true;
@@ -58,7 +56,7 @@ ZaLoginDialog = function(parent, zIndex, className, appCtxt) {
 
 ZaLoginDialog.prototype = new DwtComposite;
 ZaLoginDialog.prototype.constructor = ZaLoginDialog;
-ZaLoginDialog.prototype.toString = 
+ZaLoginDialog.prototype.toString =
 function() {
 	return "ZaLoginDialog";
 }
@@ -120,7 +118,7 @@ function(errorStr) {
 		ZLoginFactory.showErrorMsg(errorStr);
 }
 
-ZaLoginDialog.prototype.clearError = 
+ZaLoginDialog.prototype.clearError =
 function () {
 	ZLoginFactory.hideErrorMsg();
 }
@@ -130,7 +128,7 @@ function(username) {
 	ZLoginFactory.showUserField(username);
  }
 
-ZaLoginDialog.prototype.setVisible = 
+ZaLoginDialog.prototype.setVisible =
 function(visible, transparentBg) {
 	DwtComposite.prototype.setVisible.call(this, visible);
     //redirect to zimbraAdminConsoleLoginURL
@@ -138,7 +136,7 @@ function(visible, transparentBg) {
         if (window.onbeforeunload != null) {
             ZaZimbraAdmin.setOnbeforeunload(ZaZimbraAdmin._confirmAuthInvalidExitMethod);
         }
-        
+
         location.replace(this._zimbraAdminLoginURL);
         return ;
     }
@@ -158,8 +156,8 @@ function(visible, transparentBg) {
 			/*
  			 *Bug fix 54362
 			 * There are two named "loginForm" one is LoginDialog,
-			 * the other one is "Splash Screen" for they shared the same 
-			 * Html generation function 			
+			 * the other one is "Splash Screen" for they shared the same
+			 * Html generation function
 			 */
 			var loginEl = this.getHtmlElement();
 			for(var i = 0; i < el.length; i++){
@@ -172,7 +170,7 @@ function(visible, transparentBg) {
 		//set the focus on the user name field
 		var userIdEl = ZLoginFactory.get(ZLoginFactory.USER_ID);
 		if(!userIdEl.disabled)
-			userIdEl.focus();		
+			userIdEl.focus();
 	}
 }
 
@@ -195,10 +193,10 @@ function() {
 		var confPassword = "";
 		if(ZLoginFactory.isShown(ZLoginFactory.NEW_PASSWORD_ID) && ZLoginFactory.isShown(ZLoginFactory.PASSWORD_CONFIRM_ID)) {
 			newPassword = ZLoginFactory.get(ZLoginFactory.NEW_PASSWORD_ID).value;
-			confPassword = ZLoginFactory.get(ZLoginFactory.PASSWORD_CONFIRM_ID).value; 
+			confPassword = ZLoginFactory.get(ZLoginFactory.PASSWORD_CONFIRM_ID).value;
 		}
-			
-		this._callback.run(username, password,newPassword,confPassword);		
+
+		this._callback.run(username, password,newPassword,confPassword);
 	}
 }
 
@@ -219,4 +217,3 @@ ZaLoginDialog._loginDiffListener =
 function(ev) {
 	ZmZimbraMail.logOff();
 };
-

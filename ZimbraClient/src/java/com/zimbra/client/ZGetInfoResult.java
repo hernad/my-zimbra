@@ -48,7 +48,7 @@ public class ZGetInfoResult implements ToZJSONObject {
 
     private GetInfoResponse data;
     private long expiration;
-    
+
     static Map<String, List<String>> getMap(Element e, String root, String elName) {
         Map<String, List<String>> result = new HashMap<String, List<String>>();
         Element attrsEl = e.getOptionalElement(root);
@@ -198,9 +198,6 @@ public class ZGetInfoResult implements ToZJSONObject {
         return new ZFeatures(data.getAttrsMultimap().asMap());
     }
 
-    public ZLicenses getLicenses() {
-        return new ZLicenses(data.getLicense());
-    }
 
     public String getRestURLBase() {
         return data.getRestUrl();
@@ -248,7 +245,7 @@ public class ZGetInfoResult implements ToZJSONObject {
     public String getId() {
         return data.getAccountId();
     }
-    
+
     public String getVersion() {
         return data.getVersion();
     }
@@ -261,4 +258,3 @@ public class ZGetInfoResult implements ToZJSONObject {
         return new Date(timestamp);
     }
 }
-
