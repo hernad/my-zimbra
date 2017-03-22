@@ -59,21 +59,16 @@ import com.zimbra.soap.json.jackson.annotate.ZimbraJsonAttribute;
 import com.zimbra.soap.json.jackson.annotate.ZimbraKeyValuePairs;
 import com.zimbra.soap.json.jackson.annotate.ZimbraUniqueElement;
 import com.zimbra.soap.type.ZmBoolean;
-/**
- * Note that LicenseAdminService and LicenseService both register a handler (the same one) which
- * extends com.zimbra.cs.service.account.GetInfo - this adds the "license" element
- *
- * @zm-api-response-description The response to a request for account information
- */
+
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name=AccountConstants.E_GET_INFO_RESPONSE)
 @XmlType(propOrder = {"version", "accountId", "accountName", "crumb", "lifetime", "adminDelegated", "restUrl",
         "quotaUsed", "previousSessionTime", "lastWriteAccessTime", "recentMessageCount", "cos", "prefs", "attrs",
         "zimlets", "props", "identities", "signatures", "dataSources", "childAccounts", "discoveredRights",
-        "soapURL", "publicURL", "changePasswordURL", "license", "adminURL", "boshURL"})
+        "soapURL", "publicURL", "changePasswordURL", "adminURL", "boshURL"})
 @JsonPropertyOrder({"version", "id", "name", "crumb", "lifetime", "adminDelegated", "docSizeLimit", "attSizeLimit",
         "rest", "used", "prevSession", "accessed", "recent", "cos", "prefs", "attrs", "zimlets", "props", "identities",
-        "signatures", "dataSources", "childAccounts", "rights", "soapURL", "publicURL", "license", "adminURL", "boshURL"})
+        "signatures", "dataSources", "childAccounts", "rights", "soapURL", "publicURL", "adminURL", "boshURL"})
 public final class GetInfoResponse {
 
     /**
@@ -522,8 +517,7 @@ public final class GetInfoResponse {
             .add("soapURL", soapURL)
             .add("publicURL", publicURL)
             .add("boshURL", boshURL)
-            .add("changePasswordURL", changePasswordURL)
-            .add("license", license);
+            .add("changePasswordURL", changePasswordURL);
     }
 
     @Override
