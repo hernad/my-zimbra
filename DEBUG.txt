@@ -40,3 +40,9 @@ sudo vim /opt/zimbra/data/ldap/config/cn=config/cn=schema/cn={4}zimbra.ldif
 
 ZimbraServer/conf/attrs/zimbra-attrs.xml
 
+
+
+-    cs_emailp...comma-separated valid email addresses . each address must have a "@"
++    cs_emailp...comma-separated valid email addresses . each address must have a "@" <<<<< space se ne smije brisati!
+ 
+
