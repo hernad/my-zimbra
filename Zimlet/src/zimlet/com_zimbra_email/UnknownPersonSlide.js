@@ -145,7 +145,7 @@ function(img) {
 	div.style.textAlign = "center";
 	div.appendChild(img);
 	if (this.emailZimlet.emailAddress.indexOf(UnknownPersonSlide.DOMAIN) != -1) {
-		img.onclick =  AjxCallback.simpleClosure(this._handleProfileImageClick, this); 
+		img.onclick =  AjxCallback.simpleClosure(this._handleProfileImageClick, this);
 		img.style.cursor = "pointer";
 	}
 };
@@ -169,7 +169,7 @@ function(ev) {
 		return;
 	}
 
-	//if its not right click.. 
+	//if its not right click..
 	var dwtev = DwtShell.mouseEvent;
 	dwtev.setFromDhtmlEvent(ev);
 	var el = dwtev.target;
@@ -178,6 +178,7 @@ function(ev) {
 	} else if(el.id == "UnknownPersonSlide_NameAnchorId") {
 		this._contactListener(true);
 	}
+	/*
     else if (el.id == "UnknownPersonSlide_mobilePhoneAnchorId" &&
 		appCtxt.getSettings()._hasVoiceFeature()) {
         this.emailZimlet._phoneListener(this.attribs && this.attribs.mobilePhone);
@@ -193,6 +194,7 @@ function(ev) {
         this.emailZimlet._imListener(this.imURI);
         return false;
     }
+		*/
 };
 
 UnknownPersonSlide.prototype._handleRightClick =

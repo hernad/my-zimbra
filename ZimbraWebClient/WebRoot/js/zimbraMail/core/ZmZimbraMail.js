@@ -24,7 +24,7 @@
 /**
  * @overview
  * This file contains the Zimbra mail controller class.
- * 
+ *
  */
 
 /**
@@ -38,7 +38,7 @@
  * @param {Hash}	params	a hash of parameters
  * @param {constant}    params.app		the starting app
  * @param  {Element}	params.userShell	the top-level skin container
- *        
+ *
  * @extends	ZmController
  */
 ZmZimbraMail = function(params) {
@@ -210,9 +210,9 @@ function(params) {
 };
 
 /**
- * Unloads the controller. Allows parent window to walk list of open child windows and either "delete" 
+ * Unloads the controller. Allows parent window to walk list of open child windows and either "delete"
  * or "disable" them.
- * 
+ *
  */
 ZmZimbraMail.unload =
 function() {
@@ -232,7 +232,7 @@ function() {
 	}
 
 	ZmZimbraMail.closeChildWindows();
-	
+
 	ZmZimbraMail.stayOnPagePrompt = false;
 	ZmZimbraMail.setExitTimer(false);
 	ZmZimbraMail.sessionTimerInvoked = false;
@@ -241,7 +241,7 @@ function() {
 
 ZmZimbraMail.closeChildWindows =
 function() {
-	
+
 	var childWinList = window._zimbraMail && window._zimbraMail._childWinList;
 	if (childWinList) {
 		// close all child windows
@@ -275,7 +275,7 @@ function(hash, a, b) {
 
 /**
  * Hides the splash screen.
- * 
+ *
  */
 ZmZimbraMail.killSplash =
 function() {
@@ -298,7 +298,7 @@ ZmZimbraMail.hasSessionEnded =
 
 /**
  * Startup the mail controller.
- * 
+ *
  * <p>
  * The following steps are performed:
  * <ul>
@@ -308,7 +308,7 @@ ZmZimbraMail.hasSessionEnded =
  * <li>create apps</li>
  * <li>load user settings (using a <code>&lt;GetInfoRequest&gt;</code>)</li>
  * </ul>
- * 
+ *
  * @param {Hash}	params		a hash of parameters
  * @param {constant}	app			the starting app
  * @param {Hash}	settings		a hash of settings overrides
@@ -631,7 +631,7 @@ function(params) {
 
 /**
  * Shows the mini-calendar.
- * 
+ *
  */
 ZmZimbraMail.prototype.showMiniCalendar =
 function() {
@@ -692,7 +692,7 @@ function(params, result) {
  * @param       {constant}	params.app				the starting app
  * @param       {Object}	params.settingOverrides	a hash of overrides of user settings
  * @param {ZmCsfeResult}	result		the result object from load of user settings
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._handleResponseStartup =
@@ -725,11 +725,11 @@ function(params, result) {
         else
 		    this.setPollInterval(true);
 	} else {
-		if (appCtxt.get(ZmSetting.OFFLINE_SUPPORTS_MAILTO) && window.platform && 
-			window.platform.isRegisteredProtocolHandler("mailto")) {  
+		if (appCtxt.get(ZmSetting.OFFLINE_SUPPORTS_MAILTO) && window.platform &&
+			window.platform.isRegisteredProtocolHandler("mailto")) {
 		    // bug fix #34342 - always register the protocol handler for mac and linux on start up
 		    this.registerMailtoHandler(!AjxEnv.isWindows, true);
-		}    
+		}
 	}
 
 	window.onbeforeunload = ZmZimbraMail._confirmExitMethod;
@@ -837,10 +837,10 @@ function(params, result) {
 		}
 		if (imapAccounts) {
 			for (var i=0; i<imapAccounts.length; i++) {
-				sourceMap[imapAccounts[i].id] = imapAccounts[i];	
+				sourceMap[imapAccounts[i].id] = imapAccounts[i];
 			}
 		}
-		
+
 		if (pop3Accounts || imapAccounts) {
 			var action = new AjxTimedAction(ds, ds.checkStatus, [sourceMap, 2000]);
 			AjxTimedAction.scheduleAction(action, 10000);  //kick off check in 10 seconds
@@ -862,7 +862,7 @@ function() {
 
 /**
  * Creates mini calendar and shows reminders on delay
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype.handleCalendarComponents =
@@ -890,7 +890,7 @@ function() {
  * @param {Hash}	params			a hash of parameters
  * @param {constant}	params.app				the starting app
  * @param {Object}	params.settingOverrides	a hash of overrides of user settings
- *        
+ *
  * @private
  */
 ZmZimbraMail.prototype._handleResponseStartup1 =
@@ -906,7 +906,7 @@ function(params) {
 	else {
 		Dwt.hide(ZmId.SKIN_SEARCH);
 	}
-	
+
 	var newButton = this.getNewButton();
 	var tbParams = {
 		parent:				this._shell,
@@ -918,7 +918,7 @@ function(params) {
 	var tb = this._newToolbar = new ZmButtonToolBar(tbParams);
 	newButton.reparent(tb);
 	this._components[ZmAppViewMgr.C_NEW_BUTTON] = tb;
-	
+
 	if (params.unitTest) {
 		var utm = window.unitTestManager;
 		appCtxt.addZimletsLoadedListener(utm.runTests.bind(utm), 0);
@@ -935,7 +935,6 @@ function(params) {
 	// make the UI appear
 	this._appViewMgr.setViewComponents(ZmAppViewMgr.GLOBAL, this._components, true);
 
-	this._checkLicense();
 
 	if (!this._doingPostRenderStartup) {
 		this._postRenderStartup();
@@ -972,26 +971,12 @@ function() {
 	}
 };
 
-// popup a warning dialog if there is a problem with the license
-ZmZimbraMail.prototype._checkLicense =
-function(ev) {
-
-	var status = appCtxt.get(ZmSetting.LICENSE_STATUS);
-	var msg = ZmSetting.LICENSE_MSG[status];
-	if (msg) {
-		AjxDispatcher.require("Startup2");
-		var dlg = appCtxt.getMsgDialog();
-		dlg.reset();
-        dlg.setMessage(msg, DwtMessageDialog.WARNING_STYLE);
-		dlg.popup();
-	}
-};
 
 /**
  * The work to render the start app has been done. Now perform all the startup
  * work that remains - each piece of work is contained in a callback with an
  * associated order and delay.
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._postRenderStartup =
@@ -1140,7 +1125,7 @@ function(params) {
 		startApp = this._getDefaultStartAppName(account);
 	}
 
-	// parse query string, in case we are coming in with a deep link	
+	// parse query string, in case we are coming in with a deep link
 	var qsParams = AjxStringUtil.parseQueryString();
 	if (qsParams && qsParams.view && !qsParams.app) {
 		startApp = ZmApp.QS_VIEWS[qsParams.view];
@@ -1156,7 +1141,7 @@ function(params) {
 ZmZimbraMail.prototype._getDefaultStartAppName =
 function(account) {
 	account = account || (appCtxt.multiAccounts && appCtxt.accountList.mainAccount) || null;
-	
+
 	for (var app in ZmApp.DEFAULT_SORT) {
 		ZmApp.DEFAULT_APPS.push(app);
 	}
@@ -1175,7 +1160,7 @@ function(account) {
 
 /**
  * Cancels the request.
- * 
+ *
  * @param	{String}	reqId		the request id
  * @param	{AjxCallback}	errorCallback		the callback
  * @param	{Boolean}	noBusyOverlay	if <code>true</code>, do not show busy overlay
@@ -1188,7 +1173,7 @@ function(reqId, errorCallback, noBusyOverlay) {
 
 /**
  * Sends the request.
- * 
+ *
  * @param	{Hash}	params		a hash of parameters
  * @see	ZmRequestMgr#sendRequest
  */
@@ -1229,7 +1214,7 @@ function(funcName, force) {
  * of apps that may be created.
  *
  * @param {Hash}	apps	the set of apps to create
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._createEnabledApps =
@@ -1280,11 +1265,11 @@ function(type, listener) {
  * instantiated. This is separate from {@link ZmZimbraMail#addListener}
  * so that the caller doesn't need to know the specifics of how we
  * twiddle the type name for app events.
- * 
+ *
  * @param	{String}	appName		the application name
  * @param {constant}	type		the event type
  * @param {AjxListener}	listener	a listener
- * 
+ *
  */
 ZmZimbraMail.addAppListener =
 function(appName, type, listener) {
@@ -1298,7 +1283,7 @@ function(appName, type, listener) {
  * @param {constant}	type		the event type
  * @param {AjxListener}	listener	a listener
  * @return	{Boolean}	<code>true</code> if the listener is added
- * 
+ *
  */
 ZmZimbraMail.prototype.addListener =
 function(type, listener) {
@@ -1357,7 +1342,7 @@ function() {
 
 /**
  * Sends a <code>&lt;ClientEventNotifyRequest&gt;</code> to the server.
- * 
+ *
  * @param	{Object}	event		the event
  */
 ZmZimbraMail.prototype.sendClientEventNotify =
@@ -1379,7 +1364,7 @@ function(event, isNetworkOn) {
         if (this.clientEventNotifyReqId) {
             appCtxt.getRequestMgr().cancelRequest(this.clientEventNotifyReqId);
         }
-        this.clientEventNotifyTimerId = 
+        this.clientEventNotifyTimerId =
             AjxTimedAction.scheduleAction(new AjxTimedAction(this, this.sendClientEventNotify, [event, true]), 3000);
     } else {
         params.callback = new AjxCallback(this, this.setInstantNotify, true);
@@ -1401,7 +1386,7 @@ function(event, res) {
 
 /**
  * Sets the client into "instant notifications" mode.
- * 
+ *
  * @param {Boolean}	on				if <code>true</code>, turn on instant notify
  */
 ZmZimbraMail.prototype.setInstantNotify =
@@ -1424,7 +1409,7 @@ function(on) {
 
 /**
  * Gets the "instant notification" setting.
- * 
+ *
  * @return	{Boolean}	<code>true</code> if instant notification is "ON"
  */
 ZmZimbraMail.prototype.getInstantNotify =
@@ -1436,12 +1421,12 @@ ZmZimbraMail.prototype.registerMailtoHandler =
 function(regProto, selected) {
 	if (appCtxt.get(ZmSetting.OFFLINE_SUPPORTS_MAILTO) && window.platform) {
 		try { // add try/catch - see bug #33870
-			if (selected) { // user selected zd as default mail app 
+			if (selected) { // user selected zd as default mail app
 				// register mailto handler
 				if (regProto) {
 					var url = appCtxt.get(ZmSetting.OFFLINE_WEBAPP_URI, null, appCtxt.accountList.mainAccount);
 					window.platform.registerProtocolHandler("mailto", url + "&mailto=%s");
-				
+
 					// handle "send to mail recipient" on windows (requires mapi@zimbra.com extension)
 					if (AjxEnv.isWindows) {
 						var shell = new ZimbraDesktopShell;
@@ -1452,7 +1437,7 @@ function(regProto, selected) {
 				// register mailto callback
 				var callback = AjxCallback.simpleClosure(this.handleOfflineMailTo, this);
 				window.platform.registerProtocolCallback("mailto", callback);
-			} else { // unselected (box unchecked) 
+			} else { // unselected (box unchecked)
 				window.platform.unregisterProtocolHandler("mailto");
 
 				if (AjxEnv.isWindows) {
@@ -1509,7 +1494,7 @@ function(controller, queryStr) {
         attachments = attachments.replace(/;$/, "");
         attachments = attachments.split(";");
         this._mailtoAttachmentsLength = attachments.length;
-        this._attachmentsProcessed = 0;        
+        this._attachmentsProcessed = 0;
         this.attachment_ids = [];
         for(var i=0; i<attachments.length; i++) {
             this._handleMailToAttachment(attachments[i], controller);
@@ -1673,7 +1658,7 @@ function() {
  * resetBackoff = TRUE e.g. if we've just received a successful
  * response from the server, or if the user just changed our
  * polling settings and we want to start in fast mode
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._kickPolling =
@@ -1807,7 +1792,7 @@ function(result) {
 
 /**
  * Gets the key map manager.
- * 
+ *
  * @return	{DwtKeyMapMgr}	the key map manager
  */
 ZmZimbraMail.prototype.getKeyMapMgr =
@@ -1864,7 +1849,7 @@ function() {
 		rootTg.addMember(overview.getTabGroupMember());
 		ZmController._currentOverview = overview;
 	}
-	
+
 	appCtxt.getKeyboardMgr().setTabGroup(rootTg);
 };
 
@@ -1957,7 +1942,7 @@ function() {
 							 openSetting:		ZmSetting.ZIMLET_TREE_OPEN,
 							 hideEmpty:			true
 							});
-	
+
 	// Technically, we don't need to do this because the drop listeners for dragged organizers typically do their
 	// own checks on the class of the dragged object. But it's better to do it anyway, in case it ever gets
 	// validated within the drop target against the valid types.
@@ -1984,7 +1969,7 @@ function(appName) {
 
 /**
  * Gets a handle to the app view manager.
- * 
+ *
  * @return	{ZmAppViewMgr}	the app view manager
  */
 ZmZimbraMail.prototype.getAppViewMgr =
@@ -1994,7 +1979,7 @@ function() {
 
 /**
  * Gets the active app.
- * 
+ *
  * @return	{ZmApp}	the app
  */
 ZmZimbraMail.prototype.getActiveApp =
@@ -2004,7 +1989,7 @@ function() {
 
 /**
  * Gets the previous application.
- * 
+ *
  * @return	{ZmApp}	the app
  */
 ZmZimbraMail.prototype.getPreviousApp =
@@ -2038,7 +2023,7 @@ function(appName, force, callback, errorCallback, params) {
             if (isIframe) {
                 var title = [ZmMsg.zimbraTitle, appName].join(": ");
                 Dwt.setTitle(title);
-            }            
+            }
 		}
 		if (callback) {
 			callback.run();
@@ -2198,7 +2183,7 @@ function(resultsController) {
 
 /**
  * Gets the app chooser button.
- * 
+ *
  * @param	{String}	id		the id
  * @return	{ZmAppButton}	the button
  */
@@ -2211,7 +2196,7 @@ function(id) {
 /**
  * An app calls this once it has fully rendered, so that we may notify
  * any listeners.
- * 
+ *
  * @param	{String}	appName		the app name
  */
 ZmZimbraMail.prototype.appRendered =
@@ -2227,7 +2212,7 @@ function(appName) {
 
 /**
  * Adds the application.
- * 
+ *
  * @param	{ZmApp}		app		the app
  */
 ZmZimbraMail.prototype.addApp = function(app) {
@@ -2240,7 +2225,7 @@ ZmZimbraMail.prototype.addApp = function(app) {
 
 /**
  * Creates an app object, which doesn't necessarily do anything just yet.
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._createApp =
@@ -2278,7 +2263,7 @@ function() {
 		};
 		el.innerHTML = AjxTemplate.expand("share.App#UserInfo", data);
 	}
-	
+
 	el = document.getElementById("skin_container_help_button");
 	if (el) {
 		this._helpButton = this.getHelpButton(DwtShell.getShell(window));
@@ -2718,7 +2703,7 @@ ZmZimbraMail.prototype.setQuotaInfo = function(login, username) {
  * If a user has been prompted and elects to stay on page, this timer automatically logs them off after an interval of time.
  * @param startTimer {boolean} true to start timer, false to cancel
  */
-ZmZimbraMail.setExitTimer = 
+ZmZimbraMail.setExitTimer =
 function(startTimer) {
 	if (startTimer && ZmZimbraMail.stayOnPagePrompt) {
 		DBG.println(AjxDebug.DBG1, "user has clicked stay on page. scheduled exit timer at " + new Date().toLocaleString());
@@ -2739,14 +2724,14 @@ function(startTimer) {
 		AjxTimedAction.cancelAction(ZmZimbraMail._exitTimerId);
 		ZmZimbraMail._exitTimerId = -1;
 	}
-	
+
 };
 
 // Listeners
 
 /**
  * Logs off the application.
- * 
+ *
  */
 ZmZimbraMail.logOff =
 function(ev, relogin) {
@@ -2784,9 +2769,9 @@ function(ev, relogin) {
 	ZmZimbraMail.sendRedirect(url);	// will trigger onbeforeunload
 	if (AjxEnv.isFirefox) {
 		DBG.println(AjxDebug.DBG1, "calling setExitTimer from logoff "  + new Date().toLocaleString());
-		ZmZimbraMail.setExitTimer(true);	
+		ZmZimbraMail.setExitTimer(true);
 	}
-	
+
 
 };
 
@@ -2799,7 +2784,7 @@ function() {
 	ZmZimbraMail.logOff();
 };
 
-ZmZimbraMail.executeSessionTimer = 
+ZmZimbraMail.executeSessionTimer =
 function() {
 	ZmZimbraMail.sessionTimerInvoked = true;
 	DBG.println(AjxDebug.DBG1, "session timer invoked  " + new Date().toLocaleString());
@@ -2881,7 +2866,7 @@ function(helpurl) {
 
 /**
  * Sends a redirect.
- * 
+ *
  * @param	{String}	locationStr		the redirect location
  */
 ZmZimbraMail.sendRedirect =
@@ -2898,7 +2883,7 @@ function(locationStr) {
 
 /**
  * Redirect.
- * 
+ *
  * @param	{String}	locationStr		the redirect location
  */
 ZmZimbraMail.redir =
@@ -2913,7 +2898,7 @@ function(locationStr){
 
 /**
  * Sets the session timer.
- * 
+ *
  * @param	{Boolean}	bStartTimer		if <code>true</code>, start the timer
  */
 ZmZimbraMail.prototype.setSessionTimer =
@@ -2934,7 +2919,7 @@ function(bStartTimer) {
 		if (document.attachEvent)  {
 			document.attachEvent("onkeydown", ZmZimbraMail._userEventHdlr);
 		}
-		window.onkeydown = ZmZimbraMail._userEventHdlr;		
+		window.onkeydown = ZmZimbraMail._userEventHdlr;
 	}
 	else {
 		DBG.println(AjxDebug.DBG3, "INACTIVITY TIMER CANCELED (" + (new Date()).toLocaleString() + ")");
@@ -2946,14 +2931,14 @@ function(bStartTimer) {
 		this._shell.clearHandler(DwtEvent.ONMOUSEUP);
 		if (document.detachEvent) {
 			document.detachEvent("onkeydown", ZmZimbraMail._userEventHdlr);
-		}	
+		}
 		window.onkeydown = null;
 	}
 };
 
 /**
  * Adds a child window.
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype.addChildWindow =
@@ -2972,7 +2957,7 @@ function(childWin, childId) {
 
 /**
  * Gets a child window.
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype.getChildWindow =
@@ -2991,7 +2976,7 @@ function(childWin) {
 
 /**
  * Removes a child window.
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype.removeChildWindow =
@@ -3017,7 +3002,7 @@ function(childWin) {
  *
  * @param {AjxException}	ex				the exception
  * @param {Object}	continuation		the original request params
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._handleException =
@@ -3047,7 +3032,7 @@ function(ex, continuation) {
 
 /**
  * This method is called by the window.onbeforeunload handler
- * 
+ *
  * @private
  */
 ZmZimbraMail._confirmExitMethod =
@@ -3061,11 +3046,11 @@ function() {
 				DBG.println(AjxDebug.DBG1, "user has already been prompted. Forcing exit " + new Date().toLocaleString());
 				return;
 			}
-			
+
 			ZmZimbraMail._isLogOff = false;
 			DBG.println(AjxDebug.DBG1, "prompting to user to stay on page or leave " + new Date().toLocaleString());
 			var msg = (appCtxt.isOffline) ? ZmMsg.appExitWarningZD : ZmMsg.appExitWarning;
-			
+
 			if (ZmZimbraMail.sessionTimerInvoked) {
 				ZmZimbraMail.stayOnPagePrompt = true;
 				msg = AjxMessageFormat.format(msg + ZmMsg.appExitTimeWarning, [ZmZimbraMail.STAYONPAGE_INTERVAL]); //append time warning
@@ -3075,7 +3060,7 @@ function() {
 				ZmZimbraMail.setExitTimer(true);
 			}
 			return msg;
-			
+
 		}
 
 		ZmZimbraMail._endSession();
@@ -3089,7 +3074,7 @@ function() {
 /**
  * Returns true if there is no unsaved work. If that's the case, it also
  * cancels any pending poll. Typically called by onbeforeunload handling.
- * 
+ *
  * @private
  */
 ZmZimbraMail._isOkToExit =
@@ -3250,7 +3235,7 @@ function(ev) {
 
 /**
  * Gets the application chooser.
- * 
+ *
  * @return	{ZmAppChooser}	the chooser
  */
 ZmZimbraMail.prototype.getAppChooser =
@@ -3260,7 +3245,7 @@ function() {
 
 /**
  * Sets the active tab.
- * 
+ *
  * @param	{String}	id		the tab id
  */
 ZmZimbraMail.prototype.setActiveTabId =
@@ -3271,13 +3256,13 @@ function(id) {
 
 /**
  * Displays a status message.
- * 
+ *
  * @param	{Hash}	params		a hash of parameters
  * @param {String}	params.msg		the message
  * @param {constant}	[params.level] ZmStatusView.LEVEL_INFO, ZmStatusView.LEVEL_WARNING, or ZmStatusView.LEVEL_CRITICAL
  * @param {constant}	[params.detail] 	the details
  * @param {constant}	[params.transitions]		the transitions
- * @param {constant}	[params.toast]		the toast control 
+ * @param {constant}	[params.toast]		the toast control
  * @param {boolean}     [force]        force any displayed toasts out of the way (dismiss them and run their dismissCallback). Enqueued messages that are not yet displayed will not be displayed
  * @param {AjxCallback}    [dismissCallback]    callback to run when the toast is dismissed (by another message using [force], or explicitly calling ZmStatusView.prototype.dismiss())
  * @param {AjxCallback}    [finishCallback]     callback to run when the toast finishes its transitions by itself (not when dismissed)
@@ -3299,7 +3284,7 @@ function(all) {
 
 /**
  * Gets the key map name.
- * 
+ *
  * @return	{String}	the key map name
  */
 ZmZimbraMail.prototype.getKeyMapName =
@@ -3313,7 +3298,7 @@ function() {
 
 /**
  * Handles the key action.
- * 
+ *
  * @param	{constant}		actionCode		the action code
  * @param	{Object}	    ev		        the event
  */
@@ -3401,7 +3386,7 @@ ZmZimbraMail.prototype.handleKeyAction = function(actionCode, ev) {
 
 /**
  * Focuses on the content pane.
- * 
+ *
  */
 ZmZimbraMail.prototype.focusContentPane =
 function() {
@@ -3417,7 +3402,7 @@ function() {
 
 /**
  * Focuses on the toolbar.
- * 
+ *
  */
 ZmZimbraMail.prototype.focusToolbar =
 function() {
@@ -3435,7 +3420,7 @@ function() {
  * a URL for its external content, which we put into an IFRAME.
  *
  * @param {constant}	appName	the name of app
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._createAppIframeView =
@@ -3479,7 +3464,7 @@ function(appName) {
  * Sets up Zimlet organizer type. This is run if we get zimlets in the
  * GetInfoResponse. Note that this will run before apps are instantiated,
  * which is necessary because they depend on knowing whether there are zimlets.
- * 
+ *
  * @private
  */
 ZmZimbraMail.prototype._postLoadZimlet =

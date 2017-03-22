@@ -335,10 +335,12 @@ sub defineInstallWebapps {
 
 sub saveConfig {
   my $fname = "/opt/zimbra/config.$$";
+=for comment
+  hernad
   if (!(defined ($options{c})) && $newinstall ) {
     $fname = askNonBlank ("Save config in file:", $fname);
   }
-
+=cut
   if (open CONF, ">$fname") {
     progress ("Saving config in $fname...");
     foreach (sort keys %config) {
@@ -4324,12 +4326,16 @@ sub createMainMenu {
     "prompt" => "Save config to file",
     "callback" => \&saveConfig,
     };
+
   if (checkMenuConfig(\%mm)) {
+    print "*** CONFIGURATION COMPLETE\n";
+=for comment
     $mm{promptitem} = {
       "selector" => "a",
       "prompt" => "*** CONFIGURATION COMPLETE - press 'a' to apply\nSelect from menu, or press 'a' to apply config",
       "callback" => \&applyConfig,
       };
+=cut
   } else {
     $mm{promptitem} = {
       "selector" => "qqazyre",

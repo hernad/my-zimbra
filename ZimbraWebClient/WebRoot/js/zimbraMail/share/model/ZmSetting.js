@@ -35,7 +35,7 @@
  * will depend on the environment or user activity to get their value.
  *
  * @author Conrad Damon
- * 
+ *
  * @param {String}	id				a unique ID
  * @param {Hash}	params			a hash of parameters
  * @param {String}	params.name				the name of the pref or attr on the server
@@ -44,14 +44,14 @@
  * @param {Object}	params.defaultValue		the default value
  * @param {Boolean}	params.isGlobal			if <code>true</code>, this setting is global across accounts
  * @param {Boolean}	params.isImplicit		if <code>true</code>, this setting is not represented in Preferences
- * 
+ *
  * @extends		ZmModel
  */
 ZmSetting = function(id, params) {
 
 	if (arguments.length == 0) return;
 	ZmModel.call(this, ZmEvent.S_SETTING);
-	
+
 	this.id = id;
 	this.name = params.name;
 	this.type = params.type;
@@ -67,7 +67,7 @@ ZmSetting = function(id, params) {
 	if (params.isImplicit) {
 		ZmSetting.IS_IMPLICIT[id] = true;
 	}
-	
+
 	if (this.dataType == ZmSetting.D_HASH) {
 		this.value = {};
 		this.defaultValue = {};
@@ -223,23 +223,6 @@ ZmSetting.CONV_FETCH_MATCHES                    = "hits";
 ZmSetting.CONV_FETCH_MATCHES_OR_FIRST           = "hits!";
 ZmSetting.CONV_FETCH_ALL                        = "all";
 
-// License status (network only)
-ZmSetting.LICENSE_GOOD			= "OK";
-ZmSetting.LICENSE_NOT_INSTALLED = "NOT_INSTALLED";
-ZmSetting.LICENSE_NOT_ACTIVATED = "NOT_ACTIVATED";
-ZmSetting.LICENSE_FUTURE		= "IN_FUTURE";
-ZmSetting.LICENSE_EXPIRED		= "EXPIRED";
-ZmSetting.LICENSE_BAD			= "INVALID";
-ZmSetting.LICENSE_GRACE			= "LICENSE_GRACE_PERIOD";
-ZmSetting.LICENSE_ACTIV_GRACE	= "ACTIVATION_GRACE_PERIOD";
-
-// warning messages for bad license statuses
-ZmSetting.LICENSE_MSG									= {};
-ZmSetting.LICENSE_MSG[ZmSetting.LICENSE_NOT_INSTALLED]	= ZmMsg.licenseNotInstalled;
-ZmSetting.LICENSE_MSG[ZmSetting.LICENSE_NOT_ACTIVATED]	= ZmMsg.licenseNotActivated;
-ZmSetting.LICENSE_MSG[ZmSetting.LICENSE_FUTURE]			= ZmMsg.licenseExpired;
-ZmSetting.LICENSE_MSG[ZmSetting.LICENSE_EXPIRED]		= ZmMsg.licenseExpired;
-ZmSetting.LICENSE_MSG[ZmSetting.LICENSE_BAD]			= ZmMsg.licenseExpired;
 
 // we need these IDs available when the app classes are parsed
 ZmSetting.LOCALE_NAME			= "LOCALE_NAME";
@@ -311,7 +294,7 @@ ZmSetting.SEND_ON_BEHALF_OF = "sendOnBehalfOf";
 
 /**
  * Returns a string representation of the object.
- * 
+ *
  * @return		{String}		a string representation of the object
  */
 ZmSetting.prototype.toString =
@@ -463,7 +446,7 @@ function(value, key, setDefault, skipNotify, skipImplicit) {
 			this.defaultValue = this.value;
 		}
 	}
-	
+
 	if (ZmSetting.IS_IMPLICIT[this.id] && changed && !skipImplicit) {
 		if (skipNotify) {
 			ZmSetting.CHANGED_IMPLICIT[this.id] = true;
@@ -481,10 +464,10 @@ function(value, key, setDefault, skipNotify, skipImplicit) {
 
 /**
  * Handles modify notification.
- * 
+ *
  * @param	{Object}	obj		the object
  */
-ZmSetting.prototype.notifyModify = 
+ZmSetting.prototype.notifyModify =
 function(obj) {
 	if (this.id == ZmSetting.QUOTA_USED && obj._name == "mbx" && obj.s != null) {
 		this.setValue(obj.s);

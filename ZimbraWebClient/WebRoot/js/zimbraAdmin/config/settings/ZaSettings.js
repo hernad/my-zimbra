@@ -35,13 +35,13 @@ ZaSettings.HAVE_MORE_DOMAINS = false;
 **/
 ZaSettings.postInit = function() {
     //if(window.console && window.console.log) console.log("Finishing loading all the zimlets, and ready to initialize the application ...");
-        
-	//Instrumentation code end	
+
+	//Instrumentation code end
 	var shell = DwtShell.getShell(window);
 	var appCtxt = ZaAppCtxt.getFromShell(shell);
 	var appController = appCtxt.getAppController();
 	appController._createApp();
-	        
+
     //Instrumentation code start
 	if(ZaSettings.initMethods) {
 		var cnt = ZaSettings.initMethods.length;
@@ -50,11 +50,11 @@ ZaSettings.postInit = function() {
 				try {
 					ZaSettings.initMethods[i].call(this);
 				} catch (ex) {
-				//	
+				//
 				}
 			}
 		}
-	}	
+	}
 
     appController._lauchNewApp();
 
@@ -75,18 +75,18 @@ ZaSettings.initRights = function () {
 			ZaZimbraAdmin.currentAdminAccount.load("name", ZaZimbraAdmin.currentUserLogin,false,true);
 		}
 	} catch (ex) {
-		//account may fail to load due to failing admin extensions 
+		//account may fail to load due to failing admin extensions
 	}
 	//if this is a system admin account - enable access to all UI elements
 	if(ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraIsAdminAccount] == 'TRUE') {
 		ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.CARTE_BLANCHE_UI] = true;
-	}	
+	}
 	if(AjxUtil.isEmpty(ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraAdminConsoleUIComponents])) {
 		ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraAdminConsoleUIComponents] = [];
 	} else {
 		if(typeof(ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraAdminConsoleUIComponents])=="string") {
 			ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraAdminConsoleUIComponents] = [ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraAdminConsoleUIComponents]];
-		}	
+		}
 		var cnt = ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraAdminConsoleUIComponents].length;
 		for(var i=0;i<cnt;i++) {
 			ZaSettings.ENABLED_UI_COMPONENTS[ZaZimbraAdmin.currentAdminAccount.attrs[ZaAccount.A_zimbraAdminConsoleUIComponents][i]] = true;
@@ -96,9 +96,9 @@ ZaSettings.initRights = function () {
 	var soapDoc = AjxSoapDoc.create("GetAllEffectiveRightsRequest", ZaZimbraAdmin.URN, null);
 	var elGrantee = soapDoc.set("grantee", ZaZimbraAdmin.currentUserId);
 	elGrantee.setAttribute("by","id");
-	
+
 	var csfeParams = new Object();
-	csfeParams.soapDoc = soapDoc;	
+	csfeParams.soapDoc = soapDoc;
 	var reqMgrParams = {} ;
 	reqMgrParams.controller = ZaApp.getInstance().getCurrentController();
 	reqMgrParams.busyMsg = ZaMsg.BUSY_REQUESTING_ACCESS_RIGHTS ;
@@ -107,14 +107,14 @@ ZaSettings.initRights = function () {
 		ZaSettings.initGlobalRightsFromJS(resp);
 	} catch (ex) {
 		//keep loading
-	}	
-	
+	}
+
 	var comps = ZaSettings.getUIComponents() ;
     var cnt = comps.length;
     for(var i=0;i<cnt;i++) {
       ZaSettings.ENABLED_UI_COMPONENTS[comps[i]._content] = true;
     }
-    
+
 }
 ZaSettings.initMethods.push(ZaSettings.initRights);
 
@@ -145,7 +145,7 @@ ZaSettings.initGlobalRightsFromJS = function(resp) {
 	            }
 			}
 		}
-	}	
+	}
 	ZaApp.getInstance()._cosNameList = cosNameList;
 	ZaApp.getInstance()._domainNameList = domainNamelist;
 }
@@ -167,7 +167,7 @@ ZaSettings.parseTargetsRightsFromJS = function(targetObj) {
 				}
 			}
 		}
-		
+
 		if(targetObj.entries && targetObj.entries.length) {
 			for (var i = 0; i < targetObj.entries.length; i++) {
 				var entry = targetObj.entries[i];
@@ -179,7 +179,7 @@ ZaSettings.parseTargetsRightsFromJS = function(targetObj) {
 						}
 					}
 				}
-				
+
 				if(entry.entry && entry.entry.length) {
 					for(var j = 0; j < entry.entry.length; j++) {
 						if(entry.entry[j] && entry.entry[j].name) {
@@ -192,7 +192,7 @@ ZaSettings.parseTargetsRightsFromJS = function(targetObj) {
 				}
 			}
 		}
-		
+
 		if(targetObj.inDomains && targetObj.inDomains.length) {
 			for (var i = 0; i < targetObj.inDomains.length; i++) {
 				var entry = targetObj.inDomains[i];
@@ -202,12 +202,12 @@ ZaSettings.parseTargetsRightsFromJS = function(targetObj) {
 						domainList.push(entry.domain[j].name);
 					}
 				}
-				if(entry.rights && entry.rights.length && entry.rights[0] 
+				if(entry.rights && entry.rights.length && entry.rights[0]
 						&& entry.rights[0].right && entry.rights[0].right.length) {
 					for(var j = 0; j < entry.rights[0].right.length; j++) {
 						if(!ZaSettings.targetRights[targetObj.type][entry.rights[0].right[j].n]) {
 							ZaSettings.targetRights[targetObj.type][entry.rights[0].right[j].n] = {all:false,some:true};
-						} 
+						}
 						for(var k = 0; k < domainList.length; k++) {
 							ZaSettings.targetRights[targetObj.type][entry.rights[0].right[j].n][domainList[k]] = true;
 							ZaSettings.targetRights[targetObj.type][entry.rights[0].right[j].n].some = true;
@@ -265,10 +265,10 @@ ZaSettings.EnabledZimlet = {};
 ZaSettings.init = function () {
 	if(ZaSettings.initialized || ZaSettings.initializing)
 		return;
-		
+
 	ZaSettings.initializing = true ;
-	DBG.println(AjxDebug.DBG1,"Initializing ZaSettings");		
-	
+	DBG.println(AjxDebug.DBG1,"Initializing ZaSettings");
+
 
 	try {
 		var soapDoc = AjxSoapDoc.create("GetAdminExtensionZimletsRequest", ZaZimbraAdmin.URN, null);
@@ -286,11 +286,11 @@ ZaSettings.init = function () {
                                 //go on
                                 //                    //if(window.console && window.console.log) console.log("Error Getting the Zimlets: " + ex.message);
                }
-		
+
 		if(appDevMode || (DBG.getDebugLevel() > AjxDebug.NONE) || (location.search && (location.search.indexOf("mode=mjsf") != -1))) {
 			if(zimlets && zimlets.length > 0) {
-				var includes = new Array();	
-				var cssIncludes = new Array();	
+				var includes = new Array();
+				var cssIncludes = new Array();
 				var cnt = zimlets.length;
 				for(var ix = 0; ix < cnt; ix++) {
 					if(zimlets[ix] && zimlets[ix].zimlet && zimlets[ix].zimlet[0] && zimlets[ix].zimletContext && zimlets[ix].zimletContext[0]) {
@@ -317,22 +317,22 @@ ZaSettings.init = function () {
 					}
 				}
 				try {
-		
+
 					if(cssIncludes.length > 0){
 					    //if(window.console && window.console.log) console.log ("Loading Zimlets CSS: " + cssIncludes.join(", ") );
 	                    ZaSettings.loadStyles(cssIncludes);
 	                }
-	
+
 					if(includes.length > 0)   {
 	                    //if(window.console && window.console.log) console.log ("Loading Zimlets JS: " + includes.join(", ") );
 	                   	AjxInclude(includes, null,new AjxCallback(ZaSettings.postInit ));
 	                }
-	
+
 	            } catch (ex) {
 					//go on
 					throw ex;
 				}
-						
+
 			} else {
 				ZaSettings.postInit();
 			}
@@ -352,15 +352,15 @@ ZaSettings.init = function () {
 	} catch (ex) {
 		ZaSettings.initializing = false ;
 //		DBG.dumpObj(ex);
-		throw ex;	
+		throw ex;
 	}
-	
+
 	// post-processing code
 /*	DBG.println("+++ document.location.pathname: "+document.location.pathname);
 	var files = [ document.location.pathname + "public/adminPost.js" ];
 	AjxInclude(files);
 	*/
-	
+
 };
 
 
@@ -451,7 +451,7 @@ ZaSettings.getCalendarViewChoinces = function(){
     {value:"list",label:ZaMsg.CalViewList}
     ];
 }
-ZaSettings.calendarViewChoinces = ZaSettings.getCalendarViewChoinces; 
+ZaSettings.calendarViewChoinces = ZaSettings.getCalendarViewChoinces;
 
 ZaSettings.getDayOfWeekChoices = function(){
    return [
@@ -464,7 +464,7 @@ ZaSettings.getDayOfWeekChoices = function(){
     {value:6,label:ZaMsg.Saturday}
     ];
 }
-ZaSettings.dayOfWeekChoices = ZaSettings.getDayOfWeekChoices; 
+ZaSettings.dayOfWeekChoices = ZaSettings.getDayOfWeekChoices;
 
 ZaSettings.getApptVisibilityChoices = function(){
   return [
@@ -472,7 +472,7 @@ ZaSettings.getApptVisibilityChoices = function(){
     {value:"private",label:ZaMsg.AptVisibilityPrivate}
 ];
 }
-ZaSettings.apptVisibilityChoices = ZaSettings.getApptVisibilityChoices; 
+ZaSettings.apptVisibilityChoices = ZaSettings.getApptVisibilityChoices;
 
 ZaSettings.getClientTypeChoices = function(){
   return [
@@ -557,7 +557,7 @@ ZaSettings.ALL_UI_COMPONENTS.push({ value: ZaSettings.SERVER_STATS_QUOTA_TAB, la
 
 //Resources operations
 //ZaSettings.RESOURCES_CREATE_RIGHT = "createResource";
-                                            
+
 ZaSettings.VIEW_RIGHTS = {} ;
 ZaSettings.VIEW_RIGHTS [ZaSettings.ACCOUNT_LIST_VIEW] = "adminConsoleAccountRights" ;
 ZaSettings.VIEW_RIGHTS [ZaSettings.DL_LIST_VIEW] = "adminConsoleDLRights" ;
@@ -578,8 +578,7 @@ ZaSettings.VIEW_RIGHTS [ZaSettings.SAVE_SEARCH] = "adminConsoleSavedSearchRights
 
 ZaSettings.VIEW_RIGHTS [ZaSettings.SERVER_STATS_VIEW] = "adminConsoleServerStatisticRights";
 
-ZaSettings.LICENSE_ENABLED = true;
-ZaSettings.ADMIN_ZIMLETS_ENABLED = true;
+
 ZaSettings.SAVE_SEARCH_ENABLED = true ;
 ZaSettings.TREE_ENABLED = true;
 ZaSettings.CURRENT_APP_ENABLED = true;
@@ -643,7 +642,6 @@ ZaSettings.INIT[ZaSettings.SKIN_LOGIN_MSG_ID]           = [null, ZaSettings.T_CO
 ZaSettings.INIT[ZaSettings.SKIN_APP_TABS_ID]            = [null, ZaSettings.T_CONFIG, ZaSettings.D_STRING, "skin_container_app_tabs"];
 
 // here new skin start.....
-ZaSettings.LICENSE_ENABLED = true;
 ZaSettings.ADMIN_ZIMLETS_ENABLED = true;
 ZaSettings.SAVE_SEARCH_ENABLED = true ;
 ZaSettings.TREE_ENABLED = true;
@@ -894,7 +892,7 @@ ZaSettings.mailCharsetChoices = [
 	{ value: "x-windows-50221" , label: "x-windows-50221" } ,
 	{ value: "x-windows-874" , label: "x-windows-874" } ,
 	{ value: "x-windows-949" , label: "x-windows-949" } ,
-	{ value: "x-windows-950" , label: "x-windows-950" } ,                                   
+	{ value: "x-windows-950" , label: "x-windows-950" } ,
 	{ value: "x-windows-iso2022jp" , label: "x-windows-iso2022jp" }*/
 ] ;
 

@@ -181,7 +181,7 @@ function(id) {
 ZmSettings.prototype.createFromJs =
 function(list, setDefault, skipNotify, skipImplicit) {
     // default skipImplicit value is true
-    skipImplicit = skipImplicit == null || skipImplicit; 
+    skipImplicit = skipImplicit == null || skipImplicit;
 
 	for (var i in list) {
 		var val = list[i];
@@ -322,7 +322,7 @@ ZmSettings.prototype.setUserSettings = function(params) {
 	}
 
 	// Voice feature
-    this.set(ZmSetting.VOICE_ENABLED, this._hasVoiceFeature(), null, false, true);
+    //this.set(ZmSetting.VOICE_ENABLED, this._hasVoiceFeature(), null, false, true);
 
     var accountName = params.accountName;
     var setDefault = params.preInit ? false : params.setDefault;
@@ -335,10 +335,9 @@ ZmSettings.prototype.setUserSettings = function(params) {
         ZmSetting.CHANGE_PASSWORD_URL,      info.changePasswordURL,
         ZmSetting.DOCUMENT_SIZE_LIMIT,      this._base64toNormalSize(info.docSizeLimit),
         ZmSetting.LAST_ACCESS,              info.accessed,
-        ZmSetting.LICENSE_STATUS,           info.license && info.license.status,
         ZmSetting.PREVIOUS_SESSION,         info.prevSession,
         ZmSetting.PUBLIC_URL,               info.publicURL,
-		ZmSetting.ADMIN_URL,                info.adminURL,
+		    ZmSetting.ADMIN_URL,                info.adminURL,
         ZmSetting.QUOTA_USED,               info.used,
         ZmSetting.RECENT_MESSAGES,          info.recent,
         ZmSetting.REST_URL,                 info.rest,
@@ -471,7 +470,7 @@ ZmSettings.prototype.setUserSettings = function(params) {
         // Explicitly Set defaultValue
         sortOrderSetting.defaultValue = AjxUtil.hashCopy(sortPref);
     }
-	
+
 	DwtControl.useBrowserTooltips = this.get(ZmSetting.BROWSER_TOOLTIPS_ENABLED);
 
 	this._updateUserFontPrefsRule();
@@ -962,8 +961,7 @@ function() {
 	this.registerSetting("APP_PASSWORDS_ENABLED",	        {name:"zimbraFeatureAppSpecificPasswordsEnabled", type:ZmSetting.T_COS, dataType:ZmSetting.D_BOOLEAN, defaultValue:false});
 
 	// user metadata (included with COS since the user can't change them)
-	this.registerSetting("LICENSE_STATUS",					{type:ZmSetting.T_COS, defaultValue:ZmSetting.LICENSE_GOOD});
-	this.registerSetting("QUOTA_USED",						{type:ZmSetting.T_COS, dataType:ZmSetting.D_INT});    
+	this.registerSetting("QUOTA_USED",						{type:ZmSetting.T_COS, dataType:ZmSetting.D_INT});
 	this.registerSetting("USERID",							{name:"zimbraId", type:ZmSetting.T_COS});
 	this.registerSetting("USERNAME",						{type:ZmSetting.T_COS});
 	this.registerSetting("CN",								{name:"cn", type:ZmSetting.T_COS});
@@ -1050,7 +1048,7 @@ function() {
 
 	// need to do this before loadUserSettings(), and zimlet settings are not tied to an app where it would normally be done
 	this.registerSetting("ZIMLET_TREE_OPEN",				{name:"zimbraPrefZimletTreeOpen", type:ZmSetting.T_PREF, dataType:ZmSetting.D_BOOLEAN, defaultValue:false, isImplicit:true});
-	
+
 	//shared settings
 	this.registerSetting("MAIL_ALIASES",					{name:"zimbraMailAlias", type:ZmSetting.T_COS, dataType:ZmSetting.D_LIST});
 	this.registerSetting("ALLOW_FROM_ADDRESSES",			{name:"zimbraAllowFromAddress", type:ZmSetting.T_COS, dataType:ZmSetting.D_LIST});
@@ -1237,41 +1235,7 @@ function() {
 	this._userFontPrefsRuleIndex = DwtCssStyle.addRule(document.styleSheets[0], selector, declaration);
 };
 
-// Check license to see if voice feature is allowed
-// License block format:
-//
-//  <license status="OK">
-//    <attr name="SMIME">FALSE</attr>
-//    <attr name="VOICE">TRUE</attr>
-//  </license>
 
-ZmSettings.prototype._hasVoiceFeature = function() {
-
-    var info = this.getInfoResponse;
-    var license = info && info.license;
-    var status = license && license.status;
-
-    if (!license || !license.attr) {
-        return false;
-    }
-
-    // License not installed or not activated or expired
-    if (ZmSetting.LICENSE_MSG[status]) {
-        return false;
-    }
-
-    // check for VOICE license attribute
-
-    for (var i = 0; license && i < license.attr.length; i++) {
-        var attr = license.attr[i];
-
-        if (attr.name == "VOICE") {
-            return attr._content == "TRUE";
-        }
-    }
-
-    return false;
-};
 
 /**
  * @private

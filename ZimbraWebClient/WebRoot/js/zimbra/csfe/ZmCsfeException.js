@@ -39,7 +39,7 @@
  * @param {Object}      [params.data]		an optional structured fault data (Fault.Detail.Error.a)
  * @param {String}      params.trace		the trace info (Fault.Detail.Error.Trace)
  * @param {String}       params.request	the SOAP or JSON that represents the request
- * 
+ *
  * @extends		AjxException
  */
 ZmCsfeException = function(params) {
@@ -47,7 +47,7 @@ ZmCsfeException = function(params) {
 	params = Dwt.getParams(arguments, ZmCsfeException.PARAMS);
 
 	AjxException.call(this, params.msg, params.code, params.method, params.detail);
-	
+
 	if (params.data) {
 		this.data = {};
 		for (var i = 0; i < params.data.length; i++) {
@@ -59,7 +59,7 @@ ZmCsfeException = function(params) {
 			this.data[key].push(item._content);
 		}
 	}
-	
+
 	this.trace = params.trace;
 	this.request = params.request;
 };
@@ -72,7 +72,7 @@ ZmCsfeException.prototype.isZmCsfeException = true;
 
 /**
  * Returns a string representation of the object.
- * 
+ *
  * @return		{String}		a string representation of the object
  */
 ZmCsfeException.prototype.toString =
@@ -94,10 +94,10 @@ ZmCsfeException.MAIL_SEND_ADDRESS_FAILURE_UNSENT = "unsent";
 
 /**
  * Gets the error messages.
- * 
+ *
  * @param	{String}	code	the code
  * @param	{Array}	args		the message format args
- * 
+ *
  * @return	{String}	the message
  */
 ZmCsfeException.getErrorMsg =
@@ -117,7 +117,7 @@ function(code, args) {
 
 /**
  * Gets the error message.
- * 
+ *
  * @param	{Array}	args		the message format args
  * @return	{String}	the message
  */
@@ -128,9 +128,9 @@ function(args) {
 
 /**
  * Gets the data.
- * 
+ *
  * @param	{Object}	key		the key
- * 
+ *
  * @return	{Object}	the data
  */
 ZmCsfeException.prototype.getData =
@@ -150,7 +150,7 @@ ZmCsfeException.NETWORK_ERROR						= "NETWORK_ERROR";
 ZmCsfeException.NO_AUTH_TOKEN						= "NO_AUTH_TOKEN";
 ZmCsfeException.SOAP_ERROR							= "SOAP_ERROR";
 
-ZmCsfeException.LICENSE_ERROR						= "service.LICENSE_ERROR";
+
 ZmCsfeException.SVC_ALREADY_IN_PROGRESS				= "service.ALREADY_IN_PROGRESS";
 ZmCsfeException.SVC_AUTH_EXPIRED					= "service.AUTH_EXPIRED";
 ZmCsfeException.SVC_AUTH_REQUIRED					= "service.AUTH_REQUIRED";
