@@ -1,7 +1,0 @@
-LIBRARY "ZWixUtils"
-
-EXPORTS
-
-ZTokenReplace
-ZTouchFolder
-ZShutdown
