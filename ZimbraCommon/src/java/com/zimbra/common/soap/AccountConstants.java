@@ -145,9 +145,7 @@ public class AccountConstants {
     public static final String E_GET_SMIME_PUBLIC_CERTS_REQUEST = "GetSMIMEPublicCertsRequest";
     public static final String E_GET_SMIME_PUBLIC_CERTS_RESPONSE = "GetSMIMEPublicCertsResponse";
 
-    // ZimbraLicenseExtension - LicenseService
-    public static final String E_CHECK_LICENSE_REQUEST = "CheckLicenseRequest";
-    public static final String E_CHECK_LICENSE_RESPONSE = "CheckLicenseResponse";
+
 
     // Zimbra Mobile Gateway
     public static final String E_BOOTSTRAP_MOBILE_GATEWAY_APP_REQUEST = "BootstrapMobileGatewayAppRequest";
@@ -286,9 +284,6 @@ public class AccountConstants {
     public static final QName GET_SMIME_PUBLIC_CERTS_REQUEST = QName.get(E_GET_SMIME_PUBLIC_CERTS_REQUEST, NAMESPACE);
     public static final QName GET_SMIME_PUBLIC_CERTS_RESPONSE = QName.get(E_GET_SMIME_PUBLIC_CERTS_RESPONSE, NAMESPACE);
 
-    // ZimbraLicenseExtension - LicenseService
-    public static final QName CHECK_LICENSE_REQUEST = QName.get(E_CHECK_LICENSE_REQUEST, NAMESPACE);
-    public static final QName CHECK_LICENSE_RESPONSE = QName.get(E_CHECK_LICENSE_RESPONSE, NAMESPACE);
 
     // Zimbra Mobile Gateway
     public static final QName BOOTSTRAP_MOBILE_GATEWAY_APP_REQUEST = QName.get(E_BOOTSTRAP_MOBILE_GATEWAY_APP_REQUEST, NAMESPACE);
@@ -387,7 +382,7 @@ public class AccountConstants {
     public static final String E_CONTACT_ID = "cid";
     public static final String E_STORE = "store";
     public static final String E_BOSH_URL = "boshURL";
-    
+
     public static final String A_ACTIVE = "active";
     public static final String A_ATTRS = "attrs";
     public static final String A_ADDR = "addr";

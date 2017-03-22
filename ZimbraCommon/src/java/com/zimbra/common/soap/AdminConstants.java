@@ -232,8 +232,6 @@ public final class AdminConstants {
     public static final String E_GET_VERSION_INFO_REQUEST = "GetVersionInfoRequest";
     public static final String E_GET_VERSION_INFO_RESPONSE = "GetVersionInfoResponse";
 
-    public static final String E_GET_LICENSE_INFO_REQUEST = "GetLicenseInfoRequest";
-    public static final String E_GET_LICENSE_INFO_RESPONSE = "GetLicenseInfoResponse";
 
     public static final String E_GET_ATTRIBUTE_INFO_REQUEST = "GetAttributeInfoRequest";
     public static final String E_GET_ATTRIBUTE_INFO_RESPONSE = "GetAttributeInfoResponse";
@@ -480,13 +478,6 @@ public final class AdminConstants {
     public static final String E_MODIFY_SMIME_CONFIG_RESPONSE = "ModifySMIMEConfigResponse";
 
 
-    // LicenseAdminService
-    public static final String E_INSTALL_LICENSE_REQUEST = "InstallLicenseRequest";
-    public static final String E_INSTALL_LICENSE_RESPONSE = "InstallLicenseResponse";
-    public static final String E_ACTIVATE_LICENSE_REQUEST = "ActivateLicenseRequest";
-    public static final String E_ACTIVATE_LICENSE_RESPONSE = "ActivateLicenseResponse";
-    public static final String E_GET_LICENSE_REQUEST = "GetLicenseRequest";
-    public static final String E_GET_LICENSE_RESPONSE = "GetLicenseResponse";
 
     // Auto Provision
     public static final String E_AUTO_PROV_ACCOUNT_REQUEST = "AutoProvAccountRequest";
@@ -728,9 +719,6 @@ public final class AdminConstants {
 
     public static final QName GET_VERSION_INFO_REQUEST = QName.get(E_GET_VERSION_INFO_REQUEST, NAMESPACE);
     public static final QName GET_VERSION_INFO_RESPONSE = QName.get(E_GET_VERSION_INFO_RESPONSE, NAMESPACE);
-
-    public static final QName GET_LICENSE_INFO_REQUEST = QName.get(E_GET_LICENSE_INFO_REQUEST, NAMESPACE);
-    public static final QName GET_LICENSE_INFO_RESPONSE = QName.get(E_GET_LICENSE_INFO_RESPONSE, NAMESPACE);
 
     public static final QName GET_ATTRIBUTE_INFO_REQUEST = QName.get(E_GET_ATTRIBUTE_INFO_REQUEST, NAMESPACE);
     public static final QName GET_ATTRIBUTE_INFO_RESPONSE = QName.get(E_GET_ATTRIBUTE_INFO_RESPONSE, NAMESPACE);
@@ -977,14 +965,6 @@ public final class AdminConstants {
     public static final QName MODIFY_SMIME_CONFIG_REQUEST = QName.get(E_MODIFY_SMIME_CONFIG_REQUEST, NAMESPACE);
     public static final QName MODIFY_SMIME_CONFIG_RESPONSE = QName.get(E_MODIFY_SMIME_CONFIG_RESPONSE, NAMESPACE);
 
-
-    // LicenseAdminService
-    public static final QName INSTALL_LICENSE_REQUEST = QName.get(E_INSTALL_LICENSE_REQUEST, NAMESPACE);
-    public static final QName INSTALL_LICENSE_RESPONSE = QName.get(E_INSTALL_LICENSE_RESPONSE, NAMESPACE);
-    public static final QName ACTIVATE_LICENSE_REQUEST = QName.get(E_ACTIVATE_LICENSE_REQUEST, NAMESPACE);
-    public static final QName ACTIVATE_LICENSE_RESPONSE = QName.get(E_ACTIVATE_LICENSE_RESPONSE, NAMESPACE);
-    public static final QName GET_LICENSE_REQUEST = QName.get(E_GET_LICENSE_REQUEST, NAMESPACE);
-    public static final QName GET_LICENSE_RESPONSE = QName.get(E_GET_LICENSE_RESPONSE, NAMESPACE);
 
     // Auto provision
     public static final QName AUTO_PROV_ACCOUNT_REQUEST = QName.get(E_AUTO_PROV_ACCOUNT_REQUEST, NAMESPACE);
@@ -1233,8 +1213,6 @@ public final class AdminConstants {
     public static final String A_VERSION_INFO_RELNUM = "relnum";
     public static final String A_VERSION_INFO_BUILDNUM = "buildnum";
 
-    public static final String E_LICENSE_EXPIRATION = "expiration";
-    public static final String A_LICENSE_EXPIRATION_DATE = "date";
 
     public static final String E_ZIMLET = "zimlet";
     public static final String E_ACL = "acl";
