@@ -191,7 +191,7 @@
         <!-- take advantage of the fact that mkdir uses File.mkdirs() and creates inbetween dirs -->
         <echo>Creating dirs under ${base.dir}</echo>
 
-      <mkdir dir="${base.dir}/${slapd.conf.dir}"/>
+        <mkdir dir="${base.dir}/${slapd.conf.dir}"/>
         <mkdir dir="${base.dir}/${slapd.etc.dir}/schema"/>
         <mkdir dir="${base.dir}/bin"/>
         <mkdir dir="${base.dir}/conf/msgs"/>

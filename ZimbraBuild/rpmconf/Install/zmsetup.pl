@@ -4336,6 +4336,7 @@ sub createMainMenu {
       "callback" => \&applyConfig,
       };
 =cut
+     applyConfig();
   } else {
     $mm{promptitem} = {
       "selector" => "qqazyre",

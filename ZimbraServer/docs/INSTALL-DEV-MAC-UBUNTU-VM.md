@@ -1,7 +1,7 @@
 Setup Development Environment for Mac with a Ubuntu Server VM
 =============================================================
 
-These instructions describe how to set up a development environment on an OSX machine with VMWare Fusion. 
+These instructions describe how to set up a development environment on an OSX machine with VMWare Fusion.
 Please note, that Zimbra does not run on OSX natively. Therefore, in order to run Zimbra, you need to have a Linux VM. However, you can still
 use Eclipse or IntelliJ and p4v on your Mac.
 
@@ -56,7 +56,7 @@ and look for the address for eth0.
 
         $ sudo apt-get update
         $ sudo apt-get install build-essential ant python-pip
-        
+
 2. Add and configure zimbra-related package repositories. To enable the repository on Ubuntu, create the file `/etc/apt/sources.list.d/zimbra.list` with the following contents:
 
         deb     [arch=amd64] https://repo.zimbra.com/apt/87 trusty zimbra
@@ -81,101 +81,8 @@ You can use `sudo vi` to edit the file.
 
 ## Configure your workspace environment on the VM
 
-1. Add Helix (Perforce) repository by following the instructions for "How to Configure": <https://www.perforce.com/perforce-packages/helix-versioning-engine>
 
-Follow the instructions for APT. The {distro} is 'trusty'.
-
-2. Install helix-cli via apt:
-
-        $ sudo apt-get install helix-cli
-
-3. Copy your SSH keys (public and private) to `/home/zimbra/.ssh/` on the VM. You may want to copy your local `.ssh` directory over.
-Your keys are in `id_rsa` and `id_rsa.pub`, but it might be handy to also have the `config` and `known_hosts` files. (Note: I was not able to get
-copy/paste working, so I used ftp via an external domain of mine.) You should now be able to use `scp` to copy files between your Mac and
-the VM.
-
-[ TODO: If you get copy/paste working, please edit this document with instructions. ]
-
-4. Set up your environment variables (may be different depending on your office location and SSH set up):
-
-Add the following content to `/home/zimbra/.profile`:
-
-    export P4PORT=1066
-    export P4HOST=p4proxy.eng.zimbra.com
-    export P4USER={your p4 username}
-    export P4CONFIG=.p4config
-    export P4EDITOR=/usr/bin/vi
-    export PATH=$PATH:/opt/zimbra/bin:$HOME/bin
-    export ZIMBRA_HOSTNAME={your computer name}.local
-    alias ssh_p4='ssh -f -N p4'
-    alias ssh_web='ssh -f -N web'
-    alias ssh_rb='ssh -f -N rb'
-    alias ssh_all='ssh_p4; ssh_web; ssh_rb'
-
-The `ssh_p4` alias is the only one you really need. The other two are only needed if you want to browse *.eng.zimbra.com from your VM, or post reviews from it.
-
-5. Set up SSH configuration for accessing servers behind the firewall (if you haven't copied over your `~/.ssh/config` file):
-
-Add the following content to `/home/zimbra/.ssh/config`:
-
-    Host *
-      User {your user name on fence-new}
-      IdentityFile ~/.ssh/id_rsa
-      ForwardAgent yes
-      ServerAliveInterval 30
-      ServerAliveCountMax 120
-
-    Host p4
-      Hostname fence-new.zimbra.com
-      LocalForward 1066 perforce.zimbra.com:1066
-
-    Host web
-      Hostname fence-new.zimbra.com
-      DynamicForward 8787
-
-    Host rb
-      Hostname fence-new.zimbra.com
-      LocalForward 8080 reviewboard.eng.zimbra.com:80
-
-6. Load new environment settings and start SSH tunnel to perforce:
-
-        $ source ~/.profile
-        $ ssh_all
-
-
-## Install VMWare Tools
-
-If you want to be able to edit files on your Mac, you have to set up a shared folder on your Mac with read/write access for your Ubuntu VM.
-Follow the instructions at <http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1022525>.
-
-Once VMWare Tools is installed, your Mac's shared folder will be mounted at `/mnt/hgfs/`. You can use this path as your workspace or you can
-map it to another folder on the VM.
-
-
-## Set up JDK 1.7 (JUDASPRIEST)
-
-0. Note: Instead of steps 1-4 below, you may be able to install Java7 much more simply by running the command:
-
-        $ apt-get install openjdk-7-jdk
-
-[ TODO: If you try this and it works, please update this document by removing steps 1-4 below. ]
-
-1. Download Sun JDK 1.7 from <http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html>. You'll want the 64-bit Linux
-version in tar.gz form.
-
-2. Copy the file from your Mac to the VM (the exact version may vary):
-
-        scp ~/Downloads/jdk-7u79-linux-x64.gz zimbra@{VM IP address}:/home/zimbra
-
-3. On the VM, move the folder under `/usr/lib/jvm/`.  For example, if using Sun JDK 1.7.0 rev 79:
-
-        export SUNJDK=jdk1.7.0_79
-        sudo mv ${SUNJDK} /usr/lib/jvm/
-        sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/${SUNJDK}/bin/java" 1
-        sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/${SUNJDK}/bin/javac" 1
-        sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/${SUNJDK}/bin/javaws" 1
-
-4. Make it the default java:
+Make it the default java:
 
         sudo update-alternatives --config java
 
@@ -195,21 +102,6 @@ version in tar.gz form.
 If you are using zimbra-openjdk for compiling Zimbra Java code, add `/opt/zimbra/common/lib/jvm/java/bin` to your `$PATH`.
 You may also want to set `$JAVA_HOME` for other Java tools to work properly.
 
-
-## Get the source code
-
-1. Create one or more Perforce clients. You could do that on your VM, but since clients (workspace specifications) are stored on the Perforce server,
-it's much easier to create it on your Mac. The simplest way is to use P4V to create a new client based on an existing client, for example the one you
-use for JUDASPRIEST. The new client could be named something like "{myusername}-ubuntu-judaspriest". You'll want to update the base directory to the
-location on your VM in your shared folder, for example `/mnt/hgfs/ubuntuhome/p4`. You'll also need to either update or remove the host constraint.
-
-2. Login to Perforce on your VM, set the client, and sync down the code:
-
-        $ p4 login
-        $ export P4CLIENT={myusername}-ubuntu-judaspriest
-        $ p4 sync
-
-Note: The sync will take a while. Though the files are already there, according to the client spec they are not, so everything will be synced.
 
 
 ## Install Jetty and scripts
@@ -283,7 +175,7 @@ To be able to manage files and use an IDE on your Mac, you will need to:
 
 1. Install and configure Perforce on your Mac
 2. Reconfigure your workspace "Root" to map to the path on your Mac e.g. `$HOME/ubuntuhome/p4` instead of `/mnt/hgfs/ubuntuhome/p4`
-3. (bonus points) create a symlink to `/mng/hgfs/ubuntuhome` on the Ubuntu VM to match the path on your Mac host. This will allow you to use the same perforce client spec on both machines. 
+3. (bonus points) create a symlink to `/mng/hgfs/ubuntuhome` on the Ubuntu VM to match the path on your Mac host. This will allow you to use the same perforce client spec on both machines.
 
     E.g., if the shared folder on your mac is `/Users/gsolovyev/ubuntuhome`, run the following on your Ubuntu VM:
 
@@ -326,6 +218,3 @@ Then on your Mac, you can just start up a terminal window and run
         % ssh ubuntu
 
 and you'll have a VM session.
-
-
-
