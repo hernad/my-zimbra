@@ -11,7 +11,6 @@ import generated.zcsclient.admin.testAbortHsmRequest;
 import generated.zcsclient.admin.testAbortHsmResponse;
 import generated.zcsclient.admin.testAbortXMbxSearchRequest;
 import generated.zcsclient.admin.testAbortXMbxSearchResponse;
-import generated.zcsclient.admin.testActivateLicenseResponse;
 import generated.zcsclient.admin.testAddAccountAliasRequest;
 import generated.zcsclient.admin.testAddAccountAliasResponse;
 import generated.zcsclient.admin.testAddAccountLoggerRequest;

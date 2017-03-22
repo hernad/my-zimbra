@@ -40,7 +40,6 @@ public class ObjectFactory {
     private final static QName _GetUCServiceRequest_QNAME = new QName("urn:zimbraAdmin", "GetUCServiceRequest");
     private final static QName _DeleteZimletRequest_QNAME = new QName("urn:zimbraAdmin", "DeleteZimletRequest");
     private final static QName _PurgeMovedMailboxRequest_QNAME = new QName("urn:zimbraAdmin", "PurgeMovedMailboxRequest");
-    private final static QName _ActivateLicenseResponse_QNAME = new QName("urn:zimbraAdmin", "ActivateLicenseResponse");
     private final static QName _PurgeMessagesResponse_QNAME = new QName("urn:zimbraAdmin", "PurgeMessagesResponse");
     private final static QName _GetCSRResponse_QNAME = new QName("urn:zimbraAdmin", "GetCSRResponse");
     private final static QName _UploadDomCertResponse_QNAME = new QName("urn:zimbraAdmin", "UploadDomCertResponse");
@@ -2924,13 +2923,6 @@ public class ObjectFactory {
         return new testGetXMbxSearchesListResponse();
     }
 
-    /**
-     * Create an instance of {@link testActivateLicenseResponse }
-     *
-     */
-    public testActivateLicenseResponse createtestActivateLicenseResponse() {
-        return new testActivateLicenseResponse();
-    }
 
     /**
      * Create an instance of {@link testDeviceId }
@@ -7134,14 +7126,6 @@ public class ObjectFactory {
         return new JAXBElement<testPurgeMovedMailboxRequest>(_PurgeMovedMailboxRequest_QNAME, testPurgeMovedMailboxRequest.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link testActivateLicenseResponse }{@code >}}
-     *
-     */
-    @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "ActivateLicenseResponse")
-    public JAXBElement<testActivateLicenseResponse> createActivateLicenseResponse(testActivateLicenseResponse value) {
-        return new JAXBElement<testActivateLicenseResponse>(_ActivateLicenseResponse_QNAME, testActivateLicenseResponse.class, null, value);
-    }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link testPurgeMessagesResponse }{@code >}}
