@@ -63,8 +63,6 @@ import com.zimbra.soap.account.message.GetShareInfoRequest;
 import com.zimbra.soap.account.message.GetShareInfoResponse;
 import com.zimbra.soap.admin.message.CreateDistributionListRequest;
 import com.zimbra.soap.admin.message.CreateDistributionListResponse;
-import com.zimbra.soap.admin.message.GetLicenseInfoRequest;
-import com.zimbra.soap.admin.message.GetLicenseInfoResponse;
 import com.zimbra.soap.admin.message.GetServerNIfsRequest;
 import com.zimbra.soap.admin.message.GetServerNIfsResponse;
 import com.zimbra.soap.admin.message.GetVersionInfoRequest;
@@ -477,24 +475,24 @@ public class TestJaxbProvisioning extends TestCase {
      * UserA@DomA w/GetShareInfoRequest owner by=name UserM@DomZ - valid owner - with public shares ONLY 4. UserA@DomA
      * w/GetShareInfoRequest owner by=name UserN@DomZ - invalid owner (non-existent account) 5. UserA@DomA
      * w/GetShareInfoRequest owner by=name UserB@DomA - valid owner - *no* public shares (yet)
-     * 
+     *
      * Setup: UserB@DomA creates a public share(s)... - Rerun Tests 1-5
-     * 
+     *
      * => I believe responses for 1-5 (both rounds) should be ~identical if public_share_advertising_scope=none and
      * there are no explicit shares to UserA@DomA
-     * 
+     *
      * # sanity tests on explicit sharing...
-     * 
+     *
      * 6. UserC@DomA w/GetShareInfoRequest owner by=name UserO@DomZ - valid owner - with ONLY an *explicit* (non-public)
      * share with UserB@DomA 7. UserC@DomA w/GetShareInfoRequest owner by=name UserP@DomB - valid owner - with public
      * shares AND an *explicit* (non-public) share with UserB@DomA
-     * 
+     *
      * => I believe responses for 7-8 should be ~identical (different owners of course) if
      * public_share_advertising_scope=none and there are no explicit shares to UserC@DomA
-     * 
+     *
      * - for completeness, we should also repeat 2-7 with by=id, although the likelihood of harvesting using by=id is
      * probably quite a bit lower than by=name.
-     * 
+     *
      * I don't know how this aligns or overlaps with existing test cases but hopefully we end up with a similar set of
      * test cases for each of none|all|samePrimaryDomain as makes sense.
      */
@@ -905,16 +903,6 @@ public class TestJaxbProvisioning extends TestCase {
         assertNotNull("NetworkInfomation List", nisList);
     }
 
-    @Test
-    public void testLicenseInfo() throws Exception {
-        ZimbraLog.test.debug("Starting testLicenseInfo");
-        GetLicenseInfoRequest req = new GetLicenseInfoRequest();
-        GetLicenseInfoResponse resp = prov.invokeJaxb(req);
-        assertNotNull("GetLicensInfoResponse", resp);
-        LicenseExpirationInfo expires = resp.getExpiration();
-        assertNotNull("Expiration Info", expires);
-        assertNotNull("getDate result", expires.getDate());
-    }
 
     @Test
     public void testVersionInfo() throws Exception {

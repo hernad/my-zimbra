@@ -29,15 +29,13 @@ ZaServerVersionInfo.load = function () {
 		var soapDoc = AjxSoapDoc.create("BatchRequest", "urn:zimbra");
 		soapDoc.setMethodAttribute("onerror", "continue");
 		var versionInfoReq = soapDoc.set("GetVersionInfoRequest", null, null, ZaZimbraAdmin.URN);
-		
-		
-		//var licenseInfoReq = soapDoc.set("GetLicenseInfoRequest");
-		//licenseInfoReq.setAttribute("xmlns", ZaZimbraAdmin.URN);
+
+
 		var command = new ZmCsfeCommand();
 		var params = new Object();
-		params.soapDoc = soapDoc;	
+		params.soapDoc = soapDoc;
 		params.noAuthToken = true;
-		var resp = command.invoke(params).Body.BatchResponse;		
+		var resp = command.invoke(params).Body.BatchResponse;
 		var versionResponse = resp.GetVersionInfoResponse[0];
 
 		ZaServerVersionInfo.buildDate = this._parseDateTime(versionResponse.info[0].buildDate);
@@ -55,7 +53,7 @@ ZaServerVersionInfo._parseDate = function (dateTimeStr) {
 	var MM = parseInt(dateTimeStr.substr(4,2), 10);
 	var dd = parseInt(dateTimeStr.substr(6,2), 10);
 	d.setFullYear(yyyy);
-	// EMC 8/31/05 - fix for bug 3839. It looks like firefox needs to call setMonth twice for 
+	// EMC 8/31/05 - fix for bug 3839. It looks like firefox needs to call setMonth twice for
 	// dates starting sept 1. No good reason at this point, but I noticed that
 	// setting it twice seems to do the trick. Very odd.
 	d.setMonth(MM - 1);

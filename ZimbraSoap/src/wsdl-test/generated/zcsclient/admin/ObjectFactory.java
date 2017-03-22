@@ -63,7 +63,6 @@ public class ObjectFactory {
     private final static QName _GetCalendarResourceRequest_QNAME = new QName("urn:zimbraAdmin", "GetCalendarResourceRequest");
     private final static QName _SuspendDeviceRequest_QNAME = new QName("urn:zimbraAdmin", "SuspendDeviceRequest");
     private final static QName _ModifyAccountRequest_QNAME = new QName("urn:zimbraAdmin", "ModifyAccountRequest");
-    private final static QName _GetLicenseInfoRequest_QNAME = new QName("urn:zimbraAdmin", "GetLicenseInfoRequest");
     private final static QName _GetSMIMEConfigRequest_QNAME = new QName("urn:zimbraAdmin", "GetSMIMEConfigRequest");
     private final static QName _CreateXMbxSearchRequest_QNAME = new QName("urn:zimbraAdmin", "CreateXMbxSearchRequest");
     private final static QName _InstallCertRequest_QNAME = new QName("urn:zimbraAdmin", "InstallCertRequest");
@@ -87,7 +86,6 @@ public class ObjectFactory {
     private final static QName _GetAllSkinsResponse_QNAME = new QName("urn:zimbraAdmin", "GetAllSkinsResponse");
     private final static QName _DumpSessionsResponse_QNAME = new QName("urn:zimbraAdmin", "DumpSessionsResponse");
     private final static QName _FixCalendarTZRequest_QNAME = new QName("urn:zimbraAdmin", "FixCalendarTZRequest");
-    private final static QName _GetLicenseInfoResponse_QNAME = new QName("urn:zimbraAdmin", "GetLicenseInfoResponse");
     private final static QName _GetAdminSavedSearchesResponse_QNAME = new QName("urn:zimbraAdmin", "GetAdminSavedSearchesResponse");
     private final static QName _CancelPendingRemoteWipeRequest_QNAME = new QName("urn:zimbraAdmin", "CancelPendingRemoteWipeRequest");
     private final static QName _Domain_QNAME = new QName("urn:zimbraAdmin", "domain");
@@ -278,7 +276,6 @@ public class ObjectFactory {
     private final static QName _GetSystemRetentionPolicyRequest_QNAME = new QName("urn:zimbraAdmin", "GetSystemRetentionPolicyRequest");
     private final static QName _CreateVolumeResponse_QNAME = new QName("urn:zimbraAdmin", "CreateVolumeResponse");
     private final static QName _SetPasswordRequest_QNAME = new QName("urn:zimbraAdmin", "SetPasswordRequest");
-    private final static QName _GetLicenseResponse_QNAME = new QName("urn:zimbraAdmin", "GetLicenseResponse");
     private final static QName _ModifySystemRetentionPolicyRequest_QNAME = new QName("urn:zimbraAdmin", "ModifySystemRetentionPolicyRequest");
     private final static QName _AddAccountAliasRequest_QNAME = new QName("urn:zimbraAdmin", "AddAccountAliasRequest");
     private final static QName _DeployZimletRequest_QNAME = new QName("urn:zimbraAdmin", "DeployZimletRequest");
@@ -521,7 +518,6 @@ public class ObjectFactory {
     private final static QName _ModifyDataSourceResponse_QNAME = new QName("urn:zimbraAdmin", "ModifyDataSourceResponse");
     private final static QName _GetAllServersResponse_QNAME = new QName("urn:zimbraAdmin", "GetAllServersResponse");
     private final static QName _GetAllLocalesRequest_QNAME = new QName("urn:zimbraAdmin", "GetAllLocalesRequest");
-    private final static QName _GetLicenseRequest_QNAME = new QName("urn:zimbraAdmin", "GetLicenseRequest");
     private final static QName _GetCSRRequest_QNAME = new QName("urn:zimbraAdmin", "GetCSRRequest");
     private final static QName _GetAllUCProvidersRequest_QNAME = new QName("urn:zimbraAdmin", "GetAllUCProvidersRequest");
     private final static QName _CreateAlwaysOnClusterResponse_QNAME = new QName("urn:zimbraAdmin", "CreateAlwaysOnClusterResponse");
@@ -2439,13 +2435,6 @@ public class ObjectFactory {
         return new testEntrySearchFilterMultiCond();
     }
 
-    /**
-     * Create an instance of {@link testGetLicenseInfoRequest }
-     *
-     */
-    public testGetLicenseInfoRequest createtestGetLicenseInfoRequest() {
-        return new testGetLicenseInfoRequest();
-    }
 
     /**
      * Create an instance of {@link testGetConfigRequest }
@@ -3023,13 +3012,6 @@ public class ObjectFactory {
         return new testGetSystemRetentionPolicyRequest();
     }
 
-    /**
-     * Create an instance of {@link testGetLicenseInfoResponse }
-     *
-     */
-    public testGetLicenseInfoResponse createtestGetLicenseInfoResponse() {
-        return new testGetLicenseInfoResponse();
-    }
 
     /**
      * Create an instance of {@link testComboRightInfo }
@@ -3381,14 +3363,6 @@ public class ObjectFactory {
      */
     public testGetAllFreeBusyProvidersResponse createtestGetAllFreeBusyProvidersResponse() {
         return new testGetAllFreeBusyProvidersResponse();
-    }
-
-    /**
-     * Create an instance of {@link testGetLicenseRequest }
-     *
-     */
-    public testGetLicenseRequest createtestGetLicenseRequest() {
-        return new testGetLicenseRequest();
     }
 
     /**
@@ -4693,14 +4667,6 @@ public class ObjectFactory {
      */
     public testRightsAttrs createtestRightsAttrs() {
         return new testRightsAttrs();
-    }
-
-    /**
-     * Create an instance of {@link testGetLicenseResponse }
-     *
-     */
-    public testGetLicenseResponse createtestGetLicenseResponse() {
-        return new testGetLicenseResponse();
     }
 
     /**
@@ -7375,14 +7341,6 @@ public class ObjectFactory {
         return new JAXBElement<testModifyAccountRequest>(_ModifyAccountRequest_QNAME, testModifyAccountRequest.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link testGetLicenseInfoRequest }{@code >}}
-     *
-     */
-    @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "GetLicenseInfoRequest")
-    public JAXBElement<testGetLicenseInfoRequest> createGetLicenseInfoRequest(testGetLicenseInfoRequest value) {
-        return new JAXBElement<testGetLicenseInfoRequest>(_GetLicenseInfoRequest_QNAME, testGetLicenseInfoRequest.class, null, value);
-    }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link testGetSMIMEConfigRequest }{@code >}}
@@ -7591,14 +7549,6 @@ public class ObjectFactory {
         return new JAXBElement<testFixCalendarTZRequest>(_FixCalendarTZRequest_QNAME, testFixCalendarTZRequest.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link testGetLicenseInfoResponse }{@code >}}
-     *
-     */
-    @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "GetLicenseInfoResponse")
-    public JAXBElement<testGetLicenseInfoResponse> createGetLicenseInfoResponse(testGetLicenseInfoResponse value) {
-        return new JAXBElement<testGetLicenseInfoResponse>(_GetLicenseInfoResponse_QNAME, testGetLicenseInfoResponse.class, null, value);
-    }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link testGetAdminSavedSearchesResponse }{@code >}}
@@ -9313,14 +9263,6 @@ public class ObjectFactory {
         return new JAXBElement<testSetPasswordRequest>(_SetPasswordRequest_QNAME, testSetPasswordRequest.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link testGetLicenseResponse }{@code >}}
-     *
-     */
-    @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "GetLicenseResponse")
-    public JAXBElement<testGetLicenseResponse> createGetLicenseResponse(testGetLicenseResponse value) {
-        return new JAXBElement<testGetLicenseResponse>(_GetLicenseResponse_QNAME, testGetLicenseResponse.class, null, value);
-    }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link testModifySystemRetentionPolicyRequest }{@code >}}
@@ -11500,14 +11442,6 @@ public class ObjectFactory {
         return new JAXBElement<testGetAllLocalesRequest>(_GetAllLocalesRequest_QNAME, testGetAllLocalesRequest.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link testGetLicenseRequest }{@code >}}
-     *
-     */
-    @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "GetLicenseRequest")
-    public JAXBElement<testGetLicenseRequest> createGetLicenseRequest(testGetLicenseRequest value) {
-        return new JAXBElement<testGetLicenseRequest>(_GetLicenseRequest_QNAME, testGetLicenseRequest.class, null, value);
-    }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link testGetCSRRequest }{@code >}}

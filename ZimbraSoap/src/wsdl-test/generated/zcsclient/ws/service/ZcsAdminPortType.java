@@ -290,10 +290,6 @@ import generated.zcsclient.admin.testGetIndexStatsRequest;
 import generated.zcsclient.admin.testGetIndexStatsResponse;
 import generated.zcsclient.admin.testGetLDAPEntriesRequest;
 import generated.zcsclient.admin.testGetLDAPEntriesResponse;
-import generated.zcsclient.admin.testGetLicenseInfoRequest;
-import generated.zcsclient.admin.testGetLicenseInfoResponse;
-import generated.zcsclient.admin.testGetLicenseRequest;
-import generated.zcsclient.admin.testGetLicenseResponse;
 import generated.zcsclient.admin.testGetLoggerStatsRequest;
 import generated.zcsclient.admin.testGetLoggerStatsResponse;
 import generated.zcsclient.admin.testGetMailQueueInfoRequest;
@@ -2240,29 +2236,6 @@ public interface ZcsAdminPortType {
         @WebParam(name = "GetLDAPEntriesRequest", targetNamespace = "urn:zimbraAdmin", partName = "params")
         testGetLDAPEntriesRequest params);
 
-    /**
-     *
-     * @param params
-     * @return
-     *     returns generated.zcsclient.admin.testGetLicenseInfoResponse
-     */
-    @WebMethod(action = "urn:zimbraAdmin/GetLicenseInfo")
-    @WebResult(name = "GetLicenseInfoResponse", targetNamespace = "urn:zimbraAdmin", partName = "params")
-    public testGetLicenseInfoResponse getLicenseInfoRequest(
-        @WebParam(name = "GetLicenseInfoRequest", targetNamespace = "urn:zimbraAdmin", partName = "params")
-        testGetLicenseInfoRequest params);
-
-    /**
-     *
-     * @param params
-     * @return
-     *     returns generated.zcsclient.admin.testGetLicenseResponse
-     */
-    @WebMethod(action = "urn:zimbraAdmin/GetLicense")
-    @WebResult(name = "GetLicenseResponse", targetNamespace = "urn:zimbraAdmin", partName = "params")
-    public testGetLicenseResponse getLicenseRequest(
-        @WebParam(name = "GetLicenseRequest", targetNamespace = "urn:zimbraAdmin", partName = "params")
-        testGetLicenseRequest params);
 
     /**
      *
