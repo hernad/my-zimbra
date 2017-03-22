@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ZimbraBuild/defs/plat_common.sh
+JETTY_VERSION=9.3.16.v20170120
 
 echo "exclude notify from install procedure"
 
@@ -49,4 +49,3 @@ curl -LO http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.
 
 cd ../..
 ls -l ThirdParty/jetty/jetty-distribution-${JETTY_VERSION}.tar.gz
-
