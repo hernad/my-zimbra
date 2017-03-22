@@ -977,9 +977,6 @@ public final class AdminConstants {
     public static final QName MODIFY_SMIME_CONFIG_REQUEST = QName.get(E_MODIFY_SMIME_CONFIG_REQUEST, NAMESPACE);
     public static final QName MODIFY_SMIME_CONFIG_RESPONSE = QName.get(E_MODIFY_SMIME_CONFIG_RESPONSE, NAMESPACE);
 
-    // Version Check
-    public static final QName VC_REQUEST = QName.get(E_VC_REQUEST, NAMESPACE);
-    public static final QName VC_RESPONSE = QName.get(E_VC_RESPONSE, NAMESPACE);
 
     // LicenseAdminService
     public static final QName INSTALL_LICENSE_REQUEST = QName.get(E_INSTALL_LICENSE_REQUEST, NAMESPACE);
