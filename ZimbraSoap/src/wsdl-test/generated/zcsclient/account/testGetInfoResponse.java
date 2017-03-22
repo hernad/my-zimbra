@@ -13,9 +13,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for getInfoResponse complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="getInfoResponse">
  *   &lt;complexContent>
@@ -161,8 +161,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getInfoResponse", propOrder = {
@@ -222,7 +222,6 @@ public class testGetInfoResponse {
     protected String soapURL;
     protected String publicURL;
     protected String changePasswordURL;
-    protected testLicenseInfo license;
     protected String adminURL;
     @XmlAttribute(name = "attSizeLimit")
     protected Long attSizeLimit;
@@ -231,11 +230,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the version property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVersion() {
         return version;
@@ -243,11 +242,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the version property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVersion(String value) {
         this.version = value;
@@ -255,11 +254,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -267,11 +266,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -279,11 +278,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -291,11 +290,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -303,11 +302,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the crumb property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCrumb() {
         return crumb;
@@ -315,11 +314,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the crumb property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCrumb(String value) {
         this.crumb = value;
@@ -327,7 +326,7 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the lifetime property.
-     * 
+     *
      */
     public long getLifetime() {
         return lifetime;
@@ -335,7 +334,7 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the lifetime property.
-     * 
+     *
      */
     public void setLifetime(long value) {
         this.lifetime = value;
@@ -343,11 +342,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the adminDelegated property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Boolean }
-     *     
+     *
      */
     public Boolean isAdminDelegated() {
         return adminDelegated;
@@ -355,11 +354,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the adminDelegated property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Boolean }
-     *     
+     *
      */
     public void setAdminDelegated(Boolean value) {
         this.adminDelegated = value;
@@ -367,11 +366,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the rest property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRest() {
         return rest;
@@ -379,11 +378,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the rest property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRest(String value) {
         this.rest = value;
@@ -391,11 +390,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the used property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Long }
-     *     
+     *
      */
     public Long getUsed() {
         return used;
@@ -403,11 +402,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the used property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Long }
-     *     
+     *
      */
     public void setUsed(Long value) {
         this.used = value;
@@ -415,11 +414,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the prevSession property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Long }
-     *     
+     *
      */
     public Long getPrevSession() {
         return prevSession;
@@ -427,11 +426,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the prevSession property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Long }
-     *     
+     *
      */
     public void setPrevSession(Long value) {
         this.prevSession = value;
@@ -439,11 +438,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the accessed property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Long }
-     *     
+     *
      */
     public Long getAccessed() {
         return accessed;
@@ -451,11 +450,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the accessed property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Long }
-     *     
+     *
      */
     public void setAccessed(Long value) {
         this.accessed = value;
@@ -463,11 +462,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the recent property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Integer }
-     *     
+     *
      */
     public Integer getRecent() {
         return recent;
@@ -475,11 +474,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the recent property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Integer }
-     *     
+     *
      */
     public void setRecent(Integer value) {
         this.recent = value;
@@ -487,11 +486,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the cos property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testCos }
-     *     
+     *
      */
     public testCos getCos() {
         return cos;
@@ -499,11 +498,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the cos property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testCos }
-     *     
+     *
      */
     public void setCos(testCos value) {
         this.cos = value;
@@ -511,11 +510,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the prefs property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.Prefs }
-     *     
+     *
      */
     public testGetInfoResponse.Prefs getPrefs() {
         return prefs;
@@ -523,11 +522,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the prefs property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.Prefs }
-     *     
+     *
      */
     public void setPrefs(testGetInfoResponse.Prefs value) {
         this.prefs = value;
@@ -535,11 +534,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the attrs property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.Attrs }
-     *     
+     *
      */
     public testGetInfoResponse.Attrs getAttrs() {
         return attrs;
@@ -547,11 +546,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the attrs property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.Attrs }
-     *     
+     *
      */
     public void setAttrs(testGetInfoResponse.Attrs value) {
         this.attrs = value;
@@ -559,11 +558,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the zimlets property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.Zimlets }
-     *     
+     *
      */
     public testGetInfoResponse.Zimlets getZimlets() {
         return zimlets;
@@ -571,11 +570,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the zimlets property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.Zimlets }
-     *     
+     *
      */
     public void setZimlets(testGetInfoResponse.Zimlets value) {
         this.zimlets = value;
@@ -583,11 +582,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the props property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.Props }
-     *     
+     *
      */
     public testGetInfoResponse.Props getProps() {
         return props;
@@ -595,11 +594,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the props property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.Props }
-     *     
+     *
      */
     public void setProps(testGetInfoResponse.Props value) {
         this.props = value;
@@ -607,11 +606,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the identities property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.Identities }
-     *     
+     *
      */
     public testGetInfoResponse.Identities getIdentities() {
         return identities;
@@ -619,11 +618,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the identities property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.Identities }
-     *     
+     *
      */
     public void setIdentities(testGetInfoResponse.Identities value) {
         this.identities = value;
@@ -631,11 +630,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the signatures property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.Signatures }
-     *     
+     *
      */
     public testGetInfoResponse.Signatures getSignatures() {
         return signatures;
@@ -643,11 +642,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the signatures property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.Signatures }
-     *     
+     *
      */
     public void setSignatures(testGetInfoResponse.Signatures value) {
         this.signatures = value;
@@ -655,11 +654,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the dataSources property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.DataSources }
-     *     
+     *
      */
     public testGetInfoResponse.DataSources getDataSources() {
         return dataSources;
@@ -667,11 +666,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the dataSources property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.DataSources }
-     *     
+     *
      */
     public void setDataSources(testGetInfoResponse.DataSources value) {
         this.dataSources = value;
@@ -679,11 +678,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the childAccounts property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.ChildAccounts }
-     *     
+     *
      */
     public testGetInfoResponse.ChildAccounts getChildAccounts() {
         return childAccounts;
@@ -691,11 +690,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the childAccounts property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.ChildAccounts }
-     *     
+     *
      */
     public void setChildAccounts(testGetInfoResponse.ChildAccounts value) {
         this.childAccounts = value;
@@ -703,11 +702,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the rights property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link testGetInfoResponse.Rights }
-     *     
+     *
      */
     public testGetInfoResponse.Rights getRights() {
         return rights;
@@ -715,11 +714,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the rights property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link testGetInfoResponse.Rights }
-     *     
+     *
      */
     public void setRights(testGetInfoResponse.Rights value) {
         this.rights = value;
@@ -727,11 +726,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the soapURL property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getSoapURL() {
         return soapURL;
@@ -739,11 +738,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the soapURL property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setSoapURL(String value) {
         this.soapURL = value;
@@ -751,11 +750,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the publicURL property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPublicURL() {
         return publicURL;
@@ -763,11 +762,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the publicURL property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPublicURL(String value) {
         this.publicURL = value;
@@ -775,11 +774,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the changePasswordURL property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getChangePasswordURL() {
         return changePasswordURL;
@@ -787,47 +786,25 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the changePasswordURL property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setChangePasswordURL(String value) {
         this.changePasswordURL = value;
     }
 
-    /**
-     * Gets the value of the license property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link testLicenseInfo }
-     *     
-     */
-    public testLicenseInfo getLicense() {
-        return license;
-    }
 
-    /**
-     * Sets the value of the license property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link testLicenseInfo }
-     *     
-     */
-    public void setLicense(testLicenseInfo value) {
-        this.license = value;
-    }
 
     /**
      * Gets the value of the adminURL property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAdminURL() {
         return adminURL;
@@ -835,11 +812,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the adminURL property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAdminURL(String value) {
         this.adminURL = value;
@@ -847,11 +824,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the attSizeLimit property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Long }
-     *     
+     *
      */
     public Long getAttSizeLimit() {
         return attSizeLimit;
@@ -859,11 +836,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the attSizeLimit property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Long }
-     *     
+     *
      */
     public void setAttSizeLimit(Long value) {
         this.attSizeLimit = value;
@@ -871,11 +848,11 @@ public class testGetInfoResponse {
 
     /**
      * Gets the value of the docSizeLimit property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Long }
-     *     
+     *
      */
     public Long getDocSizeLimit() {
         return docSizeLimit;
@@ -883,11 +860,11 @@ public class testGetInfoResponse {
 
     /**
      * Sets the value of the docSizeLimit property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Long }
-     *     
+     *
      */
     public void setDocSizeLimit(Long value) {
         this.docSizeLimit = value;
@@ -896,9 +873,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -911,8 +888,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -926,25 +903,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the attr property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the attr property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getAttr().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testAttr }
-         * 
-         * 
+         *
+         *
          */
         public List<testAttr> getAttr() {
             if (attr == null) {
@@ -955,11 +932,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -967,11 +944,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;
@@ -982,9 +959,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -997,8 +974,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1012,25 +989,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the childAccount property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the childAccount property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getChildAccount().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testChildAccount }
-         * 
-         * 
+         *
+         *
          */
         public List<testChildAccount> getChildAccount() {
             if (childAccount == null) {
@@ -1041,11 +1018,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -1053,11 +1030,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;
@@ -1068,9 +1045,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1091,8 +1068,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1114,20 +1091,20 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the imapOrPop3OrCaldav property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the imapOrPop3OrCaldav property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getImapOrPop3OrCaldav().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testAccountYabDataSource }
@@ -1138,8 +1115,8 @@ public class testGetInfoResponse {
          * {@link testAccountGalDataSource }
          * {@link testAccountCalDataSource }
          * {@link testAccountPop3DataSource }
-         * 
-         * 
+         *
+         *
          */
         public List<testAccountDataSource> getImapOrPop3OrCaldav() {
             if (imapOrPop3OrCaldav == null) {
@@ -1153,9 +1130,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1168,8 +1145,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1183,25 +1160,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the identity property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the identity property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getIdentity().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testIdentity }
-         * 
-         * 
+         *
+         *
          */
         public List<testIdentity> getIdentity() {
             if (identity == null) {
@@ -1212,11 +1189,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -1224,11 +1201,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;
@@ -1239,9 +1216,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1254,8 +1231,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1269,25 +1246,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the pref property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the pref property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getPref().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testPref }
-         * 
-         * 
+         *
+         *
          */
         public List<testPref> getPref() {
             if (pref == null) {
@@ -1298,11 +1275,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -1310,11 +1287,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;
@@ -1325,9 +1302,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1340,8 +1317,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1355,25 +1332,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the prop property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the prop property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getProp().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testProp }
-         * 
-         * 
+         *
+         *
          */
         public List<testProp> getProp() {
             if (prop == null) {
@@ -1384,11 +1361,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -1396,11 +1373,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;
@@ -1411,9 +1388,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1426,8 +1403,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1441,25 +1418,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the targets property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the targets property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getTargets().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testDiscoverRightsInfo }
-         * 
-         * 
+         *
+         *
          */
         public List<testDiscoverRightsInfo> getTargets() {
             if (targets == null) {
@@ -1470,11 +1447,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -1482,11 +1459,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;
@@ -1497,9 +1474,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1512,8 +1489,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1527,25 +1504,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the signature property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the signature property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getSignature().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testSignature }
-         * 
-         * 
+         *
+         *
          */
         public List<testSignature> getSignature() {
             if (signature == null) {
@@ -1556,11 +1533,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -1568,11 +1545,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;
@@ -1583,9 +1560,9 @@ public class testGetInfoResponse {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1598,8 +1575,8 @@ public class testGetInfoResponse {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1613,25 +1590,25 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the zimlet property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the zimlet property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getZimlet().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link testAccountZimletInfo }
-         * 
-         * 
+         *
+         *
          */
         public List<testAccountZimletInfo> getZimlet() {
             if (zimlet == null) {
@@ -1642,11 +1619,11 @@ public class testGetInfoResponse {
 
         /**
          * Gets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getUnusedCodeGenHelper() {
             return unusedCodeGenHelper;
@@ -1654,11 +1631,11 @@ public class testGetInfoResponse {
 
         /**
          * Sets the value of the unusedCodeGenHelper property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setUnusedCodeGenHelper(String value) {
             this.unusedCodeGenHelper = value;

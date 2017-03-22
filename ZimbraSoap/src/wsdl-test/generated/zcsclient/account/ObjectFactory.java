@@ -511,13 +511,6 @@ public class ObjectFactory {
         return new testDiscoverRightsInfo();
     }
 
-    /**
-     * Create an instance of {@link testLicenseInfo }
-     *
-     */
-    public testLicenseInfo createtestLicenseInfo() {
-        return new testLicenseInfo();
-    }
 
     /**
      * Create an instance of {@link testEnableTwoFactorAuthResponse }
@@ -1263,14 +1256,7 @@ public class ObjectFactory {
         return new testPref();
     }
 
-    /**
-     * Create an instance of {@link testLicenseAttr }
-     *
-     */
-    public testLicenseAttr createtestLicenseAttr() {
-        return new testLicenseAttr();
-    }
-
+  
     /**
      * Create an instance of {@link testCheckRightsTargetInfo }
      *

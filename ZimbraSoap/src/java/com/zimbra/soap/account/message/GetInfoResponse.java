@@ -52,7 +52,6 @@ import com.zimbra.soap.account.type.ChildAccount;
 import com.zimbra.soap.account.type.Cos;
 import com.zimbra.soap.account.type.DiscoverRightsInfo;
 import com.zimbra.soap.account.type.Identity;
-import com.zimbra.soap.account.type.LicenseInfo;
 import com.zimbra.soap.account.type.Pref;
 import com.zimbra.soap.account.type.Prop;
 import com.zimbra.soap.account.type.Signature;
@@ -311,12 +310,6 @@ public final class GetInfoResponse {
     @ZimbraJsonAttribute
     private String boshURL;
 
-    /**
-     * @zm-api-field-description License information.  Only present for Network Edition
-     */
-    @ZimbraUniqueElement
-    @XmlElement(name=AccountConstants.E_LICENSE /* license */, required=false)
-    private LicenseInfo license;
 
     public GetInfoResponse() {
     }
@@ -439,8 +432,6 @@ public final class GetInfoResponse {
     public void setChangePasswordURL(String changePasswordURL) { this.changePasswordURL = changePasswordURL; }
     public void setAdminURL(String adminURL) { this.adminURL = adminURL; }
     public void setBOSHURL(String boshURL) { this.boshURL = boshURL; }
-    public void setLicense(LicenseInfo license) { this.license = license; }
-
     public Long getAttachmentSizeLimit() { return attachmentSizeLimit; }
     public Long getDocumentSizeLimit() { return documentSizeLimit; }
     public String getVersion() { return version; }
@@ -456,7 +447,7 @@ public final class GetInfoResponse {
     public Integer getRecentMessageCount() { return recentMessageCount; }
     public String getAdminURL() { return adminURL; }
     public String getBOSHURL() { return boshURL; }
-    
+
     public Cos getCos() { return cos; }
     public List<Pref> getPrefs() {
         return Collections.unmodifiableList(prefs);
@@ -490,7 +481,6 @@ public final class GetInfoResponse {
     }
     public String getPublicURL() { return publicURL; }
     public String getChangePasswordURL() { return changePasswordURL; }
-    public LicenseInfo getLicense() { return license; }
 
     public Multimap<String, String> getPrefsMultimap() {
         return Pref.toMultimap(prefs);
