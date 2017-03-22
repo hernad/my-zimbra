@@ -42,6 +42,7 @@ do
 done
 
 
+mkdir -p ThirdParty/jetty
 cd ThirdParty/jetty
 
 curl -LO http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.16.v20170120/jetty-distribution-${JETTY_VERSION}.gz
