@@ -435,10 +435,6 @@ public class RightConsts {
      */
     public static final String RT_adminConsoleGlobalInfoTabRights = "adminConsoleGlobalInfoTabRights";
 
-    /**
-     * Admin Console rights for GlobalLicense Tab
-     */
-    public static final String RT_adminConsoleGlobalLicenseTabRights = "adminConsoleGlobalLicenseTabRights";
 
     /**
      * Admin Console rights for Global MTA Tab
@@ -550,11 +546,7 @@ public class RightConsts {
      */
     public static final String RT_adminConsoleServerVolumesTabRights = "adminConsoleServerVolumesTabRights";
 
-    /**
-     * Rights for configuring software updates component a server through
-     * Admin Console
-     */
-    public static final String RT_adminConsoleSoftwareUpdatesRights = "adminConsoleSoftwareUpdatesRights";
+
 
     /**
      * Admin Console Sub Domain Rights
@@ -1710,11 +1702,6 @@ public class RightConsts {
     public static final String RT_setAdminConsoleGlobalInfoTab = "setAdminConsoleGlobalInfoTab";
 
     /**
-     * Admin Console set attr rights for GlobalLicense Tab
-     */
-    public static final String RT_setAdminConsoleGlobalLicenseTab = "setAdminConsoleGlobalLicenseTab";
-
-    /**
      * Admin Console set attr rights for Global MTA Tab
      */
     public static final String RT_setAdminConsoleGlobalMTATab = "setAdminConsoleGlobalMTATab";
@@ -2122,11 +2109,6 @@ public class RightConsts {
     public static final String RT_viewAdminConsoleGlobalInfoTab = "viewAdminConsoleGlobalInfoTab";
 
     /**
-     * Admin Console view attr rights for GlobalLicense Tab
-     */
-    public static final String RT_viewAdminConsoleGlobalLicenseTab = "viewAdminConsoleGlobalLicenseTab";
-
-    /**
      * Admin Console view attr rights for Global MTA Tab
      */
     public static final String RT_viewAdminConsoleGlobalMTATab = "viewAdminConsoleGlobalMTATab";
@@ -2196,15 +2178,7 @@ public class RightConsts {
      */
     public static final String RT_viewAdminConsoleServerVolumesTab = "viewAdminConsoleServerVolumesTab";
 
-    /**
-     * Admin Console view attr rights for software updates tab
-     */
-    public static final String RT_viewAdminConsoleSoftwareUpdatesConfigAttrs = "viewAdminConsoleSoftwareUpdatesConfigAttrs";
 
-    /**
-     * Admin Console view attr rights for software updates tab
-     */
-    public static final String RT_viewAdminConsoleSoftwareUpdatesServerAttrs = "viewAdminConsoleSoftwareUpdatesServerAttrs";
 
     /**
      * Admin Console view attr rights for Zimlet ACL Tab

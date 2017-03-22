@@ -2474,7 +2474,7 @@
     </rights>
   </right>
 
-  <!-- Admin Console Global Settings License Tab -->
+  <!-- Admin Console Global Settings License Tab
   <right name="setAdminConsoleGlobalLicenseTab" type="setAttrs" targetType="config">
     <desc> Admin Console set attr rights for GlobalLicense Tab </desc>
     <ui name="Configure-GlobalSettings-License(modify)"/>
@@ -2497,7 +2497,7 @@
       <r n="viewAdminConsoleGlobalLicenseTab"/>
     </rights>
   </right>
-
+-->
 
 <!-- Admin Console Rights -->
 <!-- Admin Console Global ACL -->
@@ -2779,7 +2779,6 @@
     <r n="adminConsoleGlobalBackupRestoreTabRights"/>
     <r n="adminConsoleGlobalACLTabRights"/>
     <r n="adminConsoleGlobalHSMTabRights"/>
-    <r n="adminConsoleGlobalLicenseTabRights"/>
   </rights>
 </right>
 
@@ -2851,19 +2850,6 @@
 </right>
 
 
-<right name="viewAdminConsoleSoftwareUpdatesServerAttrs" type="getAttrs" targetType="server">
-  <desc> Admin Console view attr rights for software updates tab </desc>
-  <ui name="ToolsAndMigration-SoftwareUpdates(view)"/>
-  <attrs>
-    <a n="zimbraId"/>
-    <a n="cn"/>
-    <a n="zimbraSmtpHostname"/>
-    <a n="zimbraServiceInstalled"/>
-    <a n="zimbraServiceEnabled"/>
-    <a n="zimbraServiceHostname"/>
-  </attrs>
-</right>
-
 <right type="combo" name="adminConsoleMigrationRights">
   <desc>Rights for running migration tasks on a server through Admin Console</desc>
   <ui name="ToolsAndMigration-AccountMigration"/>
@@ -2871,19 +2857,6 @@
    <r n="listServer" />
    <r n="getServer" />
    <r n="createMigrationTask"/>
-  </rights>
-</right>
-
-<right type="combo" name="adminConsoleSoftwareUpdatesRights">
-  <desc>Rights for configuring software updates component a server through Admin Console</desc>
-  <ui name="ToolsAndMigration-SoftwareUpdates"/>
-  <rights>
-   <r n="listServer" />
-   <r n="listAccount" />
-   <r n="checkSoftwareUpdates"/>
-   <r n="viewAdminConsoleSoftwareUpdatesConfigAttrs"/>
-   <r n="setAdminConsoleSoftwareUpdatesConfigAttrs"/>
-   <r n="viewAdminConsoleSoftwareUpdatesServerAttrs"/>
   </rights>
 </right>
 
@@ -2926,7 +2899,6 @@
     <r n="adminConsoleBackupRights"/>
     <r n="adminConsoleCrossMailboxSearchRights"/>
     <r n="adminConsoleSavedSearchRights"/>
-    <r n="adminConsoleSoftwareUpdatesRights"/>
     <r n="adminConsoleMigrationRights"/>
     <r n="adminConsoleClientUploadRights"/>
     <r n="adminConsoleUCServiceRights"/>

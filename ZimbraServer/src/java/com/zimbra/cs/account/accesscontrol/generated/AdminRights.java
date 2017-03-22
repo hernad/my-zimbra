@@ -100,7 +100,6 @@ public class AdminRights {
     public static AdminRight R_adminConsoleGlobalHSMTabRights;
     public static AdminRight R_adminConsoleGlobalIMAPTabRights;
     public static AdminRight R_adminConsoleGlobalInfoTabRights;
-    public static AdminRight R_adminConsoleGlobalLicenseTabRights;
     public static AdminRight R_adminConsoleGlobalMTATabRights;
     public static AdminRight R_adminConsoleGlobalPOPTabRights;
     public static AdminRight R_adminConsoleGlobalRights;
@@ -123,7 +122,6 @@ public class AdminRights {
     public static AdminRight R_adminConsoleServerStatisticRights;
     public static AdminRight R_adminConsoleServerStatusRights;
     public static AdminRight R_adminConsoleServerVolumesTabRights;
-    public static AdminRight R_adminConsoleSoftwareUpdatesRights;
     public static AdminRight R_adminConsoleSubDomainRights;
     public static AdminRight R_adminConsoleUCServiceRights;
     public static AdminRight R_adminConsoleZimletACLTabRights;
@@ -354,7 +352,6 @@ public class AdminRights {
     public static AdminRight R_setAdminConsoleGlobalHSMTab;
     public static AdminRight R_setAdminConsoleGlobalIMAPTab;
     public static AdminRight R_setAdminConsoleGlobalInfoTab;
-    public static AdminRight R_setAdminConsoleGlobalLicenseTab;
     public static AdminRight R_setAdminConsoleGlobalMTATab;
     public static AdminRight R_setAdminConsoleGlobalPOPTab;
     public static AdminRight R_setAdminConsoleGlobalThemesTab;
@@ -435,7 +432,6 @@ public class AdminRights {
     public static AdminRight R_viewAdminConsoleGlobalHSMTab;
     public static AdminRight R_viewAdminConsoleGlobalIMAPTab;
     public static AdminRight R_viewAdminConsoleGlobalInfoTab;
-    public static AdminRight R_viewAdminConsoleGlobalLicenseTab;
     public static AdminRight R_viewAdminConsoleGlobalMTATab;
     public static AdminRight R_viewAdminConsoleGlobalPOPTab;
     public static AdminRight R_viewAdminConsoleGlobalThemesTab;
@@ -450,8 +446,6 @@ public class AdminRights {
     public static AdminRight R_viewAdminConsoleServerServicesTab;
     public static AdminRight R_viewAdminConsoleServerStatus;
     public static AdminRight R_viewAdminConsoleServerVolumesTab;
-    public static AdminRight R_viewAdminConsoleSoftwareUpdatesConfigAttrs;
-    public static AdminRight R_viewAdminConsoleSoftwareUpdatesServerAttrs;
     public static AdminRight R_viewAdminConsoleZimletACLTab;
     public static AdminRight R_viewAdminSavedSearch;
     public static AdminRight R_viewDistributionListAdminUI;
@@ -540,7 +534,6 @@ public class AdminRights {
         R_adminConsoleGlobalHSMTabRights       = rm.getAdminRight(Right.RT_adminConsoleGlobalHSMTabRights);
         R_adminConsoleGlobalIMAPTabRights      = rm.getAdminRight(Right.RT_adminConsoleGlobalIMAPTabRights);
         R_adminConsoleGlobalInfoTabRights      = rm.getAdminRight(Right.RT_adminConsoleGlobalInfoTabRights);
-        R_adminConsoleGlobalLicenseTabRights   = rm.getAdminRight(Right.RT_adminConsoleGlobalLicenseTabRights);
         R_adminConsoleGlobalMTATabRights       = rm.getAdminRight(Right.RT_adminConsoleGlobalMTATabRights);
         R_adminConsoleGlobalPOPTabRights       = rm.getAdminRight(Right.RT_adminConsoleGlobalPOPTabRights);
         R_adminConsoleGlobalRights             = rm.getAdminRight(Right.RT_adminConsoleGlobalRights);
@@ -563,7 +556,6 @@ public class AdminRights {
         R_adminConsoleServerStatisticRights    = rm.getAdminRight(Right.RT_adminConsoleServerStatisticRights);
         R_adminConsoleServerStatusRights       = rm.getAdminRight(Right.RT_adminConsoleServerStatusRights);
         R_adminConsoleServerVolumesTabRights   = rm.getAdminRight(Right.RT_adminConsoleServerVolumesTabRights);
-        R_adminConsoleSoftwareUpdatesRights    = rm.getAdminRight(Right.RT_adminConsoleSoftwareUpdatesRights);
         R_adminConsoleSubDomainRights          = rm.getAdminRight(Right.RT_adminConsoleSubDomainRights);
         R_adminConsoleUCServiceRights          = rm.getAdminRight(Right.RT_adminConsoleUCServiceRights);
         R_adminConsoleZimletACLTabRights       = rm.getAdminRight(Right.RT_adminConsoleZimletACLTabRights);
@@ -794,7 +786,6 @@ public class AdminRights {
         R_setAdminConsoleGlobalHSMTab          = rm.getAdminRight(Right.RT_setAdminConsoleGlobalHSMTab);
         R_setAdminConsoleGlobalIMAPTab         = rm.getAdminRight(Right.RT_setAdminConsoleGlobalIMAPTab);
         R_setAdminConsoleGlobalInfoTab         = rm.getAdminRight(Right.RT_setAdminConsoleGlobalInfoTab);
-        R_setAdminConsoleGlobalLicenseTab      = rm.getAdminRight(Right.RT_setAdminConsoleGlobalLicenseTab);
         R_setAdminConsoleGlobalMTATab          = rm.getAdminRight(Right.RT_setAdminConsoleGlobalMTATab);
         R_setAdminConsoleGlobalPOPTab          = rm.getAdminRight(Right.RT_setAdminConsoleGlobalPOPTab);
         R_setAdminConsoleGlobalThemesTab       = rm.getAdminRight(Right.RT_setAdminConsoleGlobalThemesTab);
@@ -875,7 +866,6 @@ public class AdminRights {
         R_viewAdminConsoleGlobalHSMTab         = rm.getAdminRight(Right.RT_viewAdminConsoleGlobalHSMTab);
         R_viewAdminConsoleGlobalIMAPTab        = rm.getAdminRight(Right.RT_viewAdminConsoleGlobalIMAPTab);
         R_viewAdminConsoleGlobalInfoTab        = rm.getAdminRight(Right.RT_viewAdminConsoleGlobalInfoTab);
-        R_viewAdminConsoleGlobalLicenseTab     = rm.getAdminRight(Right.RT_viewAdminConsoleGlobalLicenseTab);
         R_viewAdminConsoleGlobalMTATab         = rm.getAdminRight(Right.RT_viewAdminConsoleGlobalMTATab);
         R_viewAdminConsoleGlobalPOPTab         = rm.getAdminRight(Right.RT_viewAdminConsoleGlobalPOPTab);
         R_viewAdminConsoleGlobalThemesTab      = rm.getAdminRight(Right.RT_viewAdminConsoleGlobalThemesTab);
@@ -890,8 +880,6 @@ public class AdminRights {
         R_viewAdminConsoleServerServicesTab    = rm.getAdminRight(Right.RT_viewAdminConsoleServerServicesTab);
         R_viewAdminConsoleServerStatus         = rm.getAdminRight(Right.RT_viewAdminConsoleServerStatus);
         R_viewAdminConsoleServerVolumesTab     = rm.getAdminRight(Right.RT_viewAdminConsoleServerVolumesTab);
-        R_viewAdminConsoleSoftwareUpdatesConfigAttrs = rm.getAdminRight(Right.RT_viewAdminConsoleSoftwareUpdatesConfigAttrs);
-        R_viewAdminConsoleSoftwareUpdatesServerAttrs = rm.getAdminRight(Right.RT_viewAdminConsoleSoftwareUpdatesServerAttrs);
         R_viewAdminConsoleZimletACLTab         = rm.getAdminRight(Right.RT_viewAdminConsoleZimletACLTab);
         R_viewAdminSavedSearch                 = rm.getAdminRight(Right.RT_viewAdminSavedSearch);
         R_viewDistributionListAdminUI          = rm.getAdminRight(Right.RT_viewDistributionListAdminUI);
