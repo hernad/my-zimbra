@@ -1,0 +1,42 @@
+
+
+
+sudo /opt/zimbra/libexec/zmslapd -d -1 -l LOCAL0 -u zimbra -h "ldap://vagrant.out.ba:389 ldapi:///" -F /opt/zimbra/data/ldap/config
+
+
+....
+
+58d2b5be olcAttributeTypes: value #79 olcAttributeTypes: Unexpected token before 
+AttributeTypeDescription = "(" whsp
+  numericoid whsp      ; AttributeType identifier
+  [ "NAME" qdescrs ]             ; name used in AttributeType
+  [ "DESC" qdstring ]            ; description
+  [ "OBSOLETE" whsp ]
+  [ "SUP" woid ]                 ; derived from this other
+                                   ; AttributeType
+  [ "EQUALITY" woid ]            ; Matching Rule name
+  [ "ORDERING" woid ]            ; Matching Rule name
+  [ "SUBSTR" woid ]              ; Matching Rule name
+  [ "SYNTAX" whsp noidlen whsp ] ; see section 4.3
+  [ "SINGLE-VALUE" whsp ]        ; default multi-valued
+  [ "COLLECTIVE" whsp ]          ; default not collective
+  [ "NO-USER-MODIFICATION" whsp ]; default user modifiable
+  [ "USAGE" whsp AttributeUsage ]; default userApplications
+                                   ; userApplications
+                                   ; directoryOperation
+                                   ; distributedOperation
+                                   ; dSAOperation
+  whsp ")"
+58d2b5be config error processing cn={4}zimbra,cn=schema,cn=config: olcAttributeTypes: Unexpected token before 
+58d2b5be send_ldap_result: conn=-1 op=0 p=0
+58d2b5be send_ldap_result: err=80 matched="" text=""
+58d2b5be slapd destroy: freeing system resources.
+58d2b5be slapd stopped.
+58d2b5be connections_destroy: nothing to destroy.
+
+
+sudo vim /opt/zimbra/data/ldap/config/cn=config/cn=schema/cn={4}zimbra.ldif
+
+
+ZimbraServer/conf/attrs/zimbra-attrs.xml
+
