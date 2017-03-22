@@ -352,8 +352,6 @@ import generated.zcsclient.admin.testHsmRequest;
 import generated.zcsclient.admin.testHsmResponse;
 import generated.zcsclient.admin.testInstallCertRequest;
 import generated.zcsclient.admin.testInstallCertResponse;
-import generated.zcsclient.admin.testInstallLicenseRequest;
-import generated.zcsclient.admin.testInstallLicenseResponse;
 import generated.zcsclient.admin.testLockoutMailboxRequest;
 import generated.zcsclient.admin.testLockoutMailboxResponse;
 import generated.zcsclient.admin.testMailQueueActionRequest;
@@ -2614,17 +2612,6 @@ public interface ZcsAdminPortType {
         @WebParam(name = "InstallCertRequest", targetNamespace = "urn:zimbraAdmin", partName = "params")
         testInstallCertRequest params);
 
-    /**
-     *
-     * @param params
-     * @return
-     *     returns generated.zcsclient.admin.testInstallLicenseResponse
-     */
-    @WebMethod(action = "urn:zimbraAdmin/InstallLicense")
-    @WebResult(name = "InstallLicenseResponse", targetNamespace = "urn:zimbraAdmin", partName = "params")
-    public testInstallLicenseResponse installLicenseRequest(
-        @WebParam(name = "InstallLicenseRequest", targetNamespace = "urn:zimbraAdmin", partName = "params")
-        testInstallLicenseRequest params);
 
     /**
      *

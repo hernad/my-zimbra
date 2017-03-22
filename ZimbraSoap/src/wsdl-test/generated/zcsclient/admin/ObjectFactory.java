@@ -256,7 +256,6 @@ public class ObjectFactory {
     private final static QName _DedupeBlobsResponse_QNAME = new QName("urn:zimbraAdmin", "DedupeBlobsResponse");
     private final static QName _ClearCookieRequest_QNAME = new QName("urn:zimbraAdmin", "ClearCookieRequest");
     private final static QName _AbortHsmResponse_QNAME = new QName("urn:zimbraAdmin", "AbortHsmResponse");
-    private final static QName _InstallLicenseResponse_QNAME = new QName("urn:zimbraAdmin", "InstallLicenseResponse");
     private final static QName _PurgeFreeBusyQueueResponse_QNAME = new QName("urn:zimbraAdmin", "PurgeFreeBusyQueueResponse");
     private final static QName _CreateDataSourceRequest_QNAME = new QName("urn:zimbraAdmin", "CreateDataSourceRequest");
     private final static QName _GetDevicesCountUsedTodayRequest_QNAME = new QName("urn:zimbraAdmin", "GetDevicesCountUsedTodayRequest");
@@ -521,7 +520,6 @@ public class ObjectFactory {
     private final static QName _DeleteDataSourceRequest_QNAME = new QName("urn:zimbraAdmin", "DeleteDataSourceRequest");
     private final static QName _ModifyDataSourceResponse_QNAME = new QName("urn:zimbraAdmin", "ModifyDataSourceResponse");
     private final static QName _GetAllServersResponse_QNAME = new QName("urn:zimbraAdmin", "GetAllServersResponse");
-    private final static QName _InstallLicenseRequest_QNAME = new QName("urn:zimbraAdmin", "InstallLicenseRequest");
     private final static QName _GetAllLocalesRequest_QNAME = new QName("urn:zimbraAdmin", "GetAllLocalesRequest");
     private final static QName _GetLicenseRequest_QNAME = new QName("urn:zimbraAdmin", "GetLicenseRequest");
     private final static QName _GetCSRRequest_QNAME = new QName("urn:zimbraAdmin", "GetCSRRequest");
@@ -5651,14 +5649,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link testInstallLicenseResponse }
-     *
-     */
-    public testInstallLicenseResponse createtestInstallLicenseResponse() {
-        return new testInstallLicenseResponse();
-    }
-
-    /**
      * Create an instance of {@link testGetXMPPComponentRequest }
      *
      */
@@ -6792,14 +6782,6 @@ public class ObjectFactory {
      */
     public testCreateVolumeRequest createtestCreateVolumeRequest() {
         return new testCreateVolumeRequest();
-    }
-
-    /**
-     * Create an instance of {@link testInstallLicenseRequest }
-     *
-     */
-    public testInstallLicenseRequest createtestInstallLicenseRequest() {
-        return new testInstallLicenseRequest();
     }
 
     /**
@@ -9132,14 +9114,6 @@ public class ObjectFactory {
         return new JAXBElement<testAbortHsmResponse>(_AbortHsmResponse_QNAME, testAbortHsmResponse.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link testInstallLicenseResponse }{@code >}}
-     *
-     */
-    @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "InstallLicenseResponse")
-    public JAXBElement<testInstallLicenseResponse> createInstallLicenseResponse(testInstallLicenseResponse value) {
-        return new JAXBElement<testInstallLicenseResponse>(_InstallLicenseResponse_QNAME, testInstallLicenseResponse.class, null, value);
-    }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link testPurgeFreeBusyQueueResponse }{@code >}}
@@ -11515,15 +11489,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "GetAllServersResponse")
     public JAXBElement<testGetAllServersResponse> createGetAllServersResponse(testGetAllServersResponse value) {
         return new JAXBElement<testGetAllServersResponse>(_GetAllServersResponse_QNAME, testGetAllServersResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link testInstallLicenseRequest }{@code >}}
-     *
-     */
-    @XmlElementDecl(namespace = "urn:zimbraAdmin", name = "InstallLicenseRequest")
-    public JAXBElement<testInstallLicenseRequest> createInstallLicenseRequest(testInstallLicenseRequest value) {
-        return new JAXBElement<testInstallLicenseRequest>(_InstallLicenseRequest_QNAME, testInstallLicenseRequest.class, null, value);
     }
 
     /**
