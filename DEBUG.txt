@@ -746,3 +746,26 @@ zmstat_disk_interval = 600
 zmstat_interval = 30
 zmstat_max_retention = 0
 zmtrainsa_cleanup_host = true
+
+
+
+Error
+
+
+zimbra@vagrant:~$ zmprov gacf   
+[] INFO: I/O exception (java.net.ConnectException) caught when processing request: Connection refused
+[] INFO: Retrying request
+ERROR: zclient.IO_ERROR (invoke Connection refused, server: localhost) (cause: java.net.ConnectException Connection refused)
+
+
+#You'll want to execute that command using 'zmprov -l' instead of just 'zmprov' until mailboxd is running again. This will directly query the ldap server.
+
+zmprov -l gacf
+
+
+zimbra@vagrant:~$ zmprov -l ms $(zmhostname) zimbraAdminBindAddress 127.0.0.1
+zimbra@vagrant:~$ zmprov -l gs $(zmhostname) zimbraAdminLocalBind            
+# name vagrant.out.ba
+zimbraAdminLocalBind: FALSE
+
+
