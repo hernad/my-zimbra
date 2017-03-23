@@ -180,41 +180,38 @@ $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc: force
 				> $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc/zimbraAdmin.web.xml.in
 
 
+$(STORE_DEST_DIR)/$(MAILBOXD_DIR): $(STORE_DEST_DIR) $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/lib $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/endorsed
 
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/resources/log4j.properties: $(STORE_DEST_DIR)/$(MAILBOXD_DIR)
-	mkdir -p $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/resources
-	cp $(SERVICE_DIR)/build/dist/$(MAILBOXD_SERVER)/resources/log4j.properties $@
+		mkdir -p $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/resources
+		cp $(SERVICE_DIR)/build/dist/$(MAILBOXD_SERVER)/resources/log4j.properties $@
 
 
 $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp: force
-	mkdir -p $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp
-	touch $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp/.emptyfile
-
-
-$(STORE_DEST_DIR)/$(MAILBOXD_DIR): $(STORE_DEST_DIR) $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/bin $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/etc $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/lib $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/common/endorsed
-
+		mkdir -p $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp
+		touch $(STORE_DEST_DIR)/$(MAILBOXD_DIR)/temp/.emptyfile
 
 $(WEBAPP_DIR):
-	mkdir -p $@
+		mkdir -p $@
 
 $(STORE_DEST_DIR)/log:
-	mkdir -p $@
-	cp $(PACKAGE_CONF_DIR)/Conf/hotspot_compiler $@/.hotspot_compiler
+		mkdir -p $@
+		cp $(PACKAGE_CONF_DIR)/Conf/hotspot_compiler $@/.hotspot_compiler
 
 $(STORE_DEST_DIR)/cleanup:
-	find $(STORE_DEST_DIR)/$(MAILBOXD_DIR) -type f -name "*.err" -print0 | xargs -0 rm -f
+		find $(STORE_DEST_DIR)/$(MAILBOXD_DIR) -type f -name "*.err" -print0 | xargs -0 rm -f
 
 $(STORE_DEST_ROOT)/etc/sudoers.d:
-	mkdir -p $@
-	cp $(PACKAGE_CONF_DIR)/Env/sudoers.d/02_zimbra-store $(STORE_DEST_ROOT)/etc/sudoers.d/02_zimbra-store
+		mkdir -p $@
+		cp $(PACKAGE_CONF_DIR)/Env/sudoers.d/02_zimbra-store $(STORE_DEST_ROOT)/etc/sudoers.d/02_zimbra-store
 
 $(STORE_DEST_DIR)/conf: $(STORE_DEST_ROOT)/etc/sudoers.d
-	mkdir -p $@
-	cp $(SERVICE_DIR)/conf/globs2 $@
-	cp $(SERVICE_DIR)/conf/magic $@
-	cp $(SERVICE_DIR)/conf/magic.zimbra $@
-	cp $(SERVICE_DIR)/conf/globs2.zimbra $@
-	cp $(SERVICE_DIR)/conf/spnego_java_options.in $@
+		mkdir -p $@
+		cp $(SERVICE_DIR)/conf/globs2 $@
+		cp $(SERVICE_DIR)/conf/magic $@
+		cp $(SERVICE_DIR)/conf/magic.zimbra $@
+		cp $(SERVICE_DIR)/conf/globs2.zimbra $@
+		cp $(SERVICE_DIR)/conf/spnego_java_options.in $@
 
 $(STORE_DEST_DIR)/conf/zimbra-contact-fields.xml: $(STORE_DEST_DIR)/conf
 	cp $(SERVICE_DIR)/conf/contacts/zimbra-contact-fields.xml $@
@@ -222,6 +219,7 @@ $(STORE_DEST_DIR)/conf/zimbra-contact-fields.xml: $(STORE_DEST_DIR)/conf
 $(STORE_DEST_DIR)/conf/templates:
 	mkdir -p $@
 	cp -r $(CONSOLE_DIR)/WebRoot/templates/ $@
+
 
 $(ZIMLET_DIR)/build/dist/zimlets/nofile:
 	(cd $(ZIMLET_DIR); $(ANT) $(ANT_DEBUG) \
@@ -359,12 +357,8 @@ $(STORE_DEST_DIR)/lib/ext/openidconsumer:
 	cp -f $(OPENID_EXT_DIR)/jars/guice-2.0.jar $@
 
 
-
-
 $(STORE_DEST_DIR)/lib/jars:
 	mkdir -p $@
-
-
 
 $(STORE_DEST_DIR)/libexec:
 	mkdir -p $@

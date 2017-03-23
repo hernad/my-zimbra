@@ -5692,6 +5692,52 @@ sub configSetCEFeatures {
 }
 
 
+sub configInitDomainAdminGroups {
+  return if ($config{DOCREATEDOMAIN} eq "no");
+  main::progress ("Setting up default domain admin UI components...");
+
+  $config{zimbraDefaultDomainName} = getLdapConfigValue("zimbraDefaultDomainName") || $config{CREATEDOMAIN};
+  my $domainGroup = "zimbraDomainAdmins\@".
+    (($newinstall) ? "$config{CREATEDOMAIN}" : "$config{zimbraDefaultDomainName}");
+  my $rc = main::runAsZimbra("$ZMPROV cdl $domainGroup ".
+    "zimbraIsAdminGroup TRUE ".
+    "zimbraHideInGal TRUE ".
+    "zimbraMailStatus disabled ".
+    "displayname 'Zimbra Domain Admins' ".
+    "zimbraAdminConsoleUIComponents accountListView ".
+    "zimbraAdminConsoleUIComponents aliasListView ".
+    "zimbraAdminConsoleUIComponents DLListView ".
+    "zimbraAdminConsoleUIComponents resourceListView ".
+    "zimbraAdminConsoleUIComponents saveSearch ");
+  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
+
+  main::progress ("Granting group $domainGroup domain right +domainAdminConsoleRights on $config{zimbraDefaultDomainName}...");
+  $rc = main::runAsZimbra("$ZMPROV grr domain $config{zimbraDefaultDomainName} grp $domainGroup +domainAdminConsoleRights");
+  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
+
+  main::progress ("Granting group $domainGroup global right +domainAdminZimletRights...");
+  $rc = main::runAsZimbra("$ZMPROV grr global grp $domainGroup +domainAdminZimletRights");
+  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
+
+  main::progress ("Setting up global distribution list admin UI components..");
+  $domainGroup = "zimbraDLAdmins\@".
+    (($newinstall) ? "$config{CREATEDOMAIN}" : "$config{zimbraDefaultDomainName}");
+  my $rc = main::runAsZimbra("$ZMPROV cdl $domainGroup ".
+    "zimbraIsAdminGroup TRUE ".
+    "zimbraHideInGal TRUE ".
+    "zimbraMailStatus disabled ".
+    "displayname 'Zimbra DL Admins' ".
+    "zimbraAdminConsoleUIComponents DLListView ");
+  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
+
+  main::progress ("Granting group $domainGroup global right +adminConsoleDLRights...");
+  $rc = main::runAsZimbra("$ZMPROV grr global grp $domainGroup +adminConsoleDLRights");
+  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
+  main::progress ("Granting group $domainGroup global right +listAccount...");
+  $rc = main::runAsZimbra("$ZMPROV grr global grp $domainGroup +listAccount");
+  main::progress(($rc == 0) ? "done.\n" : "failed.\n");
+
+}
 
 
 sub setProxyBits {
@@ -6065,6 +6111,8 @@ sub configCreateDomain {
       progress(($rc == 0) ? "done.\n" : "failed.\n");
     }
 
+    configInitDomainAdminGroups();
+
 
   }
   if (isEnabled("zimbra-store")) {
@@ -6339,7 +6387,7 @@ sub configSetEnabledServices {
       next;
     }
     if ($p eq "zimbra-apache") {next;}
-    if ($p eq "zimbra-memcached") {next;}
+    #if ($p eq "zimbra-memcached") {next;}
     $p =~ s/zimbra-//;
     if ($p eq "store") {$p = "mailbox";}
     push(@installedServiceList, ('zimbraServiceInstalled', "$p"));

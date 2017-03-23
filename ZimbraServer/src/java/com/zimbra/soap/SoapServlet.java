@@ -52,9 +52,7 @@ import com.zimbra.cs.servlet.ZimbraServlet;
 import com.zimbra.cs.stats.ZimbraPerf;
 import com.zimbra.cs.util.Zimbra;
 
-/**
- * The soap service servlet
- */
+
 public class SoapServlet extends ZimbraServlet {
     private static final long serialVersionUID = 38710345271877593L;
 
