@@ -14,14 +14,14 @@
     <!-- =========================================================== -->
     <!-- Server Thread Pool                                          -->
     <!-- =========================================================== -->
-
+	
 	<Get name="ThreadPool" id="pool">
 		<Set name="minThreads" type="int">10</Set>
 		<Set name="maxThreads" type="int">%%zimbraHttpNumThreads%%</Set>
 		<Set name="idleTimeout" type="int">%%zimbraHttpThreadPoolMaxIdleTimeMillis%%</Set>
 		<Set name="detailedDump">false</Set>
 	</Get>
-
+    
 	<Call class="com.zimbra.common.jetty.JettyMonitor" name="setThreadPool">
 		<Arg><Ref id="pool"/></Arg>
 	</Call>
@@ -51,7 +51,7 @@
 		</Call>
 	%%comment VAR:zimbraPublicServiceHostname,<!--%% HOSTHEADEREND -->
 	</New>
-
+	
 	<New id="sslHttpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
 		<Arg>
 			<Ref refid="httpConfig" />
@@ -62,14 +62,14 @@
 			</Arg>
 		</Call>
 	</New>
-
+    
 
     <!-- =========================================================== -->
     <!-- Set connectors                                              -->
     <!-- =========================================================== -->
 
     <!-- user services connector, no SSL -->
-    <!-- HTTPBEGIN %%comment VAR:zimbraMailMode,-->,https%%
+    <!-- HTTPBEGIN %%comment VAR:zimbraMailMode,-->,http,redirect,mixed,both%%
     <Call id="httpConnector" name="addConnector">
 		<Arg>
 			<New id="http" class="org.eclipse.jetty.server.ServerConnector">
@@ -94,7 +94,7 @@
 		</Arg>
 	</Call>
     %%comment VAR:zimbraMailMode,<!--,http,redirect,mixed,both%% HTTPEND -->
-
+    
 	<!-- HTTPLOCALBEGIN %%comment VAR:zimbraMailLocalBind,-->%%
     <Call id="httpLocalConnector" name="addConnector">
 		<Arg>
@@ -120,7 +120,7 @@
 		</Arg>
 	</Call>
 	%%comment VAR:zimbraMailLocalBind,<!--%% HTTPLOCALEND -->
-
+    
 	<New id="zimbraSslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
 		<Set name="KeyStorePath"><SystemProperty name="jetty.home" default="." />/etc/keystore</Set>
 		<Set name="KeyStorePassword">@@mailboxd_keystore_password@@</Set>
@@ -147,10 +147,10 @@
 		</Set>
 		%%comment VAR:zimbraSSLIncludeCipherSuitesXML,<!--%% INCLUDESUITESEND -->
 	</New>
-
+	
     <!-- user services connector, SSL -->
     <!-- HTTPSBEGIN %%comment VAR:zimbraMailMode,-->,https,redirect,mixed,both%%
-
+    
    	<Call id="httpsConnector" name="addConnector">
 		<Arg>
 			<New id="ssl" class="org.eclipse.jetty.server.ServerConnector">
@@ -233,13 +233,13 @@
 			</New>
 		</Arg>
 	</Call>
-
+	
 	%%uncomment VAR:zimbraMailSSLClientCertMode,<!--,Disabled%% HTTPSCLIENTCERTEND -->
-
+    
     <!-- =============================================================== -->
     <!-- Admin services connector; requires SSL -->
     <!-- =============================================================== -->
-
+    
 	<Call id="adminHttpsConnector" name="addConnector">
 		<Arg>
 			<New id="admin" class="org.eclipse.jetty.server.ServerConnector">
@@ -271,7 +271,7 @@
 			</New>
 		</Arg>
 	</Call>
-
+    
 	<Call id="mtaAdminHttpsConnector" name="addConnector">
 		<Arg>
 			<New id="mtaAdmin" class="org.eclipse.jetty.server.ServerConnector">
@@ -302,9 +302,9 @@
 				<Set name="idleTimeout">0</Set>
 			</New>
 		</Arg>
-	</Call>/
+	</Call>
 
-
+    <!-- ADMINLOCALBEGIN %%comment VAR:zimbraAdminLocalBind,-->%%
 	<Call id="adminLocalConnector" name="addConnector">
 		<Arg>
 			<New id="admin_local" class="org.eclipse.jetty.server.ServerConnector">
@@ -336,7 +336,7 @@
 			</New>
 		</Arg>
 	</Call>
-
+	%%comment VAR:zimbraAdminLocalBind,<!--%% ADMINLOCALEND -->
     <!-- =============================================================== -->
     <!-- Extension port                                                  -->
     <!-- =============================================================== -->
@@ -373,7 +373,7 @@
 	</Call>
 
     <!-- =========================================================== -->
-    <!-- Set handler Collection Structure                            -->
+    <!-- Set handler Collection Structure                            --> 
     <!-- =========================================================== -->
     <Set name="handler">
       <New id="Handlers" class="org.eclipse.jetty.rewrite.handler.RewriteHandler">
@@ -519,15 +519,15 @@
 	    </Arg>
         </Call>
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">%%zimbraMailURL%%/user/*</Set>
 		    <Set name="replacement">/service/user</Set>
 		</New>
 	    </Arg>
-        </Call>
+        </Call>  
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">/autodiscover/*</Set>
 		    <Set name="replacement">/service/autodiscover</Set>
@@ -550,7 +550,7 @@
 		</New>
 	    </Arg>
         </Call>
-        <!--
+        <!-- 
           Allow only certauth URL on the SSL client cert port.
           If the URl does not match the regex, return http 403.
           Put this rule after the legacy rules (addRewriteRule) so this rule
@@ -567,10 +567,10 @@
             </New>
           </Arg>
         </Call>
-        %%uncomment VAR:zimbraMailSSLClientCertMode,<!--,Disabled%% HTTPSCLIENTCERTEND -->
+        %%uncomment VAR:zimbraMailSSLClientCertMode,<!--,Disabled%% HTTPSCLIENTCERTEND -->               
         <!-- stop if we've hit the proper webapps -->
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">/service/*</Set>
 		    <Set name="replacement">/service</Set>
@@ -579,7 +579,7 @@
 	    </Arg>
         </Call>
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">/spnego/*</Set>
 		    <Set name="replacement">/spnego</Set>
@@ -588,7 +588,7 @@
 	    </Arg>
         </Call>
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">/zimlet/*</Set>
 		    <Set name="replacement">/zimlet</Set>
@@ -597,7 +597,7 @@
 	    </Arg>
         </Call>
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">%%zimbraAdminURL%%/*</Set>
 		    <Set name="replacement">%%zimbraAdminURL%%</Set>
@@ -606,23 +606,23 @@
 	    </Arg>
         </Call>
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">%%zimbraMailURL%%/*</Set>
 		    <Set name="replacement">%%zimbraMailURL%%</Set>
 		    <Set name="terminating">true</Set>
 		</New>
 	    </Arg>
-        </Call>
+        </Call>                               
         <!-- assume all other requests handled by zimbra webapp -->
         <Call name="addRule">
-	    <Arg>
+	    <Arg>        
 		<New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
 		    <Set name="pattern">/*</Set>
 		    <Set name="replacement">%%zimbraMailURL%%</Set>
 		</New>
 	    </Arg>
-        </Call>
+        </Call>       
         <Set name="handler">
           <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
             <Set name="handlers">
@@ -653,7 +653,7 @@
        <Item>org.eclipse.jetty.annotations.AnnotationConfiguration</Item>
        <Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
     </Array>
-
+    
     <!-- SERVICEWEBAPPBEGIN %%comment SERVICE:service,-->%%
     <New id="service" class="org.eclipse.jetty.webapp.WebAppContext">
       <Arg><Ref id="Contexts"/></Arg>
@@ -671,10 +671,10 @@
       <Call name="setAttribute">
         <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
 		<Arg>.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$</Arg>
-      </Call>
+      </Call> 
     </New>
     %%comment SERVICE:service,<!--%% SERVICEWEBAPPEND -->
-
+    
     <!-- ZIMBRAWEBAPPBEGIN %%comment SERVICE:zimbra,-->%%
     <New id="zimbra" class="org.eclipse.jetty.webapp.WebAppContext">
       <Arg><Ref id="Contexts"/></Arg>
@@ -696,12 +696,12 @@
       <Get name="sessionHandler">
         <Get name="sessionManager">
           <Set name="httpOnly">TRUE</Set>
-        </Get>
-      </Get>
+        </Get> 
+      </Get> 
       <Call name="setAttribute">
         <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
 		<Arg>.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$</Arg>
-      </Call>
+      </Call>  
     </New>
     %%comment SERVICE:zimbra,<!--%% ZIMBRAWEBAPPEND -->
 
@@ -725,15 +725,15 @@
       <Get name="sessionHandler">
         <Get name="sessionManager">
           <Set name="httpOnly">TRUE</Set>
-        </Get>
-      </Get>
+        </Get> 
+      </Get> 
       <Call name="setAttribute">
         <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
 		<Arg>.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$</Arg>
       </Call>
     </New>
     %%comment SERVICE:zimbraAdmin,<!--%% ZIMBRAADMINWEBAPPEND -->
-
+    
     <New id="zimlet" class="org.eclipse.jetty.webapp.WebAppContext">
       <Arg><Ref id="Contexts"/></Arg>
       <Arg><SystemProperty name="jetty.home" default="."/>/webapps/zimlet</Arg>
@@ -804,7 +804,7 @@
               <Item>-org.eclipse.jetty.util.</Item>
               <Item>-org.eclipse.jetty.apache.</Item>
               <Item>org.eclipse.jetty.</Item>
-           </Array>
+           </Array>    
         </Arg>
     </Call>
 
@@ -821,9 +821,9 @@
     <!-- example).                                                   -->
     <!-- =========================================================== -->
 
-    <!-- uncomment if global config attr zimbraSpnegoAuthEnabled is TRUE  %%comment VAR:zimbraSpnegoAuthEnabled,-->%%
+    <!-- uncomment if global config attr zimbraSpnegoAuthEnabled is TRUE  %%comment VAR:zimbraSpnegoAuthEnabled,-->%%        
     <Call name="addBean">
-       <Arg>
+       <Arg> 
           <New class="org.eclipse.jetty.security.SpnegoLoginService">
             <Set name="name">Spnego Authentication Realm</Set>
             <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/spnego.properties</Set>
@@ -832,7 +832,7 @@
             </Set>
           </New>
         </Arg>
-    </Call>
+    </Call>    
 	%%comment VAR:zimbraSpnegoAuthEnabled,<!--%% -->
 
     <!-- THREADMONITORBEGIN %%comment VAR:zimbraThreadMonitorEnabled,-->%%
@@ -874,7 +874,7 @@
         </New>
       </Set>
     </Ref>
-
+    
     <!-- HTTPCOMPRESSIONBEGIN %%comment VAR:zimbraHttpCompressionEnabled,-->%%
     <Get id="next" name="handler" />
     <Set name="handler">
@@ -898,7 +898,7 @@
       </New>
     </Set>
     %%comment VAR:zimbraHttpCompressionEnabled,<!--%% HTTPCOMPRESSIONEND -->
-
+    
     <!-- DEBUGBEGIN %%comment VAR:zimbraHttpDebugHandlerEnabled,-->%%
     <Get id="oldhandler" name="handler"/>
     <Set name="handler">
@@ -923,31 +923,31 @@
     <!-- =========================================================== -->
     <!-- start connectors                                            -->
     <!-- =========================================================== -->
-
+    
     <!-- HTTPBEGIN %%comment VAR:zimbraMailMode,-->,http,redirect,mixed,both%%
     <Ref id="http">
       <Call name="open"/>
     </Ref>
     %%comment VAR:zimbraMailMode,<!--,http,redirect,mixed,both%% HTTPEND -->
-
+    
 	<!-- HTTPLOCALBEGIN %%comment VAR:zimbraMailLocalBind,-->%%
     <Ref id="http_local">
       <Call name="open"/>
     </Ref>
 	%%comment VAR:zimbraMailLocalBind,<!--%% HTTPLOCALEND -->
-
+    
     <!-- HTTPSBEGIN %%comment VAR:zimbraMailMode,-->,https,redirect,mixed,both%%
     <Ref id="ssl">
-      <Call name="open"/>/
+      <Call name="open"/>
     </Ref>
     %%comment VAR:zimbraMailMode,<!--,https,redirect,mixed,both%% HTTPSEND -->
-
+    
     <!-- HTTPSCLIENTCERTBEGIN %%uncomment VAR:zimbraMailSSLClientCertMode,-->,Disabled%%
     <Ref id="ssl-clientcert">
       <Call name="open"/>
     </Ref>
     %%uncomment VAR:zimbraMailSSLClientCertMode,<!--,Disabled%% HTTPSCLIENTCERTEND -->
-
+    
     <Ref id="admin">
       <Call name="open"/>
     </Ref>

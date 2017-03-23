@@ -769,3 +769,27 @@ zimbra@vagrant:~$ zmprov -l gs $(zmhostname) zimbraAdminLocalBind
 zimbraAdminLocalBind: FALSE
 
 
+
+log/zmmailboxd.out
+
+Caused by: java.lang.RuntimeException: java.net.BindException: Address already in use
+	at org.eclipse.jetty.setuid.SetUIDListener.lifeCycleStarting(SetUIDListener.java:213)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.setStarting(AbstractLifeCycle.java:188)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:67)
+	at org.eclipse.jetty.xml.XmlConfiguration$1.run(XmlConfiguration.java:1516)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.jetty.xml.XmlConfiguration.main(XmlConfiguration.java:1441)
+	... 7 more
+Caused by: java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.eclipse.jetty.server.ServerConnector.open(ServerConnector.java:317)
+	at org.eclipse.jetty.setuid.SetUIDListener.lifeCycleStarting(SetUIDListener.java:200)
+	... 12 more
+
+
+zimbra@vagrant:~$ zmprov -l ms $(zmhostname) zimbraAdminBindAddress ""
+
