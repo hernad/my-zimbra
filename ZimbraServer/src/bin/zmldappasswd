@@ -328,14 +328,6 @@ if ( $options{r}) {
     }
   }
 } elsif ( $options{b} ) {
-=for comment
-  setLocalConfig("ldap_bes_searcher_password", "$password");
-  my $mesg = $ldap->bind('uid=zmbes-searcher,cn=appaccts,cn=zimbra', password=>"$password");
-  if ($mesg->code) {
-    $mesg = $ldap->bind("cn=config", password=>"$cur_rootdn_passwd");
-    $mesg = $ldap->set_password(user=>"uid=zmbes-searcher,cn=appaccts,cn=zimbra",newpasswd=>$password);
-  }
-=cut
   my $infile = "/opt/zimbra/conf/zimbra.ldif";
   my $outfile = "$zimbra_tmp_directory/zimbra.ldif.$$";
   my $ldifin = Net::LDAP::LDIF->new( "$infile", "r", onerror => 'undef' );
@@ -432,7 +424,7 @@ sub usage() {
   print "Usage: $0 [-h] [-r] [-p] [[-c]-l] newpassword\n";
   print "\t-h: display this help message\n";
   print "\t-a: change ldap_amavis_password\n";
-  print "\t-b: change ldap_bes_searcher_password\n";
+  #print "\t-b: change ldap_bes_searcher_password\n";
   print "\t-l: change ldap_replication_password\n";
   print "\t-c: Update ldap_replication_password on replica. Requires -l\n";
   print "\t-n: change ldap_nginx_password\n";
