@@ -57,3 +57,31 @@ if (AjxPackage.define("Startup1_2")) {
 
 root@vagrant:/opt/zimbra/jetty-distribution-9.3.16.v20170120/webapps# gzip -c  zimbra/js/Startup1_2_all.js > zimbra/js/Startup1_2_all.js.zgz
 
+
+
+
+zmprov ms $(zmhostname) +zimbraServiceEnabled service
+zmprov ms $(zmhostname) +zimbraServiceEnabled zimbra
+zmprov ms $(zmhostname) +zimbraServiceEnabled zimbraAdmin
+zmprov ms $(zmhostname) +zimbraServiceEnabled zimlet
+zmcontrol restart
+
+
+
+
+$ zmmailbox -z -m admin@vagrant.out.ba gaf
+        Id  View      Unread   Msg Count  Path
+----------  ----  ----------  ----------  ----------
+         1  unkn           0           0  /
+        16  docu           0           0  /Briefcase
+        10  appo           0           0  /Calendar
+        14  mess           0           0  /Chats
+         7  cont           0           0  /Contacts
+         6  mess           0           0  /Drafts
+        13  cont           0           0  /Emailed Contacts
+         2  mess           0           0  /Inbox
+         4  mess           0           0  /Junk
+         5  mess           0           0  /Sent
+        15  task           0           0  /Tasks
+         3  unkn           0           0  /Trash
+

@@ -26,20 +26,12 @@ import com.zimbra.common.util.ZimbraLog;
 
 public class RedirectHelp implements Filter {
 
-	//
-	// Constants
-	//
-
 	private static final String P_INPUT_DIRNAME = "input.dir";
 	private static final String P_OUTPUT_DIRNAME = "output.dir";
 	private static final String P_LOCALE_ID = "locid";
 
 	private static final String DEFAULT_INPUT_DIRNAME = "/help";
 	private static final String DEFAULT_OUTPUT_DIRNAME = "/help";
-
-	//
-	// Data
-	//
 
 	private ServletContext context;
 
@@ -131,7 +123,7 @@ public class RedirectHelp implements Filter {
 		for (Locale locale : locales) {
 			if (locale == null) continue;
 			File file = new File(baseDir,
-				this.outDirName.replaceAll("\\{locale\\}", locale.toString()) + 
+				this.outDirName.replaceAll("\\{locale\\}", locale.toString()) +
 				File.separatorChar +
 				filename
 			);

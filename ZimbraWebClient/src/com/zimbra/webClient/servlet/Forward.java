@@ -26,10 +26,9 @@ import com.zimbra.common.util.ZimbraLog;
 @SuppressWarnings("serial")
 public class Forward extends ZCServlet
 {
-    public static final String DEFAULT_FORWARD_URL = 
-	"/public/login.jsp";
+    public static final String DEFAULT_FORWARD_URL = "/public/login.jsp";
     private static final String PARAM_FORWARD_URL = "fu";
-    
+
     public void doGet (HttpServletRequest req,
 		       HttpServletResponse resp) {
 
@@ -47,5 +46,5 @@ public class Forward extends ZCServlet
 		if (!resp.isCommitted())
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	}
-    }    
+    }
 }

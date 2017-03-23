@@ -72,6 +72,7 @@
     <filter-class>com.zimbra.webClient.filters.CharEncodingFilter</filter-class>
     <async-supported>true</async-supported>
   </filter>
+
   <filter-mapping>
     <filter-name>CharEncodingFilter</filter-name>
     <url-pattern>/h/*</url-pattern>
@@ -171,8 +172,8 @@
       -->
     </init-param>
     <init-param>
-      <param-name>ProdMode</param-name>
-      <param-value>@prodMode@</param-value>
+    <param-name>ProdMode</param-name>
+    <param-value>@prodMode@</param-value>
       <!--
         This parameter value is filled in by the build depending
         on whether the build is a dev or prod build. This
@@ -307,16 +308,6 @@
   <filter-mapping>
     <filter-name>RequestStringFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter>
-    <filter-name>YuiSwfFilter</filter-name>
-    <filter-class>com.zimbra.webClient.filters.YuiSwfFilter</filter-class>
-    <async-supported>true</async-supported>
-  </filter>
-  <filter-mapping>
-    <filter-name>YuiSwfFilter</filter-name>
-    <url-pattern>/yui/*</url-pattern>
   </filter-mapping>
 
   <error-page>

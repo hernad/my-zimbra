@@ -43,9 +43,6 @@ import com.zimbra.common.util.ZimbraLog;
 public final class SetHeaderFilter extends com.zimbra.cs.servlet.SetHeaderFilter {
     private static final Log LOG = ZimbraLog.webclient;
 
-    // --------------------------------------------------------------
-    // Class constants
-    // --------------------------------------------------------------
     private static final String FALSE = "false";
     private static final String TRUE = "true";
     private static final String HEADER_VAL_GZIP = "gzip";

@@ -26,10 +26,6 @@ import com.zimbra.common.util.ZimbraLog;
 
 public class InsertHelpBranding implements Filter {
 
-    //
-    // Constants
-    //
-
     private static final String P_EXTENSIONS = "exts";
     private static final String P_MIME_TYPES = "types";
 
@@ -39,17 +35,11 @@ public class InsertHelpBranding implements Filter {
 
     private static final Pattern RE_LOCALE_ID = Pattern.compile("/([a-z]{2}(_[A-Z]{2}))/");
 
-    //
-    // Data
-    //
 
     private ServletContext context;
-
     private List<ExtensionFilter> filters;
 
-    //
-    // Filter methods
-    //
+
 
     public void init(FilterConfig config) throws ServletException {
         this.context = config.getServletContext();
@@ -78,9 +68,6 @@ public class InsertHelpBranding implements Filter {
         this.context = null;
     }
 
-    //
-    // Private methods
-    //
 
     private void doGet(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException {
@@ -195,10 +182,6 @@ public class InsertHelpBranding implements Filter {
         return new Locale(parts[0]);
     }
 
-    //
-    // Classes
-    //
-
     static class Buffer {
         // Data
         public byte[] data = new byte[4096];
@@ -223,15 +206,12 @@ public class InsertHelpBranding implements Filter {
     }
 
     static class ExtensionFilter implements FilenameFilter {
-        // Data
         private String ext;
         private String type;
-        // Constructors
         public ExtensionFilter(String ext, String type) {
             this.ext = ext.toLowerCase();
             this.type = type;
         }
-        // Public methods
         public String getType() { return type; }
         // FilenameFilter methods
         public boolean accept(File dir, String filename) {
@@ -239,4 +219,4 @@ public class InsertHelpBranding implements Filter {
         }
     }
 
-} // class InsertHelpBranding
+}

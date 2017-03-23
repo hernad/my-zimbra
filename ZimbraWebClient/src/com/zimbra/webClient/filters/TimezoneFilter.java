@@ -24,10 +24,6 @@ import com.zimbra.kabuki.tools.tz.GenerateData;
 
 public class TimezoneFilter implements Filter {
 
-	//
-	// Constants
-	//
-
 	static final String TIMEZONE_DATA_FILENAME = "/js/ajax/util/AjxTimezoneData.js";
 	static final String TIMEZONE_ICS_FILENAME = "/opt/zimbra/conf/timezones.ics";
 
@@ -60,9 +56,6 @@ public class TimezoneFilter implements Filter {
 
 	public void destroy() {}
 
-	//
-	// Protected methods
-	//
 
 	protected synchronized void updateTimezoneData() {
 		ZimbraLog.webclient.debug("%%% TimezoneFilter#updateTimezoneData");
@@ -96,4 +89,4 @@ public class TimezoneFilter implements Filter {
 		}
 	}
 
-} // class TimezoneFilter
+}
