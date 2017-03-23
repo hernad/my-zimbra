@@ -660,11 +660,6 @@ public class RightConsts {
     public static final String RT_checkRightUsr = "checkRightUsr";
 
     /**
-     * check for Zimbra software updates
-     */
-    public static final String RT_checkSoftwareUpdates = "checkSoftwareUpdates";
-
-    /**
      * configure admin UI components
      */
     public static final String RT_configureAdminUI = "configureAdminUI";
@@ -1765,11 +1760,6 @@ public class RightConsts {
      * Admin Console set attr rights for Server Volumes Tab
      */
     public static final String RT_setAdminConsoleServerVolumesTab = "setAdminConsoleServerVolumesTab";
-
-    /**
-     * Admin Console view attr rights for software updates tab
-     */
-    public static final String RT_setAdminConsoleSoftwareUpdatesConfigAttrs = "setAdminConsoleSoftwareUpdatesConfigAttrs";
 
     /**
      * Admin Console set attr rights for Zimlet ACL Tab

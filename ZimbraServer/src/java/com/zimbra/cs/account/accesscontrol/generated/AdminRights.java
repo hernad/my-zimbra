@@ -144,7 +144,6 @@ public class AdminRights {
     public static AdminRight R_checkPasswordStrength;
     public static AdminRight R_checkRightGrp;
     public static AdminRight R_checkRightUsr;
-    public static AdminRight R_checkSoftwareUpdates;
     public static AdminRight R_configureAdminUI;
     public static AdminRight R_configureCosConstraint;
     public static AdminRight R_configureExternalAuth;
@@ -365,7 +364,6 @@ public class AdminRights {
     public static AdminRight R_setAdminConsoleServerPOPTab;
     public static AdminRight R_setAdminConsoleServerServicesTab;
     public static AdminRight R_setAdminConsoleServerVolumesTab;
-    public static AdminRight R_setAdminConsoleSoftwareUpdatesConfigAttrs;
     public static AdminRight R_setAdminConsoleZimletACLTab;
     public static AdminRight R_setAdminSavedSearch;
     public static AdminRight R_setCalendarResourcePassword;
@@ -578,7 +576,6 @@ public class AdminRights {
         R_checkPasswordStrength                = rm.getAdminRight(Right.RT_checkPasswordStrength);
         R_checkRightGrp                        = rm.getAdminRight(Right.RT_checkRightGrp);
         R_checkRightUsr                        = rm.getAdminRight(Right.RT_checkRightUsr);
-        R_checkSoftwareUpdates                 = rm.getAdminRight(Right.RT_checkSoftwareUpdates);
         R_configureAdminUI                     = rm.getAdminRight(Right.RT_configureAdminUI);
         R_configureCosConstraint               = rm.getAdminRight(Right.RT_configureCosConstraint);
         R_configureExternalAuth                = rm.getAdminRight(Right.RT_configureExternalAuth);
@@ -799,7 +796,6 @@ public class AdminRights {
         R_setAdminConsoleServerPOPTab          = rm.getAdminRight(Right.RT_setAdminConsoleServerPOPTab);
         R_setAdminConsoleServerServicesTab     = rm.getAdminRight(Right.RT_setAdminConsoleServerServicesTab);
         R_setAdminConsoleServerVolumesTab      = rm.getAdminRight(Right.RT_setAdminConsoleServerVolumesTab);
-        R_setAdminConsoleSoftwareUpdatesConfigAttrs = rm.getAdminRight(Right.RT_setAdminConsoleSoftwareUpdatesConfigAttrs);
         R_setAdminConsoleZimletACLTab          = rm.getAdminRight(Right.RT_setAdminConsoleZimletACLTab);
         R_setAdminSavedSearch                  = rm.getAdminRight(Right.RT_setAdminSavedSearch);
         R_setCalendarResourcePassword          = rm.getAdminRight(Right.RT_setCalendarResourcePassword);
