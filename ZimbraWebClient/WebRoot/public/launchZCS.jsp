@@ -119,7 +119,7 @@
 
 	String ext = getAttribute(request, "fileExtension", null);
 	if (ext == null || isDevMode || isCoverage) ext = "";
-	
+
 	String offlineMode = getParameter(request, "offline", application.getInitParameter("offlineMode"));
 
 	Locale locale = request.getLocale();
@@ -165,6 +165,7 @@
 <c:set var="lang" value="${fn:substring(pageContext.request.locale, 0, 2)}"/>
 <html class="user_font_size_normal" lang="${lang}">
 <head>
+
 <!--
  launchZCS.jsp
  * ***** BEGIN LICENSE BLOCK *****
@@ -193,7 +194,7 @@
     <% pageContext.setAttribute("locale", Locale.US); //unsupported locale being set default to US%>
    </c:if>
 </c:if>
-	
+
 <fmt:setBundle basename="/messages/ZmMsg" scope="request" force="true" />
 <title><fmt:message key="zimbraTitle"/></title>
 <link href="<c:url value="/css/images,common,dwt,msgview,login,zm,spellcheck,skin.css">
@@ -203,7 +204,7 @@
 	<c:param name="locale" value="${locale}" />
 	<c:if test="${not empty param.customerDomain}">
 		<c:param name="customerDomain"	value="${param.customerDomain}" />
-	</c:if>		
+	</c:if>
 </c:url>" rel="stylesheet" type="text/css" />
 <c:if test="${isUnitTest}">
 	<script>
@@ -226,12 +227,12 @@
 	window.cacheKillerVersion	= "${zm:jsEncode(vers)}";
 	window.appRequestLocaleId	= "${locale}";
 	window.appDevMode			= ${isDevMode};
-    window.appCoverageMode		= ${isCoverage};
-    window.isScriptErrorOn		= ${isScriptErrorOn};
-    window.isPerfMetric			= ${isPerfMetric};
+  window.appCoverageMode		= ${isCoverage};
+  window.isScriptErrorOn		= ${isScriptErrorOn};
+  window.isPerfMetric			= ${isPerfMetric};
 	window.authTokenExpires     = <%= authResult.getExpires()%>;
 	window.csrfToken            = "${csrfToken}";
-    window.appLang              = "${lang}";
+  window.appLang              = "${lang}";
 </script>
 <noscript>
 <meta http-equiv="Refresh" content="0;url=public/noscript.jsp" >
@@ -323,7 +324,7 @@
 	</c:if>
 </script>
 <%@ include file="loadImgData.jsp" %>
-    
+
 <script>
 <jsp:include page="/js/ajax/util/AjxTimezoneData.js" />
 </script>
@@ -362,7 +363,7 @@
 	<jsp:param name='debug' value='${isDebug}' />
 	<jsp:param name="templates" value="split" />
 	<jsp:param name="customerDomain"	value="${param.customerDomain}" />
-	
+
 </jsp:include>
 </script>
 <c:if test="${not requestScope['skin.templates.included']}">
@@ -376,7 +377,7 @@
 	<c:param name="v" value="${vers}" />
 	<c:if test="${not empty param.customerDomain}">
 		<c:param name="customerDomain"	value="${param.customerDomain}" />
-	</c:if>	
+	</c:if>
 </c:url>"></script>
 </c:if>
 <script>
@@ -489,7 +490,7 @@ delete text;
 			virtualAcctDomain:virtualAcctDomain
 		};
 		ZmZimbraMail.run(params);
-		
+
 		delete virtualAcctDomain;
 	}
 

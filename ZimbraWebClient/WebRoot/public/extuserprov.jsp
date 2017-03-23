@@ -114,6 +114,7 @@
 		<div class="Footer">
 		<div id="ZLoginNotice" class="legalNotice-small"><fmt:message key="clientLoginNotice"/></div>
 
+<!-- hernad-copyright
 		<div class="copyright">
 			<c:choose>
 				<c:when test="${zm:boolean(useMobile)}">
@@ -124,6 +125,8 @@
 				</c:otherwise>
 			</c:choose>
 			</div>
+	-->
+
 		</div>
 	</div>
 <script>

@@ -56,24 +56,6 @@
 	</c:if>
 </c:if>
 
-<%
-    // Touch client exists only in network edition
-
-    Boolean touchLoginPageExists = (Boolean) application.getAttribute("touchLoginPageExists");
-    if(touchLoginPageExists == null) {
-        try {
-            touchLoginPageExists = new java.io.File(application.getRealPath("/public/loginTouch.jsp")).exists();
-        } catch (Exception ignored) {
-            // Just in case there's anException
-            touchLoginPageExists = true;
-        }
-        application.setAttribute("touchLoginPageExists", touchLoginPageExists);
-    }
-    //Fetch the IP address of the client
-    String remoteAddr = ZJspSession.getRemoteAddr(pageContext);
-    pageContext.setAttribute("remoteAddr", remoteAddr);
-%>
-<c:set var="touchLoginPageExists" value="<%=touchLoginPageExists%>"/>
 
 <c:catch var="loginException">
 	<c:choose>
@@ -342,9 +324,6 @@ if (application.getInitParameter("offlineMode") != null) {
 	</c:redirect>
 </c:if>
 
-<c:if test="${(empty param.client or param.client eq 'touch') and touchSupported and touchLoginPageExists}">
-    <jsp:forward page="/public/loginTouch.jsp"/>
-</c:if>
 
 <c:url var="formActionUrl" value="/">
 	<c:forEach var="p" items="${paramValues}">
@@ -402,9 +381,6 @@ if (application.getInitParameter("offlineMode") != null) {
 	<c:if test="${empty client}">
 		<%-- set client select default based on user agent. --%>
         <c:choose>
-            <c:when test="${touchSupported}">
-                <c:set var="client" value="${touchLoginPageExists ? 'touch' : 'mobile'}"/>
-            </c:when>
             <c:when test="${mobileSupported}">
                 <c:set var="client" value="mobile"/>
             </c:when>
@@ -595,6 +571,7 @@ if (application.getInitParameter("offlineMode") != null) {
 			<div class="decor1"></div>
 		</div>
 
+<!-- hernad-copyright
 		<div class="${smallScreen?'Footer-small':'Footer'}">
 			<div id="ZLoginNotice" class="legalNotice-small"><fmt:message key="clientLoginNotice"/></div>
 			<div class="copyright">
@@ -608,8 +585,11 @@ if (application.getInitParameter("offlineMode") != null) {
 			</c:choose>
 			</div>
 		</div>
+-->
+
 		<div class="decor2"></div>
 	</div>
+
 <script>
 
 <jsp:include page="/js/skin.js">
@@ -617,6 +597,7 @@ if (application.getInitParameter("offlineMode") != null) {
 	<jsp:param name="client" value="advanced" />
 	<jsp:param name='servlet-path' value='/js/skin.js' />
 </jsp:include>
+
 var link = document.getElementById("bannerLink");
 if (link) {
 	link.href = skin.hints.banner.url;

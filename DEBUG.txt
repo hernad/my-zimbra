@@ -46,3 +46,14 @@ ZimbraServer/conf/attrs/zimbra-attrs.xml
 +    cs_emailp...comma-separated valid email addresses . each address must have a "@" <<<<< space se ne smije brisati!
  
 
+
+root@vagrant:/opt/zimbra/jetty-distribution-9.3.16.v20170120/webapps# head  zimbra/js/Startup1_2_all.js
+console.log("hello zimbra startup1_2");
+
+if (AjxPackage.define("Startup1_2")) {
+  ...
+
+----
+
+root@vagrant:/opt/zimbra/jetty-distribution-9.3.16.v20170120/webapps# gzip -c  zimbra/js/Startup1_2_all.js > zimbra/js/Startup1_2_all.js.zgz
+
