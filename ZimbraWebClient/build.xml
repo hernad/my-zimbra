@@ -1476,6 +1476,7 @@ ext = BeanUtils.cook(ext);
         </if>
 
         <!-- generate a mapping of emoticons to their image data -->
+        <mkdir dir="${tinymce.root.dir}/plugins"/>
         <mkdir dir="${tinymce.root.dir}/plugins/zemoticons"/>
         <property name="tinymce.emoticon.file" location="${tinymce.dir}/plugins/zemoticons/data.js"/>
 
