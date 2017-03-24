@@ -29,15 +29,16 @@ zcs_stage: $(SOAP_DIR)/package-soap-api-doc packages
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/data
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/docs
 	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/util/modules
-	-@(for d in `find $(CONSOLE_DIR)/WebRoot/help -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \;`; do \
-		[ ! -e $(CONSOLE_DIR)/WebRoot/help/$$d/admin/pdf ] && continue; \
-		mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/docs/$$d; \
-		cp -f $(CONSOLE_DIR)/WebRoot/help/$$d/admin/pdf/* zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/docs/$$d; \
-	done)
-	-@(for d in `find $(CONSOLE_DIR)/WebRoot/help -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \;`; do \
-		cp -f $(CONSOLE_DIR)/WebRoot/help/$$d/admin/txt/readme_source.txt zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/readme_source_$$d.txt; \
-		cp -f $(CONSOLE_DIR)/WebRoot/help/$$d/admin/txt/readme_binary.txt zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/readme_binary_$$d.txt; \
-	done)
+	# hernad out pdf
+	#-@(for d in `find $(CONSOLE_DIR)/WebRoot/help -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \;`; do \
+	#	[ ! -e $(CONSOLE_DIR)/WebRoot/help/$$d/admin/pdf ] && continue; \
+	#	mkdir -p zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/docs/$$d; \
+	#	cp -f $(CONSOLE_DIR)/WebRoot/help/$$d/admin/pdf/* zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/docs/$$d; \
+	#done)
+	#-@(for d in `find $(CONSOLE_DIR)/WebRoot/help -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \;`; do \
+	#	cp -f $(CONSOLE_DIR)/WebRoot/help/$$d/admin/txt/readme_source.txt zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/readme_source_$$d.txt; \
+	#	cp -f $(CONSOLE_DIR)/WebRoot/help/$$d/admin/txt/readme_binary.txt zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/readme_binary_$$d.txt; \
+	#done)
 	cp -f $(SERVICE_DIR)/build/versions-init.sql zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/data
 	cp $(PACKAGE_CONF_DIR)/Install/install.sh zcs-$(RELEASE_VERSION_TAG).$(RELEASE)
 	cp -f $(PACKAGE_CONF_DIR)/Install/Util/*sh zcs-$(RELEASE_VERSION_TAG).$(RELEASE)/util
