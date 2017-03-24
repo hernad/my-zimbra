@@ -21,723 +21,771 @@
  * ***** END LICENSE BLOCK *****
  */
 
-
 HTML {
-	margin:0px;
-	padding:0px;
-	height:auto;
-	min-height:900px;
+    margin: 0px;
+    padding: 0px;
+    height: auto;
+    min-height: 900px;
 }
 
 BODY {
-	@FontFamily-default@
-	color:@TxtC@;
-	margin:0px;
-	padding:0px;
+    @FontFamily-default@ color: @TxtC@;
+    margin: 0px;
+    padding: 0px;
 }
 
-#skin_outer *				{	@FixBoxModel@	}
+#skin_outer * {
+    @FixBoxModel@
+}
+
 
 /* classes for the skin around the various pieces of the app */
 
-.skin_container				{	position:relative; overflow:hidden; @FullSize@	}
-.skin_table					{	@FullSize@		}
-.full_height				{	height:100%;	}
-
-.skin_layout_row			{	width:100%; clear:both;		}
-.skin_layout_cell			{	height:100%; float:left;	}
-.skin_layout				{	display:block; clear:both; width:100%; height:100%	}
-
-#skin_outer {
-	@FullSize@
-	@grad(#57A3D5,#1D3A62)@ 	/* TODO: Derive colors from skin.properties values */
-#IFDEF MSIE_LOWER_THAN_9
-	padding:0px 5px 5px;
-#ENDIF
+.skin_container {
+    position: relative;
+    overflow: hidden;
+    @FullSize@
 }
 
-#skin_top_td				{	height:@TopHeight@;	}
-#skin_outer *				{	@FixBoxModel@	}
-#skin_table_outer			{	padding:0px 5px 5px;	}
+.skin_table {
+    @FullSize@
+}
+
+.full_height {
+    height: 100%;
+}
+
+.skin_layout_row {
+    width: 100%;
+    clear: both;
+}
+
+.skin_layout_cell {
+    height: 100%;
+    float: left;
+}
+
+.skin_layout {
+    display: block;
+    clear: both;
+    width: 100%;
+    height: 100%
+}
+
+#skin_outer {
+    @FullSize@ @grad(#57A3D5, #1D3A62)@ 	/* TODO: Derive colors from skin.properties values */ #IFDEF MSIE_LOWER_THAN_9 padding:0px 5px 5px;
+    #ENDIF
+}
+
+#skin_top_td {
+    height: @TopHeight@;
+}
+
+#skin_outer * {
+    @FixBoxModel@
+}
+
+#skin_table_outer {
+    padding: 0px 5px 5px;
+}
+
 
 /* top row: logo, search box, quota */
-#skin_tr_top				{}
-#skin_td_logo				{}
+
+#skin_tr_top {}
+
+#skin_td_logo {}
+
+
 /** Logo displayed in the app **/
-#skin_td_logo				{}
+
+#skin_td_logo {}
 
 #skin_container_logo {
-	@SkinBorderLogo@
-	height:@AppBannerHeight@;
-	width:@AppBannerWidth@;
-#IFDEF MSIE_LOWER_THAN_9
-	height:100%;
-#ENDIF
+    @SkinBorderLogo@ height: @AppBannerHeight@;
+    width: @AppBannerWidth@;
+    #IFDEF MSIE_LOWER_THAN_9 height: 100%;
+    #ENDIF
 }
 
 .ImgAppBanner {
-	background-position:0px;
-#IFDEF MSIE_LOWER_THAN_9
-	margin-top:8px;
-#ENDIF
+    background-position: 0px;
+    #IFDEF MSIE_LOWER_THAN_9 margin-top: 8px;
+    #ENDIF
 }
 
 #skin_td_toaster {
-	width:100%;
+    width: 100%;
 }
 
 #skin_container_toaster {
-	width:100%;
-	height:100%;
+    width: 100%;
+    height: 100%;
 }
 
-#skin_td_search { 
-	vertical-align:top;
-	padding:0px;
+#skin_td_search {
+    vertical-align: top;
+    padding: 0px;
 }
 
-#skin_container_search	{
-	height:21px;
-	margin-right:5px;
-	width:400px;
+#skin_container_search {
+    height: 21px;
+    margin-right: 5px;
+    width: 400px;
 }
+
 
 /* Vertical Seperators */
-#skin_container_pre_next_vertsep, 
-#skin_container_refresh_vertsep, 
-#skin_container_search_vertsep, 
-#skin_container_username_vertsep {
-	height:@TopHeight@;
-	padding:8px 9px;
-	width:1px;
-#IFDEF MSIE_LOWER_THAN_9
-	margin:0px 9px;
-#ENDIF
+
+#skin_container_pre_next_vertsep, #skin_container_refresh_vertsep, #skin_container_search_vertsep, #skin_container_username_vertsep {
+    height: @TopHeight@;
+    padding: 8px 9px;
+    width: 1px;
+    #IFDEF MSIE_LOWER_THAN_9 margin: 0px 9px;
+    #ENDIF
 }
 
-
-#skin_container_previous,
-#skin_container_next {
-	height:@TopHeight@;
-	padding-top:8px;
-	width:21px;
+#skin_container_previous, #skin_container_next {
+    height: @TopHeight@;
+    padding-top: 8px;
+    width: 21px;
 }
 
 #skin_container_refresh {
-	height:@TopHeight@;
-	padding-top:8px;
-	width:19px;  /* wider than image to even out spacing */
+    height: @TopHeight@;
+    padding-top: 8px;
+    width: 19px;
+    /* wider than image to even out spacing */
 }
 
 .RefreshContainer {}
 
+
 /** User Name section **/
+
 #skin_container_username {
-	height:@TopHeight@;
-	padding-top:8px;
-	width:100px;
+    height: @TopHeight@;
+    padding-top: 8px;
+    width: 100px;
 }
 
 .skin_container_username_div {
-	text-overflow:ellipsis;
-	width:82px;
+    text-overflow: ellipsis;
+    width: 82px;
 }
 
+
 /* Josh: Selectors with asterisks aren't a good idea because there's limit   */
+
+
 /* on how far down they'll apply, and applying the same style to every level */
+
+
 /* defeats the purpose of inheritance, but I'll leave them alone for now.    */
 
 #skin_container_username * {
-	@SkinElementAlign@
-	@SkinTextUsername@
+    @SkinElementAlign@ @SkinTextUsername@
 }
 
 #skin_container_help * {
-	@SkinElementAlign@
-	@SkinTextHelp@
+    @SkinElementAlign@ @SkinTextHelp@
 }
 
 #skin_container_help {
-	height:@TopHeight@;
-	padding-top:8px;
+    height: @TopHeight@;
+    padding-top: 8px;
 }
 
-#skin_spacing_filler {   
-	height:12px; 
-	@grad(white,AppC)@
+#skin_spacing_filler {
+    height: 12px;
+    @grad(white, AppC)@
 }
 
 #skin_td_bottom {
-	border:5px solid rgb(150, 197, 217); 	/* TODO: Derive colors from skin.properties values */
-	background-color:rgb(150, 197, 217);
-	@borderRadius@:5px;
+    border: 5px solid rgb(150, 197, 217);
+    /* TODO: Derive colors from skin.properties values */
+    background-color: rgb(150, 197, 217);
+    @borderRadius@: 5px;
 }
+
 
 /***Left panel start here
  *  tree
  **/
+
 #skin_td_left_tree {
-	height:100%;
-	width:@TreeStartWidth@;
-	padding-right:2px
+    height: 100%;
+    width: @TreeStartWidth@;
+    padding-right: 2px
 }
 
 #skin_container_tree_top {
-	@AppTop@
+    @AppTop@
 }
 
 #skin_td_tree {
-	height:100%;
-	padding:0px;
+    height: 100%;
+    padding: 0px;
 }
 
 #skin_container_tree {
-	@AppMiddle@
+    @AppMiddle@
 }
 
 #skin_td_current_app, #skin_td_tree_container {
-	padding:0px 0px 0px 6px;
+    padding: 0px 0px 0px 6px;
 }
 
 #skin_tr_tree_footer {
-	display:table-row;
+    display: table-row;
 }
 
 #skin_td_tree_footer {
-	vertical-align:top;
+    vertical-align: top;
 }
 
 #skin_container_tree_footer {
-	@AppFooter@
+    @AppFooter@
 }
+
 
 /***Middle panel start here
  *  Main App
  **/
-#skin_td_middle_app	{
-	padding-right:2px;
+
+#skin_td_middle_app {
+    padding-right: 2px;
 }
+
 
 /* current app, tree-app sash, top toolbar */
-#skin_tr_app_tabs {
-}
 
-#skin_td_app_tabs {
-}
+#skin_tr_app_tabs {}
+
+#skin_td_app_tabs {}
 
 #skin_container_app_tabs {
-	@AppTop@
+    @AppTop@
 }
 
 #skin_td_app_main {
-	padding:0px;
+    padding: 0px;
 }
 
 #skin_container_app_main {
-	@AppMiddle@
+    @AppMiddle@
 }
 
-#skin_tr_main_footer   {
-	display:table-row;
+#skin_tr_main_footer {
+    display: table-row;
 }
 
-#skin_td_main_footer  {
-	vertical-align:top;
+#skin_td_main_footer {
+    vertical-align: top;
 }
 
 #skin_container_main_footer {
-	@AppFooter@
+    @AppFooter@
 }
+
 
 /*right panel tool-panel*/
+
 #skin_td_right_tool {
-	height:100%;
-	width:@ToolStartWidth@;
+    height: 100%;
+    width: @ToolStartWidth@;
 }
 
-#skin_tr_tool_header {
-}
+#skin_tr_tool_header {}
 
-#skin_td_tool_header {
-}
+#skin_td_tool_header {}
 
 #skin_container_tool_header {
-	@AppTop@
+    @AppTop@
 }
 
 #skin_td_tool {
-	padding:0px;
+    padding: 0px;
 }
 
 #skin_container_tool {
-	@AppMiddleBorder@
-	@AppMiddleSize@
-	background-color:#E7E7E7;
+    @AppMiddleBorder@ @AppMiddleSize@ background-color: #E7E7E7;
 }
- 
+
 #skin_tr_tool_footer {
-	display:table-row;
+    display: table-row;
 }
 
 #skin_td_tool_footer {
-	vertical-align:top;
+    vertical-align: top;
 }
 
 #skin_container_tool_footer {
-	@AppFooter@
+    @AppFooter@
 }
 
 
 /*Used by Admin Console start*/
+
 .AppSash-vert {
-	height:11px;
+    height: 11px;
 }
 
 .asterisk {
-	@Text-error@	
+    @Text-error@
 }
 
 
 /** LoginPanel and Splash screen **/
+
 #skin_container_splash_screen {
-	@SkinOuter@
-	@FullWindow@
-	z-index:90000000;
+    @SkinOuter@ @FullWindow@ z-index: 90000000;
 }
 
-.LoginScreen,
-.SplashScreen {
-	@LoginScreen@
-	@FontSize-normal@
-	font-family:@FontFamily-default@;
-	height:100%;
-	left:0px;
-	position:absolute;
-	top:0px;
-	width:100%;
+.LoginScreen, .SplashScreen {
+    @LoginScreen@ @FontSize-normal@ font-family: @FontFamily-default@;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
 }
 
-.LoginScreen .center,
-.SplashScreen .center {
-	margin-top:-160px;
-	margin-left:-250px;
-	min-height:320px;
-	width:500px;
-#IFDEF MSIE_LOWER_THAN_9
-	height:330px;
-#ENDIF
+.LoginScreen .center, .SplashScreen .center {
+    margin-top: -160px;
+    margin-left: -250px;
+    min-height: 320px;
+    width: 500px;
+    #IFDEF MSIE_LOWER_THAN_9 height: 330px;
+    #ENDIF
 }
 
-.LoginScreen .center-small,
-.SplashScreen .center-small {
-	height:270px;
-	margin-top:-135px;
-	margin-left:-175px;
-	width:350px;
+.LoginScreen .center-small, .SplashScreen .center-small {
+    height: 270px;
+    margin-top: -135px;
+    margin-left: -175px;
+    width: 350px;
 }
 
-.LoginScreen .center, .LoginScreen .center-small,
-.SplashScreen .center, .SplashScreen .center-small {
-	left:50%;
-	overflow:visible;
-	position:absolute;
-	top:40%;
-	z-index:11;
+.LoginScreen .center, .LoginScreen .center-small, .SplashScreen .center, .SplashScreen .center-small {
+    left: 50%;
+    overflow: visible;
+    position: absolute;
+    top: 40%;
+    z-index: 11;
 }
 
-.LoginScreen .contentBox,
-.SplashScreen .contentBox {
-	min-height:265px;
-	width:500px;
-#IFDEF MSIE_LOWER_THAN_9
-	height:265px;
-#ENDIF
-	@LoginContentBox@
+.LoginScreen .contentBox, .SplashScreen .contentBox {
+    min-height: 265px;
+    width: 500px;
+    #IFDEF MSIE_LOWER_THAN_9 height: 265px;
+    #ENDIF @LoginContentBox@
 }
 
-.LoginScreen H1,
-.SplashScreen H1 			{	@LoginH1@ 		}
+.LoginScreen H1, .SplashScreen H1 {
+    @LoginH1@
+}
 
-#ZLoginAppName 				{	@LoginAppName@ 	}
+#ZLoginAppName {
+    @LoginAppName@
+}
 
-.LoginScreen .ImgLoginBanner,
-.SplashScreen .ImgLoginBanner {
-	cursor:pointer;
-	display:block;
-	background-position:left bottom;
+.LoginScreen .ImgLoginBanner, .SplashScreen .ImgLoginBanner {
+    cursor: pointer;
+    display: block;
+    background-position: left bottom;
 }
 
 .LoginScreen .zLoginField {
-	@roundCorners(5px)@
+    @roundCorners(5px)@
 }
 
 .form .ZLoginButton {
-	@LoginButton@
-	/*@grad(#FFF,#DFE2E2)@
+    @LoginButton@
+    /*@grad(#FFF,#DFE2E2)@
 	background-color:#DFE2E2;*/
-	float:right;
-	font-size:11px;
-	height:22px;
+    float: right;
+    font-size: 11px;
+    height: 22px;
 }
 
-.LoginScreen .decor1,
-.SplashScreen .decor1 {
-	@Decor1@
+.LoginScreen .decor1, .SplashScreen .decor1 {
+    @Decor1@
 }
 
-.LoginScreen .Footer,
-.SplashScreen .Footer {
-	bottom:0px;
-	position:absolute;
-	text-align:center;
-	width:100%;
-	z-index:10;
+.LoginScreen .Footer, .SplashScreen .Footer {
+    bottom: 0px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
 }
 
-.LoginScreen .copyright,
-.LoginScreen #ZLoginNotice,
-.SplashScreen .copyright {
-	color:@darken(AppC,55)@;
-	cursor:default;
-	font-size:11px;
-	margin-bottom:5px;
+.LoginScreen .copyright, .LoginScreen #ZLoginNotice, .SplashScreen .copyright {
+    color: @darken(AppC, 55)@;
+    cursor: default;
+    font-size: 11px;
+    margin-bottom: 5px;
 }
 
 .LoginScreen #ZLoginNotice A {
-	color:@darken(AppC,55)@;
+    color: @darken(AppC, 55)@;
 }
 
 .LoginScreen #ZLoginErrorPanel {
-	@InlineErrorPanel@
-	margin:1em auto;
-	width:80%;
+    @InlineErrorPanel@ margin: 1em auto;
+    width: 80%;
 }
+
 
 /* accounts for default font size being enlarged to 12px */
-.LoginScreen TD,
-.SplashScreen TD {
-	font-size:11px;
+
+.LoginScreen TD, .SplashScreen TD {
+    font-size: 11px;
 }
 
+
 /*Splash Screen Only Items*/
+
 .SplashScreen .content {
-	color:@LoginLabelColor@;
-	text-align:center;
+    color: @LoginLabelColor@;
+    text-align: center;
 }
 
 .SplashScreen .message {
-	@FontSize-bigger@
-	color:@LoginLabelColor@;
-	cursor:default;
-	padding-top:40px;
+    @FontSize-bigger@ color: @LoginLabelColor@;
+    cursor: default;
+    padding-top: 40px;
 }
 
-.SplashScreen .switch{
-	margin:100px 100px 0px;
+.SplashScreen .switch {
+    margin: 100px 100px 0px;
 }
 
 .SplashScreen .switch A {
-	@FontSize-normal@
-	color:@LoginLabelColor@;
-	text-decoration:underline;
+    @FontSize-normal@ color: @LoginLabelColor@;
+    text-decoration: underline;
 }
 
 .ZLoadingMessage {
-	color:white;
-	font-size:14px;
-	font-weight:bold;
-	padding-top:50px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 50px;
 }
+
 
 /** Logo Images **/
-.ImgAppBanner				{	@AppBanner@ background-repeat:no-repeat;		}
-.ImgLoginBanner				{	@LoginBanner@ background-repeat:no-repeat;		}
-.ImgAboutBanner				{	@AboutBanner@ background-repeat:no-repeat;		}
 
-#IFDEF MSIE_LOWER_THAN_9
-#skin_container_logo A,
-#skin_container_logo A:hover,
-#skin_container_logo A:link {
-	background-color:transparent;
+.ImgAppBanner {
+    @AppBanner@ background-repeat: no-repeat;
 }
+
+.ImgLoginBanner {
+    @LoginBanner@ background-repeat: no-repeat;
+}
+
+.ImgAboutBanner {
+    @AboutBanner@ background-repeat: no-repeat;
+}
+
+#IFDEF MSIE_LOWER_THAN_9 #skin_container_logo A, #skin_container_logo A:hover, #skin_container_logo A:link {
+    background-color: transparent;
+}
+
 #ENDIF
-
-
-
 /** About Screen **/
 
-
 .AboutScreen {
-	background-color:@LoginContentC2@;
-	@LoginContentGrad@
-	@roundCorners(5px)@
+    background-color: @LoginContentC2@;
+    @LoginContentGrad@ @roundCorners(5px)@
 }
 
 .AboutScreen .ImgAboutBanner {
-	background-repeat:no-repeat;
-	cursor:pointer;
-	display:block;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: block;
 }
 
 .AboutScreen .WindowInnerContainer {
-	background:transparent;
-	@roundCorners(0px)@
+    background: transparent;
+    @roundCorners(0px)@
 }
 
 .AboutScreen H1 {
-	margin:30px 20px 10px;
+    margin: 30px 20px 10px;
 }
 
 .AboutScreen .DwtDialogBody {
-	background-color:transparent;
-	background-image:none;
+    background-color: transparent;
+    background-image: none;
 }
 
 .AboutScreen .Footer {
-	position:absolute;
-	bottom:0px;
-#IFDEF MSIE_LOWER_THAN_9
-	width:559px;
-#ENDIF
+    position: absolute;
+    bottom: 0px;
+    #IFDEF MSIE_LOWER_THAN_9 width: 559px;
+    #ENDIF
 }
- /*
+
+
+/*
 .AboutScreen>DIV>TABLE>TBODY>TR:first-child>TD {
 	@AppTopBg@
 }
 */
-.AboutScreen .copyright,
-.AboutScreen .version {
-	margin:0px 0px 20px 20px;
-	font-size:10px;
-	color:#CBD9E4;		/* TODO: Derive colors from skin.properties values */
+
+.AboutScreen .copyright, .AboutScreen .version {
+    margin: 0px 0px 20px 20px;
+    font-size: 10px;
+    color: #CBD9E4;
+    /* TODO: Derive colors from skin.properties values */
 }
 
 .AboutScreen .copyright A {
-	color:#CBD9E4;
+    color: #CBD9E4;
 }
 
-#IFDEF MSIE_LOWER_THAN_9
-.AboutScreen .version {
-	margin-top:-17px;
+#IFDEF MSIE_LOWER_THAN_9 .AboutScreen .version {
+    margin-top: -17px;
 }
-#ENDIF
 
-.ZaAboutDialog {
-	position:absolute;
-	left:0px;
-	top:0px;
-	margin:5px 8px 10px;
-	height:249px;
-	width:563px;
+#ENDIF .ZaAboutDialog {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin: 5px 8px 10px;
+    height: 249px;
+    width: 563px;
 }
 
 .ZaAboutDialogTitle {
-	height:30px;
-	cursor:move;
+    height: 30px;
+    cursor: move;
 }
 
+
 /* ??? */
+
 .DwtLinkButtonDropDownArrow {
-	width:17px;
+    width: 17px;
 }
+
 
 /*NEW UI STYLES START HERE*/
 
 
 /* Home Group */
+
 .homeGroupHeader {
-	background-color:@AppC@;
-	height:24px;
-	display:table-cell;
-	vertical-align:middle;
+    background-color: @AppC@;
+    height: 24px;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .homeGroupBody {
-	border:1px solid #DCDCDC;
+    border: 1px solid #DCDCDC;
 }
 
 
 /* Task Panel */
+
 .ZaTaskTabView .XFormCase {
-	background-color:transparent;
+    background-color: transparent;
 }
+
 
 /* Vertical Separators */
 
+
 /* separator in search input */
+
 .SearchFieldVert {
-	background-color:black;
-	@opacity(50)@
+    background-color: black;
+    @opacity(50)@
 }
 
 .nextVertSep {
-	visibility:hidden;
+    visibility: hidden;
 }
 
 .vertSep {
-	@VertSeparator@
-	border-width:0px;
-	height:100%;
-	margin:0px;
-	padding:0px;
+    @VertSeparator@ border-width: 0px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
 }
 
 
 /* Form Items */
+
 .redAsteric {
-	color:#CB2027;
+    color: #CB2027;
 }
 
 .GroupLabel {
-	font-size:12px;
+    font-size: 12px;
 }
+
 
 /* form items in headers of edited items */
+
 .ZmSelectedHeaderBg {
-	padding:5px;
-	border-bottom:1px solid #E5E5E5;
-}
-.ZmSelectedHeaderBg TABLE {
-	width:100%;
+    padding: 5px;
+    border-bottom: 1px solid #E5E5E5;
 }
 
-.ZmSelectedHeaderBg .xform_repeat_label,
-.ZmSelectedHeaderBg .xform_label_left,
-.ZmSelectedHeaderBg .xform_label {
-	text-align:left;
+.ZmSelectedHeaderBg TABLE {
+    width: 100%;
 }
+
+.ZmSelectedHeaderBg .xform_repeat_label, .ZmSelectedHeaderBg .xform_label_left, .ZmSelectedHeaderBg .xform_label {
+    text-align: left;
+}
+
 
 /* wizard items*/
+
 .ZaXWizardDialogPageDiv .step_body_container {
-	padding:15px;
+    padding: 15px;
 }
 
 
 /* grid lists */
-.DwtListView-Rows .Row-selected {
-}
+
+.DwtListView-Rows .Row-selected {}
 
 .DwtListView-Rows .Row {
-	height:1.6em;
+    height: 1.6em;
 }
 
 .grid_group_container {
-	border:1px solid #AAA;
-	overflow:hidden;
-	@borderRadius@:5px;
+    border: 1px solid #AAA;
+    overflow: hidden;
+    @borderRadius@: 5px;
 }
 
 .gridGroupHeader {
-	background-color:#E7E9EA;
-	height:24px;
-	vertical-align:middle;
+    background-color: #E7E9EA;
+    height: 24px;
+    vertical-align: middle;
 }
 
 TD.gridGroupBodyLabel {
-	/*background-color:#E4EFF5 !important;*/     /* transparent color*/
-	padding-left:10px;
-	text-align:left;
+    /*background-color:#E4EFF5 !important;*/
+    /* transparent color*/
+    padding-left: 10px;
+    text-align: left;
 }
 
 .grid_table {
-	border-top:1px solid #E4E4E4;
-	border-spacing:0;
-	padding:0px;
+    border-top: 1px solid #E4E4E4;
+    border-spacing: 0;
+    padding: 0px;
 }
+
 .grid_table TD {
-	border-right:1px solid #E4E4E4;
-	border-bottom:1px solid #E4E4E4;
+    border-right: 1px solid #E4E4E4;
+    border-bottom: 1px solid #E4E4E4;
 }
+
 .grid_table TD TD {
-	border:0px;
+    border: 0px;
 }
-.grid_composite_table,
-.grid_xform_table {
-	border-spacing:0;
-	padding:0px;
+
+.grid_composite_table, .grid_xform_table {
+    border-spacing: 0;
+    padding: 0px;
 }
 
 .grid_table_cell_sheet {
-	padding:2px;
-	overflow:auto;
+    padding: 2px;
+    overflow: auto;
 }
 
 
 /* Help */
+
 .ZaHelpDropdown {
-	padding:0px 15px;
+    padding: 0px 15px;
 }
 
 .ZaHelpDropdownFirstItem, .ZaHelpDropdownItem, .ZaHelpDropdownLastItem {
-	background-color:white;
-	border-color:#848484;
-	border-style:solid;
-	width:160px;
+    background-color: white;
+    border-color: #848484;
+    border-style: solid;
+    width: 160px;
 }
 
 .ZaHelpDropdownFirstItem {
-	border-width:0px 1px 0px 0px;
-	padding:6px 6px 0px;
+    border-width: 0px 1px 0px 0px;
+    padding: 6px 6px 0px;
 }
 
 .ZaHelpDropdownItem {
-	border-width:0px 1px 0px 0px;
-	padding:0px 6px;
+    border-width: 0px 1px 0px 0px;
+    padding: 0px 6px;
 }
 
 .ZaHelpDropdownLastItem {
-	border-width:0px 1px 1px 0px;
-	padding:0px 6px 6px;
-	@roundCorners(0px 0px 3px 3px)@
+    border-width: 0px 1px 1px 0px;
+    padding: 0px 6px 6px;
+    @roundCorners(0px 0px 3px 3px)@
 }
 
 .ZaHelpDropdownSearch {
-	background-color:#DDD;
-	border-color:#848484;
-	border-style:solid;
-	border-width:0px 1px 1px 0px;
-	padding:4px 8px;
-	@roundCorners(3px 3px 0px 0px)@
+    background-color: #DDD;
+    border-color: #848484;
+    border-style: solid;
+    border-width: 0px 1px 1px 0px;
+    padding: 4px 8px;
+    @roundCorners(3px 3px 0px 0px)@
 }
 
 #ZaHelpSearchInput {
-	border:white;
-	font-size:12px;
-	margin-left:3px;
-	padding:0px;
-	width:116px;
+    border: white;
+    font-size: 12px;
+    margin-left: 3px;
+    padding: 0px;
+    width: 116px;
 }
 
 .ZaHelpSearchIcon {
-	float:right;
-	margin:2px 4px 0px 0px;
-	cursor:pointer;
+    float: right;
+    margin: 2px 4px 0px 0px;
+    cursor: pointer;
 }
 
+
 /* Categorized Search ??? */
+
 .ZaCategorizedSearchLabel {
-	font-weight:bold;
+    font-weight: bold;
 }
 
 .ZaCategorizedSearchItem {
-	color:blue !important;
+    color: blue !important;
 }
 
+
 /* Container for the actual text of the alert */
+
 .DwtAlertContent {
-	font-weight:normal;
-	white-space:normal;
+    font-weight: normal;
+    white-space: normal;
 }
+
 
 /* Inline Alerts */
 
 .xform_container .DwtTabTable {
-	background-color:transparent;
-	background-image:none;
+    background-color: transparent;
+    background-image: none;
 }
 
 .xform_container .DwtAlert {
-	@cssShadow@:2px 2px 2px #666;
+    @cssShadow@: 2px 2px 2px #666;
 }
 
 
@@ -746,26 +794,27 @@ TD.gridGroupBodyLabel {
 
 /* Rules that were previously in skinExt.css and haven't been organized */
 
-
 .XFormCase, .SmallRadioGrouperLabel, .GrouperLabel, .RadioGrouperLabel {
-	background:white;
+    background: white;
 }
 
 .DwtTreeItemLevel1ChildDiv {
-	background-color:transparent;
+    background-color: transparent;
 }
 
-.DwtTreeItemLevel1ChildDiv > DIV {
-	margin-top:5px;
-
+.DwtTreeItemLevel1ChildDiv>DIV {
+    margin-top: 5px;
 }
+
 
 /*  -- Navigator -- */
 
 .ZaCtrAppTreeHeader .DwtLinkButtonTable {
-	cursor:pointer;
-	margin:3px 5px 0px;
+    cursor: pointer;
+    margin: 3px 5px 0px;
 }
+
+
 /*
 .ZaCtrAppTreeHeader .DwtLinkButtonTable {
 	height:12px;
@@ -790,432 +839,418 @@ TD.gridGroupBodyLabel {
  */
 
 .ZWidgetTitle {
-	cursor:default;
+    cursor: default;
 }
 
 .ZaCurrentAppBar .ZWidgetTitle SPAN {
-	margin:0px 3px;
+    margin: 0px 3px;
 }
 
-.ZaCurrentAppBar>TABLE{
-	margin:0px 5px;
+.ZaCurrentAppBar>TABLE {
+    margin: 0px 5px;
 }
 
-.AdminTreeItem,
-.AdminTreeItem-selected, 
-.AdminTreeItem-selected-focused, 
-.AdminTreeItem-actioned {
-	padding-left:5px;
+.AdminTreeItem, .AdminTreeItem-selected, .AdminTreeItem-selected-focused, .AdminTreeItem-actioned {
+    padding-left: 5px;
 }
 
-.AdminTreeItem-selected, 
-.AdminTreeItem-selected-focused  {
-	background-color:#C1DFFE !important;
+.AdminTreeItem-selected, .AdminTreeItem-selected-focused {
+    background-color: #C1DFFE !important;
 }
 
-.AdminTreeItem-selected .AdminTreeItem-Text,
-.AdminTreeItem-selected-focused .AdminTreeItem-Text {
-	color:black;
+.AdminTreeItem-selected .AdminTreeItem-Text, .AdminTreeItem-selected-focused .AdminTreeItem-Text {
+    color: black;
 }
 
 .AdminTreeItem-actioned {
-	@TreeItem@
-	@RightClickBg@
+    @TreeItem@ @RightClickBg@
 }
 
-.rootOverviewHeader, 
-.rootOverviewHeader-selected, 
-.rootOverviewHeader-selected-focused,
-.rootOverviewHeader-actioned {
-	background-color:#2B5480;
-	padding:2px 0px 3px 5px;
+.rootOverviewHeader, .rootOverviewHeader-selected, .rootOverviewHeader-selected-focused, .rootOverviewHeader-actioned {
+    background-color: #2B5480;
+    padding: 2px 0px 3px 5px;
 }
 
-.homeRootOverviewHeader, 
-.homeRootOverviewHeader-selected, 
-.homeRootOverviewHeader-selected-focused,
-.homeRootOverviewHeader-actioned {
-	background-color:#C1DFFE;
-	padding:2px 0px 3px 5px;
+.homeRootOverviewHeader, .homeRootOverviewHeader-selected, .homeRootOverviewHeader-selected-focused, .homeRootOverviewHeader-actioned {
+    background-color: #C1DFFE;
+    padding: 2px 0px 3px 5px;
 }
 
-.overviewHeader,
-.overviewHeader-actioned { 
-	margin-top:20px;
+.overviewHeader, .overviewHeader-actioned {
+    margin-top: 20px;
 }
 
 .AdminTreeItem-Count {
-	background-color:#708090;
-	color:white;
-	padding:0px 3px;
-	text-align:right;
-	width:20px;
-	@roundCorners(4px)@
+    background-color: #708090;
+    color: white;
+    padding: 0px 3px;
+    text-align: right;
+    width: 20px;
+    @roundCorners(4px)@
 }
 
 .rootOverviewHeader-Text {
-	color:white;
-	padding-left:5px;
+    color: white;
+    padding-left: 5px;
 }
 
 .homeRootOverviewHeader-Text {
-	color:black;
-	padding-left:5px;
+    color: black;
+    padding-left: 5px;
 }
 
-.AdminTreeItem-Text,
-.AdminHomeTreeItem-Text {
-	padding-left:5px;
+.AdminTreeItem-Text, .AdminHomeTreeItem-Text {
+    padding-left: 5px;
 }
 
 .AdminHomeTreeItem {
-	cursor:pointer;
-	height:18px;
-	padding-left:5px;
+    cursor: pointer;
+    height: 18px;
+    padding-left: 5px;
 }
 
 .ZTreeItemTextCell {
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 
 /* -- Task panel -- */
 
 .TaskHeaderPanel {
-	direction:rtl;  /* Why? This may have unintended effects on text strings. */
+    direction: rtl;
+    /* Why? This may have unintended effects on text strings. */
 }
 
 .ImgCollapseRight, .ImgCollapseLeft {
-	cursor:pointer;
-	margin:5px 2px 2px;
+    cursor: pointer;
+    margin: 5px 2px 2px;
 }
 
 .ZaTaskTabView .DwtListView-ColHeader TD {
-	font-weight:bold;
+    font-weight: bold;
 }
 
 .ZaTaskListGroup {
-	border:1px solid #BCBCBC;
-	margin:5px;
-	overflow:hidden;
-	@roundCorners(5px)@
+    border: 1px solid #BCBCBC;
+    margin: 5px;
+    overflow: hidden;
+    @roundCorners(5px)@
 }
 
 .ZaTaskTitleNameHeader {
-	padding:3px;
-	@grad(#EBEBEB,#CCC)@
+    padding: 3px;
+    @grad(#EBEBEB, #CCC)@
 }
 
 .ZaTaskTitleNameHeader TD {
-	font-weight:bold;
+    font-weight: bold;
 }
 
 .ZaTaskListContent {
-	background-color:#F5F5F5;
-	border-top:1px solid #BCBCBC;
-	height:125px;
-	overflow:auto;
+    background-color: #F5F5F5;
+    border-top: 1px solid #BCBCBC;
+    height: 125px;
+    overflow: auto;
 }
 
 .ZaTaskListContent .Row TD {
-	padding:3px;
+    padding: 3px;
 }
+
 
 /* -- Search panel -- */
 
 .SearchPanel {
-	margin-top:2px;
+    margin-top: 2px;
 }
 
 .SearchToolBar {
-	background-color:white;
-	@roundCorners(5px)@
-#IFNDEF MSIE_LOWER_THAN_9
-	border:1px solid white;
-#ENDIF
+    background-color: white;
+    @roundCorners(5px)@ #IFNDEF MSIE_LOWER_THAN_9 border: 1px solid white;
+    #ENDIF
 }
 
 .SearchTBSearchField {
-	@roundCorners(5px)@
+    @roundCorners(5px)@
 }
 
 .SearchTBSearchField .oselect, .oselect_check {
-	background-color:white;
-	border-width:0px;
+    background-color: white;
+    border-width: 0px;
 }
 
 .SearchTBSearchField .dynselect_display {
-	border-width:0px;
+    border-width: 0px;
 }
 
-.SearchTBSearchField .ZButtonBorder  {
-	background-color:white;
-	border-width:0px;
+.SearchTBSearchField .ZButtonBorder {
+    background-color: white;
+    border-width: 0px;
 }
 
-.SearchTBSearchField .zwidget,
-.SearchTBSearchField .zwidget * {
-	background-color:white;
-	border-width:0px;
+.SearchTBSearchField .zwidget, .SearchTBSearchField .zwidget * {
+    background-color: white;
+    border-width: 0px;
 }
+
 
 /* -- Dialogs -- */
 
+
 /* New Account Dialog */
+
 .AdminOutputTabClick {
-	min-height:18px;
-	padding:3px 15px 2px;
-	@ActiveCursor@
+    min-height: 18px;
+    padding: 3px 15px 2px;
+    @ActiveCursor@
 }
 
 .AdminOutputTab {
-	min-height:18px;
-	padding:3px 15px 2px;
+    min-height: 18px;
+    padding: 3px 15px 2px;
 }
 
 .AdminOutputTabSelect {
-	background-color:#4682B4;
-	color:white;
-	min-height:18px;
-	padding:3px 15px 2px;
-	@roundCorners(4px)@
+    background-color: #4682B4;
+    color: white;
+    min-height: 18px;
+    padding: 3px 15px 2px;
+    @roundCorners(4px)@
 }
+
 
 /* Wizard Dialogs */
 
 .step_container {
-	background-color:#EFEFEF;
-	border:0px;
-	color:#333;
-	padding:10px 5px 10px 6px;
+    background-color: #EFEFEF;
+    border: 0px;
+    color: #333;
+    padding: 10px 5px 10px 6px;
 }
 
-/* General Dialog */ 
+
+/* General Dialog */
 
 .WindowOuterContainer {
-	background-color:#EAEAEA;
-	border:1px solid #A3A3A3;
-	overflow:hidden;
-	padding:0px;
-	@cssShadow@:2px 2px 10px #666;
-	@roundCorners(5px)@
+    background-color: #EAEAEA;
+    border: 1px solid #A3A3A3;
+    overflow: hidden;
+    padding: 0px;
+    @cssShadow@: 2px 2px 10px #666;
+    @roundCorners(5px)@
 }
 
 .WindowInnerContainer {
-	background-color:#DADADA;
-	border:0px;
-	padding:0px;
+    background-color: #DADADA;
+    border: 0px;
+    padding: 0px;
 }
 
 .DwtDialogHeader {
-	@AppTopBg@
+    @AppTopBg@
 }
 
 .DwtDialogTitle {
-	color:#333;
-	font-size:12px;
-	font-weight:bold;
-	height:27px;
-	vertical-align:middle;
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    height: 27px;
+    vertical-align: middle;
 }
 
 .DwtDialogMinIcon {}
 
 .DwtDialogBody {
-	background-color:white;
+    background-color: white;
 }
 
 .DwtDialogButtonBar {
-	height:40px;
-	background-color:#DADFE5;
+    height: 40px;
+    background-color: #DADFE5;
 }
 
 .DwtDialogButtonBar .ZButtonBorder {
-	background-color:#FEFEFE;
-	border:1px solid #949494;
-	@roundCorners(3px)@
+    background-color: #FEFEFE;
+    border: 1px solid #949494;
+    @roundCorners(3px)@
 }
 
 .DwtDialogButtonBar .ZButtonTable .ZWidgetTitle {
-	@FontFamily-default@
-	color:#333;
-	font-size:12px;
+    @FontFamily-default@ color: #333;
+    font-size: 12px;
 }
 
 .DwtDialogButtonBar .ZDisabled .ZButtonTable .ZWidgetTitle {
-	color:#999;
+    color: #999;
 }
 
 .DwtDialogButtonBar .ZHover .ZButtonBorder {
-	background-color:#C7E9FF;
-	border:1px solid #949494;
-	color:black;
-	@roundCorners(3px)@
+    background-color: #C7E9FF;
+    border: 1px solid #949494;
+    color: black;
+    @roundCorners(3px)@
 }
 
 .horizSep {
-	display:none;
+    display: none;
 }
 
-
-
 .VeilOverlay {
-	background-color:black;
-	@opacity(35)@
+    background-color: black;
+    @opacity(35)@
 }
 
 .ZaToolBar {
-	display:none;
+    display: none;
 }
 
 
 /* Info Panels on Home Screen */
-.ZaHomeTabView .XFormCase { position:relative; }
+
+.ZaHomeTabView .XFormCase {
+    position: relative;
+}
+
 
 /* Hacks for lack of support for child selectors in MSIE 8 */
-#IFDEF MSIE_LOWER_THAN_9
-.ZaHomeWarningPanel { text-align:center; }
 
-.ZaHomeWarningPanel .grid_xform_table,
-#ENDIF
-.ZaHomeWarningPanel>TABLE {
-	background-color:#FFC;
-	border:1px solid;
-	border-color:transparent #EFE69B #EFE69B;
-	margin:0px auto;
-	padding:8px 12px;
-	width:98%;
-	@roundCorners(0px 0px 5px 5px)@
+#IFDEF MSIE_LOWER_THAN_9 .ZaHomeWarningPanel {
+    text-align: center;
 }
 
-#IFDEF MSIE_LOWER_THAN_9
-.ZaHomeWarningPanel .grid_xform_table .grid_xform_table {
-	background-color:transparent;
-	border-width:0px;
-	margin:0px;
-	padding:0px;
-	width:inherit;
+.ZaHomeWarningPanel .grid_xform_table, #ENDIF .ZaHomeWarningPanel>TABLE {
+    background-color: #FFC;
+    border: 1px solid;
+    border-color: transparent #EFE69B #EFE69B;
+    margin: 0px auto;
+    padding: 8px 12px;
+    width: 98%;
+    @roundCorners(0px 0px 5px 5px)@
 }
-#ENDIF
 
-.ZaHomeWarningItem {
-	padding:1px 0px 2px;
+#IFDEF MSIE_LOWER_THAN_9 .ZaHomeWarningPanel .grid_xform_table .grid_xform_table {
+    background-color: transparent;
+    border-width: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: inherit;
+}
+
+#ENDIF .ZaHomeWarningItem {
+    padding: 1px 0px 2px;
 }
 
 .ZaLinkedItem {
-	color:#369;
-	cursor:pointer;
+    color: #369;
+    cursor: pointer;
 }
 
 .ZaHomeInfoTitle {
-	color:#86A1B6;
-	font-size:16pt;
-	font-weight:bold;
-	margin-bottom:5px;
+    color: #86A1B6;
+    font-size: 16pt;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .ZaHomeInfoPanel {
-	padding:12px;
+    padding: 12px;
 }
 
 .ZaHomePanelPage {
-	vertical-align:top;
+    vertical-align: top;
 }
 
 .ZaHomeTabView .xform_label {
-	text-align:left;
+    text-align: left;
 }
 
 .ZaHomeSetupPanelContainer {
-	padding:12px;
+    padding: 12px;
 }
 
-.ZaHomeSetupPanel{
-	background-color:#F3F7FB;
-	border:1px solid #E7ECF2;
-	@roundCorners(10px)@
+.ZaHomeSetupPanel {
+    background-color: #F3F7FB;
+    border: 1px solid #E7ECF2;
+    @roundCorners(10px)@
 }
 
 .ZaHomeSetupPanelContent {
-	padding:12px;
+    padding: 12px;
 }
 
 .ZaHomeSetupHeader {
-	padding-bottom:8px;
+    padding-bottom: 8px;
 }
 
 .ZaHomeSetupTitle {
-	color:#86A1B6;
-	font-size:16pt;
-	font-weight:bold;
+    color: #86A1B6;
+    font-size: 16pt;
+    font-weight: bold;
 }
 
 .ZaHomeLinkItemLabel {
-	color:#86A1B6;
+    color: #86A1B6;
 }
 
 .NoResults {
-	@FontFamily-default@
-	padding:10px;
+    @FontFamily-default@ padding: 10px;
 }
 
 .ZaCurrentAppBar .ZDisabled .ZToolbarButtonTable .ZWidgetTitle {
-	color:#747474;
+    color: #747474;
 }
 
 .ZaSearchOptionDialog .ZaSearchOptionOverview {
-	padding:4px;
+    padding: 4px;
 }
+
 .ZaSearchOptionDialog {
-	border:1px solid black;
+    border: 1px solid black;
 }
 
-#IFDEF MSIE_LOWER_THAN_9
-.DwtDialog .WindowOuterContainer TABLE {
-	border-collapse:collapse;
+#IFDEF MSIE_LOWER_THAN_9 .DwtDialog .WindowOuterContainer TABLE {
+    border-collapse: collapse;
 }
-#ENDIF
 
-.addrBubble {
-	background-color:#EEE;
-	border:1px solid #999;
-	color:black;
-	display:inline-block;
-	margin-bottom:2px;
-	margin-left:3px;
-	padding:1px 3px;
-	@roundCorners(4px)@
+#ENDIF .addrBubble {
+    background-color: #EEE;
+    border: 1px solid #999;
+    color: black;
+    display: inline-block;
+    margin-bottom: 2px;
+    margin-left: 3px;
+    padding: 1px 3px;
+    @roundCorners(4px)@
 }
 
 .ZaHelpViewGroupBorder {
-	border:none;
-	border-right:solid 2px black !important;
-	padding-right:10px;
+    border: none;
+    border-right: solid 2px black !important;
+    padding-right: 10px;
 }
 
 .ZaHelpViewGroupNoneBorder {
-	border:none;
-	padding-left:20px;
-	padding-right:20px;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .ZaHelpViewGroupLabel {
-	display:none;
+    display: none;
 }
 
 .ZaHelpAskCommunityContainer {
-	padding:12px;
+    padding: 12px;
 }
 
-.ZaHelpAskCommunityPanel{
-	background-color:#F3F7FB;
-	border:1px solid #E7ECF2;
-	@roundCorners(10px)@
+.ZaHelpAskCommunityPanel {
+    background-color: #F3F7FB;
+    border: 1px solid #E7ECF2;
+    @roundCorners(10px)@
 }
 
 .ZaHelpAskCommunityContent {
-	padding:12px;
+    padding: 12px;
 }
-
-
