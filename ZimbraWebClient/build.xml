@@ -1436,6 +1436,7 @@ ext = BeanUtils.cook(ext);
     </target>
 
     <target name="tinymce">
+
         <copy todir='${tinymce.dir}' verbose='${sync.verbose}'>
             <fileset dir='${tinymce.js.dir}' excludes="**/*.less"/>
             <fileset dir='${tinymce.custom.dir}'/>
@@ -1475,6 +1476,7 @@ ext = BeanUtils.cook(ext);
         </if>
 
         <!-- generate a mapping of emoticons to their image data -->
+        <mkdir dir="${tinymce.root.dir}/plugins/zemoticons"/>
         <property name="tinymce.emoticon.file" location="${tinymce.dir}/plugins/zemoticons/data.js"/>
 
         <fileset id="tinymce.emoticons.ref" dir="${tinymce.js.dir}/plugins/emoticons/img"/>
