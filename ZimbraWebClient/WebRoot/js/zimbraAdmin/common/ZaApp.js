@@ -36,9 +36,9 @@ ZaApp = function(appCtxt, container) {
 	this._container = container;
 	this._currentController = null;
 	this._currentViewId = null;
-	this._cosListChoices = null;//new XFormChoices([], XFormChoices.OBJECT_LIST, "id", "name");	
-	this._domainListChoices = null;//new XFormChoices([], XFormChoices.OBJECT_LIST, "name", "name");	
-	this._serverChoices = null; 
+	this._cosListChoices = null;//new XFormChoices([], XFormChoices.OBJECT_LIST, "id", "name");
+	this._domainListChoices = null;//new XFormChoices([], XFormChoices.OBJECT_LIST, "name", "name");
+	this._serverChoices = null;
 	this._serverIdChoices = null;
 	this._serverMap = null;
 	this._controllers = new Object();
@@ -51,7 +51,7 @@ ZaApp.getInstance = function (appCtxt, container) {
 	if(!ZaApp.instance) {
 	//	console.log("Trying to get ZaApp before it is instantiated") ;
 		if(!AjxUtil.isEmpty(appCtxt) && !AjxUtil.isEmpty(container)) {
-		//	console.log("Instantiating ZaApp ....") ; 
+		//	console.log("Instantiating ZaApp ....") ;
 			ZaApp.instance = new ZaApp(appCtxt, container);
 		}
 	}
@@ -59,7 +59,7 @@ ZaApp.getInstance = function (appCtxt, container) {
 }
 ZaApp.prototype.constructor = ZaApp;
 
-ZaApp.prototype.toString = 
+ZaApp.prototype.toString =
 function() {
 	return "ZaApp";
 }
@@ -78,11 +78,11 @@ ZaApp.checkMyRight = function(targetType,targetBy,targetVal,right,attrs) {
 		for(var i=0;i<cnt;i++) {
 			var elA = soapDoc.set("a",attrs[i].val,elAttrs);
 			elA.setAttribute("n", attrs[i].n);
-		}	
+		}
 	}
 
 	var csfeParams = new Object();
-	csfeParams.soapDoc = soapDoc;	
+	csfeParams.soapDoc = soapDoc;
 	var reqMgrParams = {} ;
 	reqMgrParams.controller = ZaApp.getInstance().getCurrentController();
 	reqMgrParams.busyMsg = ZaMsg.BUSY_REQUESTING_ACCESS_RIGHTS ;
@@ -92,7 +92,7 @@ ZaApp.checkMyRight = function(targetType,targetBy,targetVal,right,attrs) {
 	} catch (ex) {
 		//not implemented yet
 	}
-	
+
 }
 
 ZaApp.prototype.initDialogs = function () {
@@ -120,7 +120,7 @@ function(appCtxt) {
 		var dashBoardController = ZaApp.getInstance().getDashBoardController(ZaSettings.DASHBOARD_VIEW);
 		if(ZaApp.getInstance().getCurrentController()) {
 			ZaApp.getInstance().getCurrentController().switchToNextView(dashBoardController, ZaDashBoardController.prototype.show,true);
-		} else {					
+		} else {
 			dashBoardController.show(true);
 		}
 	} else  {
@@ -136,12 +136,12 @@ function(appCtxt) {
 	}
 };
 
-ZaApp.prototype.getAppCtxt = 
+ZaApp.prototype.getAppCtxt =
 function() {
 	return this._appCtxt;
 }
 
-ZaApp.prototype.getCurrentController = 
+ZaApp.prototype.getCurrentController =
 function() {
     var currentViewId = this._appViewMgr.getCurrentView();
 	return this._controllers[currentViewId];
@@ -159,7 +159,7 @@ ZaApp.prototype.getStatusViewController =
 function(viewId) {
 	if(!viewId)
 		viewId = ZaZimbraAdmin._STATUS;
-			
+
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else{
@@ -183,7 +183,7 @@ ZaApp.prototype.getGlobalStatsController =
 function(viewId) {
 	if(!viewId)
 		viewId = ZaZimbraAdmin._STATISTICS;
-		
+
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else{
@@ -209,7 +209,7 @@ ZaApp.prototype.getGlobalConfigViewController =
 function(viewId) {
 	if(!viewId)
 		viewId = ZaZimbraAdmin._GLOBAL_SETTINGS;
-	
+
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else{
@@ -232,7 +232,7 @@ ZaApp.prototype.getSearchBuilderController =
 function() {
 	if (this._controllers[ZaZimbraAdmin._SEARCH_BUILDER_VIEW] == null) {
 		this._controllers[ZaZimbraAdmin._SEARCH_BUILDER_VIEW] = new ZaSearchBuilderController(this._appCtxt, this._container);
-		this._controllers[ZaZimbraAdmin._SEARCH_BUILDER_VIEW].addRemovalListener(new AjxListener(this.getSearchBuilderController(), this.getSearchBuilderController().handleRemoval));							
+		this._controllers[ZaZimbraAdmin._SEARCH_BUILDER_VIEW].addRemovalListener(new AjxListener(this.getSearchBuilderController(), this.getSearchBuilderController().handleRemoval));
 	}
 	return this._controllers[ZaZimbraAdmin._SEARCH_BUILDER_VIEW] ;
 }
@@ -244,15 +244,15 @@ ZaApp.prototype.getAccountListController =
 function(viewId, newController) {
 	if(!viewId)
 		viewId = ZaZimbraAdmin._ACCOUNTS_LIST_VIEW;
-			
-	//this is used by SearchListController to associate its view with a new 
+
+	//this is used by SearchListController to associate its view with a new
 	//account list controller
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else if (viewId || newController) {
 		var c = this._controllers[viewId] = new ZaAccountListController(this._appCtxt, this._container, this);
-		c.addRemovalListener(new AjxListener(c, c.handleRemoval));							
-		c.addCreationListener(new AjxListener(c, c.handleCreation));									
+		c.addRemovalListener(new AjxListener(c, c.handleRemoval));
+		c.addCreationListener(new AjxListener(c, c.handleCreation));
 		return c ;
 	}
 
@@ -266,20 +266,20 @@ function(isAlias) {
 		viewId = ZaZimbraAdmin._ALIASES_LIST_VIEW ;
 	}
 	c.addChangeListener(new AjxListener(this.getAccountListController(viewId), ZaAccountListController.prototype.handleChange));
-	c.addCreationListener(new AjxListener(this.getAccountListController(viewId), ZaAccountListController.prototype.handleCreation));	
-	c.addRemovalListener(new AjxListener(this.getAccountListController(viewId), ZaAccountListController.prototype.handleRemoval));			
+	c.addCreationListener(new AjxListener(this.getAccountListController(viewId), ZaAccountListController.prototype.handleCreation));
+	c.addRemovalListener(new AjxListener(this.getAccountListController(viewId), ZaAccountListController.prototype.handleRemoval));
 	return c ;
 }
 
-ZaApp.prototype.getAdminExtListController = 
+ZaApp.prototype.getAdminExtListController =
 function() {
 	if (this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW] == null) {
 		this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW] = new ZaAdminExtListController(this._appCtxt, this._container, this);
-		this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].addRemovalListener(new AjxListener(this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].handleRemoval));							
-		this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].addCreationListener(new AjxListener(this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].handleCreation));			
+		this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].addRemovalListener(new AjxListener(this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].handleRemoval));
+		this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].addCreationListener(new AjxListener(this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].handleCreation));
 		this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].addChangeListener(new AjxListener(this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW].handleChange));
 	}
-	
+
 	return this._controllers[ZaZimbraAdmin._ADMIN_ZIMLET_LIST_VIEW] ;
 }
 
@@ -287,11 +287,11 @@ ZaApp.prototype.getZimletListController =
 function() {
 	if (this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW] == null) {
 		this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW] = new ZaZimletListController(this._appCtxt, this._container, this);
-		this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].addRemovalListener(new AjxListener(this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].handleRemoval));							
-		this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].addCreationListener(new AjxListener(this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].handleCreation));			
+		this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].addRemovalListener(new AjxListener(this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].handleRemoval));
+		this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].addCreationListener(new AjxListener(this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].handleCreation));
 		this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].addChangeListener(new AjxListener(this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW], this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW].handleChange));
 	}
-	
+
 	return this._controllers[ZaZimbraAdmin._ZIMLET_LIST_VIEW] ;
 }
 
@@ -305,28 +305,28 @@ function(viewId) {
 	}
 }
 
-ZaApp.prototype.getDistributionListController = 
+ZaApp.prototype.getDistributionListController =
 function (viewId) {
 		if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else{
 		var c = new ZaDLController(this._appCtxt, this._container, this);
-		c.addCreationListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._DISTRIBUTION_LISTS_LIST_VIEW), ZaAccountListController.prototype.handleCreation));			
-		c.addRemovalListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._DISTRIBUTION_LISTS_LIST_VIEW), ZaAccountListController.prototype.handleRemoval));			
+		c.addCreationListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._DISTRIBUTION_LISTS_LIST_VIEW), ZaAccountListController.prototype.handleCreation));
+		c.addRemovalListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._DISTRIBUTION_LISTS_LIST_VIEW), ZaAccountListController.prototype.handleRemoval));
 		c.addChangeListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._DISTRIBUTION_LISTS_LIST_VIEW), ZaAccountListController.prototype.handleChange));
 		return c ;
 	}
-	
+
 };
 
-ZaApp.prototype.getResourceController = 
+ZaApp.prototype.getResourceController =
 function (viewId) {
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else{
 		var c = new ZaResourceController(this._appCtxt, this._container, this);
-		c.addCreationListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._RESOURCE_LIST_VIEW), ZaAccountListController.prototype.handleCreation));			
-		c.addRemovalListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._RESOURCE_LIST_VIEW), ZaAccountListController.prototype.handleRemoval));			
+		c.addCreationListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._RESOURCE_LIST_VIEW), ZaAccountListController.prototype.handleCreation));
+		c.addRemovalListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._RESOURCE_LIST_VIEW), ZaAccountListController.prototype.handleRemoval));
 		c.addChangeListener(new AjxListener(this.getAccountListController(ZaZimbraAdmin._RESOURCE_LIST_VIEW), ZaAccountListController.prototype.handleChange));
 		return c ;
 	}
@@ -336,14 +336,14 @@ ZaApp.prototype.getDomainListController =
 function(viewId, newController) {
 	if(!viewId)
 		viewId = ZaZimbraAdmin._DOMAINS_LIST_VIEW;
-			
-	//this is used by SearchListController to associate its view with a new 
+
+	//this is used by SearchListController to associate its view with a new
 	//domain list controller
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else if (viewId || newController) {
 		var c = this._controllers[viewId] = new ZaDomainListController(this._appCtxt, this._container, this);
-		c.addCreationListener(new AjxListener(this, ZaApp.prototype.handleDomainCreation));					
+		c.addCreationListener(new AjxListener(this, ZaApp.prototype.handleDomainCreation));
 		c.addRemovalListener(new AjxListener(this, ZaApp.prototype.handleDomainRemoval));
         c.addChangeListener(new AjxListener(this.getDomainListController(), ZaDomainListController.prototype.handleDomainChange));
 		c.addRemovalListener(new AjxListener(this.getDomainListController(), c.handleRemoval));
@@ -353,7 +353,7 @@ function(viewId, newController) {
 
 ZaApp.prototype.getDomainController =
 function(viewId) {
-	
+
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else{
@@ -385,8 +385,8 @@ function (viewId) {
 		return this._controllers[viewId];
 	}else{
 		var c = this._controllers[viewId] = new ZaMTAController(this._appCtxt, this._container, this);
-		c.addChangeListener(new AjxListener(this.getMTAListController(), ZaMTAListController.prototype.handleMTAChange));		
-		c.addChangeListener(new AjxListener(c, ZaMTAController.prototype.handleMTAChange));				
+		c.addChangeListener(new AjxListener(this.getMTAListController(), ZaMTAListController.prototype.handleMTAChange));
+		c.addChangeListener(new AjxListener(c, ZaMTAController.prototype.handleMTAChange));
 		return c ;
 	}
 }
@@ -394,7 +394,7 @@ function (viewId) {
 ZaApp.prototype.getServerListController =
 function() {
 	if (this._controllers[ZaZimbraAdmin._SERVERS_LIST_VIEW] == null) {
-		this._controllers[ZaZimbraAdmin._SERVERS_LIST_VIEW] = new ZaServerListController(this._appCtxt, this._container, this);								
+		this._controllers[ZaZimbraAdmin._SERVERS_LIST_VIEW] = new ZaServerListController(this._appCtxt, this._container, this);
 	}
 	return this._controllers[ZaZimbraAdmin._SERVERS_LIST_VIEW];
 }
@@ -406,14 +406,14 @@ function(viewId) {
 		return this._controllers[viewId];
 	}else{
 		var c = this._controllers[viewId] = new ZaServerController(this._appCtxt, this._container, this);
-		c.addServerChangeListener(new AjxListener(this, ZaApp.prototype.handleServerChange));		
-		c.addServerChangeListener(new AjxListener(this.getServerListController(), ZaServerListController.prototype.handleServerChange));		
+		c.addServerChangeListener(new AjxListener(this, ZaApp.prototype.handleServerChange));
+		c.addServerChangeListener(new AjxListener(this.getServerListController(), ZaServerListController.prototype.handleServerChange));
 		if(ZaSettings.TREE_ENABLED) {
-			c.addServerChangeListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleServerChange));									
+			c.addServerChangeListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleServerChange));
 		}
 		return c ;
 	}
-	
+
 }
 
 ZaApp.prototype.getCosListController =
@@ -432,19 +432,19 @@ function() {
 ZaApp.prototype.getCosController =
 function() {
 	var c = new ZaCosController(this._appCtxt, this._container, this);
-		
+
 	c.addChangeListener(new AjxListener(this.getCosListController(), ZaCosListController.prototype.handleChange));
 	if(ZaSettings.TREE_ENABLED) {
-		c.addChangeListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleCosChange));						
+		c.addChangeListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleCosChange));
 	}
-	c.addCreationListener(new AjxListener(this.getCosListController(), ZaCosListController.prototype.handleCreation));	
+	c.addCreationListener(new AjxListener(this.getCosListController(), ZaCosListController.prototype.handleCreation));
 	if(ZaSettings.TREE_ENABLED) {
-		c.addCreationListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleCosCreation));				
+		c.addCreationListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleCosCreation));
 	}
-	c.addRemovalListener(new AjxListener(this, ZaApp.prototype.handleCosRemoval));			
-	c.addRemovalListener(new AjxListener(this.getCosListController(), ZaCosListController.prototype.handleRemoval));			
+	c.addRemovalListener(new AjxListener(this, ZaApp.prototype.handleCosRemoval));
+	c.addRemovalListener(new AjxListener(this.getCosListController(), ZaCosListController.prototype.handleRemoval));
 	if(ZaSettings.TREE_ENABLED) {
-		c.addRemovalListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleCosRemoval));						
+		c.addRemovalListener(new AjxListener(this._appCtxt.getAppController().getOverviewPanelController(), ZaOverviewPanelController.prototype.handleCosRemoval));
 	}
 	return c ;
 
@@ -461,9 +461,10 @@ function(viewId) {
 	}
 }
 
+/* hernad
 ZaApp.prototype.getMigrationWizController = 
 function(viewId) {
-	
+
 	if (viewId && this._controllers[viewId] != null) {
 		return this._controllers[viewId];
 	}else{
@@ -471,12 +472,13 @@ function(viewId) {
 		return c ;
 	}
 }
+*/
 
 ZaApp.prototype.searchDomains = function(query) {
 	var busyId = Dwt.getNextId () ;
 	var callback = new AjxCallback(this, this.domainSearchCallback, {busyId:busyId});
 	var searchParams = {
-			query:query, 
+			query:query,
 			types:[ZaSearch.DOMAINS],
 			sortBy:ZaDomain.A_domainName,
 			offset:"0",
@@ -488,7 +490,7 @@ ZaApp.prototype.searchDomains = function(query) {
 			busyId:busyId,
 			busyMsg:ZaMsg.BUSY_SEARCHING_DOMAINS,
 			skipCallbackIfCancelled:false,
-			attrs:[ZaDomain.A_description, ZaDomain.A_domainName,ZaDomain.A_zimbraDomainStatus,ZaItem.A_zimbraId, ZaDomain.A_domainType]			
+			attrs:[ZaDomain.A_description, ZaDomain.A_domainName,ZaDomain.A_zimbraDomainStatus,ZaItem.A_zimbraId, ZaDomain.A_domainType]
 	}
 	ZaSearch.searchDirectory(searchParams);
 }
@@ -497,7 +499,7 @@ ZaApp.prototype.scheduledSearchDomains = function(domainItem) {
 	var busyId = Dwt.getNextId () ;
 	var callback = new AjxCallback(this, this.domainSearchCallback, {domainItem:domainItem, busyId:busyId});
 	var searchParams = {
-			query: this._domainQuery, 
+			query: this._domainQuery,
 			types:[ZaSearch.DOMAINS],
 			sortBy:ZaDomain.A_domainName,
 			offset:"0",
@@ -509,20 +511,20 @@ ZaApp.prototype.scheduledSearchDomains = function(domainItem) {
 			busyId:busyId,
 			busyMsg:ZaMsg.BUSY_SEARCHING_DOMAINS,
 			skipCallbackIfCancelled:false,
-			attrs:[ZaDomain.A_domainName, ZaItem.A_zimbraId]			
+			attrs:[ZaDomain.A_domainName, ZaItem.A_zimbraId]
 	}
 	ZaSearch.searchDirectory(searchParams);
 //	DBG.println(AjxDebug.DBG1, "Searching for domains "+ ev.keyCode +" char code " + (new Date()).getTime());
 }
 
-ZaApp.prototype.domainSearchCallback = 
+ZaApp.prototype.domainSearchCallback =
 function (params, resp) {
-	var domainItem = params.domainItem ? params.domainItem : null; 
-		
+	var domainItem = params.domainItem ? params.domainItem : null;
+
 	try {
 		if(params.busyId)
 			this._appCtxt.getShell().setBusy(false, params.busyId);
-			
+
 		if(!resp) {
 			throw(new AjxException(ZaMsg.ERROR_EMPTY_RESPONSE_ARG, AjxException.UNKNOWN, "ZaListViewController.prototype.searchCallback"));
 		}
@@ -532,7 +534,7 @@ function (params, resp) {
 		} else {
 			ZaSearch.TOO_MANY_RESULTS_FLAG = false ;
 			var response = resp.getResponse().Body.SearchDirectoryResponse;
-			var domainList = new ZaItemList(ZaDomain);	
+			var domainList = new ZaItemList(ZaDomain);
 			domainList.loadFromJS(response);
 			if(ZaSettings.TREE_ENABLED) {
 				this._appCtxt.getAppController().getOverviewPanelController().updateDomainList(domainList);
@@ -545,10 +547,10 @@ function (params, resp) {
 		}
 	} catch (ex) {
 		if (ex.code != ZmCsfeException.MAIL_QUERY_PARSE_ERROR) {
-			this.getCurrentController()._handleException(ex, "ZaApp.prototype.domainSearchCallback");	
+			this.getCurrentController()._handleException(ex, "ZaApp.prototype.domainSearchCallback");
 		} else {
 			this.getCurrentController().popupErrorDialog(ZaMsg.queryParseError, ex);
-		}		
+		}
 	}
 }
 
@@ -598,7 +600,7 @@ function (refresh) {
 		    ZaSearch.updateSavedSearch (ZaSearch.getSavedSearches()) ;
         }
 	}
-	
+
 	return ZaSearch.SAVED_SEARCHES ;
 }
 
@@ -617,14 +619,14 @@ function(serverName) {
 	if(i == cnt) {
 		myServer.load("name", serverName);
 	}
-	return myServer;	
+	return myServer;
 }
 
 ZaApp.prototype.getServerList =
 function(refresh) {
 	if (refresh || this._serverList == null) {
 		this._serverList = ZaServer.getAll();
-		
+
 		if(this._serverList) {
 			var tmpArray = this._serverList.getArray();
 			this._mbsList = ZaItemList(ZaServer);
@@ -639,7 +641,7 @@ function(refresh) {
 			}
 		}
 	}
-	return this._serverList;	
+	return this._serverList;
 }
 
 ZaApp.prototype.getMbsList =
@@ -647,15 +649,15 @@ function(refresh) {
 	if (refresh || this._mbsList == null) {
 		this._mbsList = ZaServer.getAllMBSs();
 	}
-	return this._mbsList;	
+	return this._mbsList;
 }
 
-ZaApp.prototype.getPostQList = 
+ZaApp.prototype.getPostQList =
 	function (refresh, callback) {
 		if (refresh || this._postqList == null || callback) {
 			this._postqList = ZaMTA.getAll(callback);
 		}
-		return this._postqList;	
+		return this._postqList;
 	}
 
 ZaApp.prototype.getMailServers =
@@ -691,12 +693,12 @@ function(refresh) {
 		}
 		if(this._serverChoices == null) {
 			this._serverChoices = new XFormChoices(mailServerArr, XFormChoices.OBJECT_LIST, ZaServer.A_ServiceHostname, ZaServer.A_ServiceHostname);
-		} else {	
+		} else {
 			this._serverChoices.setChoices(mailServerArr);
 			this._serverChoices.dirtyChoices();
 		}
 	}
-	return this._serverChoices;	
+	return this._serverChoices;
 }
 
 ZaApp.prototype.getServerIdListChoices =
@@ -717,18 +719,18 @@ function(refresh) {
 		}
 		if(this._serverIdChoices == null) {
 			this._serverIdChoices = new XFormChoices(mailServerArr, XFormChoices.OBJECT_LIST, "id", ZaServer.A_ServiceHostname);
-		} else {	
+		} else {
 			this._serverIdChoices.setChoices(mailServerArr);
 			this._serverIdChoices.dirtyChoices();
 		}
 	}
-	return this._serverIdChoices;	
+	return this._serverIdChoices;
 }
 
 ZaApp.prototype.getServerMap =
 function(refresh) {
 	if(refresh || this._serverList == null) {
-//		DBG.println(AjxDebug.DBG1, "ZaApp.prototype.getServerMap :: this._serverList is null ");						
+//		DBG.println(AjxDebug.DBG1, "ZaApp.prototype.getServerMap :: this._serverList is null ");
 		this._serverList = ZaServer.getAll();
 	}
 	if(refresh || this._serverMap == null) {
@@ -753,11 +755,11 @@ function(refresh, callback) {
 			if(cosNameList.length == 0) {
 				this._cosList = new ZaItemList(ZaCos);
 				return this._cosList;
-			} 
+			}
 			for(var i = 0; i < cosNameList.length; i++)
 				query += "(" + ZaCos.A_name + "=" + cosNameList[i] + ")";
 			if(cosNameList.length > 1)
-				query = "(|" + query + ")"; 
+				query = "(|" + query + ")";
 		}
 
 		var searchParams = {
@@ -780,7 +782,7 @@ function(refresh, callback) {
 			this._cosList.loadFromJS(response);
 		}
 	}
-	return this._cosList;	
+	return this._cosList;
 };
 
 ZaApp.prototype._getCosListCallback =
@@ -802,18 +804,18 @@ function(callback, result) {
 ZaApp.prototype.getCosListChoices =
 function(refresh) {
 	if (refresh || this._cosList == null) {
-		
+
 		//this._cosList = ZaCos.getAll(this);
 	}
 	if(refresh || this._cosListChoices == null) {
 		if(this._cosListChoices == null)
-			this._cosListChoices = new XFormChoices([], XFormChoices.OBJECT_LIST, "id", "name");	
+			this._cosListChoices = new XFormChoices([], XFormChoices.OBJECT_LIST, "id", "name");
 
 		this._cosListChoices.setChoices(this._cosList.getArray());
 		this._cosListChoices.dirtyChoices();
 
 	}
-	return this._cosListChoices;	
+	return this._cosListChoices;
 }
 
 ZaApp.prototype.getCosListName =
@@ -858,10 +860,10 @@ function(refresh) {
 	if (refresh || this._globalConfig == null) {
 		this._globalConfig = new ZaGlobalConfig();
 	}
-	return this._globalConfig;	
+	return this._globalConfig;
 }
 
-ZaApp.prototype.getInstalledSkins = 
+ZaApp.prototype.getInstalledSkins =
 function(refresh) {
     try {
         if (refresh || this._installedSkins == null) {
@@ -905,7 +907,7 @@ function (skins) {
 * @param ev
 * This listener is invoked by any controller that can create an ZaDomain object
 **/
-ZaApp.prototype.handleDomainCreation = 
+ZaApp.prototype.handleDomainCreation =
 function (ev) {
 	if(ev) {
         if (!ZaZimbraAdmin.hasGlobalDomainListAccess()) {
@@ -925,7 +927,7 @@ function (ev) {
 * @param ev
 * This listener is invoked by ZaCosController or any other controller that can remove an ZaCos object
 **/
-ZaApp.prototype.handleCosRemoval = 
+ZaApp.prototype.handleCosRemoval =
 function (ev) {
 	if(ev) {
 		if(!this._cosList) {
@@ -944,22 +946,22 @@ function (ev) {
             ZaZimbraAdmin.getInstance().refreshHistoryTreeByDelete(ev.getDetails());
 		}
 		if(this._cosListChoices == null) {
-			this._cosListChoices = new XFormChoices(this._cosList.getArray(), XFormChoices.OBJECT_LIST, "id", "name");	
+			this._cosListChoices = new XFormChoices(this._cosList.getArray(), XFormChoices.OBJECT_LIST, "id", "name");
 		} else {
 			this._cosListChoices.setChoices(this._cosList.getArray());
-			this._cosListChoices.dirtyChoices();			
+			this._cosListChoices.dirtyChoices();
 		}
 	}
 }
 
-ZaApp.prototype.handleServerChange = 
+ZaApp.prototype.handleServerChange =
 function (ev) {
 	if(ev) {
 		if(this._serverList) {
 			this._serverList=ZaServer.getAll();
 			if(this._serverChoices == null) {
 				this._serverChoices = new XFormChoices(this._serverList.getArray(), XFormChoices.OBJECT_LIST, ZaServer.A_ServiceHostname, ZaServer.A_ServiceHostname);
-			} else {	
+			} else {
 				this._serverChoices.setChoices(this._serverList.getArray());
 				this._serverChoices.dirtyChoices();
 			}
@@ -968,8 +970,8 @@ function (ev) {
 			var cnt = this._serverList.getArray().length;
 			for (var i = 0; i < cnt; i ++) {
 				this._serverMap[this._serverList.getArray()[i].id] = this._serverList.getArray()[i];
-			}						
-		} 
+			}
+		}
 	}
 }
 
@@ -977,7 +979,7 @@ function (ev) {
 * @param ev
 * This listener is invoked by ZaDomainController or any other controller that can remove an ZaDomain object
 **/
-ZaApp.prototype.handleDomainRemoval = 
+ZaApp.prototype.handleDomainRemoval =
 function (ev) {
 	if(ev) {
 		this.searchDomains();
@@ -988,14 +990,14 @@ function (ev) {
 * @param ev
 * This listener is invoked by ZaDomainController or any other controller that can remove an ZaDomain object
 **/
-ZaApp.prototype.handleDomainChange = 
+ZaApp.prototype.handleDomainChange =
 function (ev) {
 	if(ev) {
 		this.searchDomains();
 	}
 }
 
-ZaApp.prototype.handleSettingsChange = 
+ZaApp.prototype.handleSettingsChange =
 function(ev) {
 	if(ev) {
 		this._globalConfig = new ZaGlobalConfig(this);
@@ -1013,7 +1015,7 @@ function() {
 /**
 * Returns the app view manager.
 */
-ZaApp.prototype.getAppViewMgr = 
+ZaApp.prototype.getAppViewMgr =
 function() {
 	return this._appViewMgr;
 }
@@ -1021,22 +1023,22 @@ function() {
 ZaApp.prototype.createView =
 function(viewName, elements, tabParams) {
 	this._appViewMgr.createView(viewName, elements);
-	
+
 	//create new tabs or modify tab
 	/* tabParams {
 	 * 	openInNewTab: true/false,
 	 *  tabId: The tabId which will be either set for new Tab or the updating tab
 	 *  tab: the tab to be updated
-	 *  view: 
+	 *  view:
 	 * }
 	 */
-	
+
 	if (tabParams.openInNewTab) {
 		this.createTab (tabParams);
 	}else{
 		this.updateTab (tabParams.tab, tabParams.tabId);
 	}
-	
+
 }
 
 ZaApp.prototype.createTab =
@@ -1052,7 +1054,7 @@ function () {
 		selected = AjxUtil.isEmpty(arguments[0]["selected"]) ? true : false;
 		onOpen = AjxUtil.isEmpty(arguments[0]["onOpen"]) ? null : arguments[0]["onOpen"];
 	} else {
-		tabId = arguments[0]; 
+		tabId = arguments[0];
 	}
 	var tabGroup = this.getTabGroup() ;
 	var appView = this.getViewById(tabId) [ZaAppViewMgr.C_APP_CONTENT] ;
@@ -1065,10 +1067,10 @@ function () {
 		selected: selected,
 		onOpen:onOpen
 	}
-	
+
 	var tab = new ZaAppTab (tabGroup,params );
 	/*
-				entry.name, entry.getTabIcon() , null, null, 
+				entry.name, entry.getTabIcon() , null, null,
 				true, true, ZaApp.getInstance()._currentViewId) ;
 	tab.setToolTipContent( entry.getTabToolTip()) ; */
 }
@@ -1079,22 +1081,22 @@ function () {
  */
 ZaApp.prototype.updateTab =
 function ( tab, tabId ) {
-	
+
 	var tabGroup = this.getTabGroup() ;
 	if (tabGroup._searchTab && tabGroup._searchTab == tab) {
 		this.updateSearchTab() ;
-	}else{	
+	}else{
 		var appView = this.getViewById(tabId)[ZaAppViewMgr.C_APP_CONTENT];
 		var icon = appView.getTabIcon (); //the view class should implement the getTabIcon () function
 		var titleLabel = appView.getTabTitle () ; //the view class should implement the getTabTitle () function
-	
+
 		tab.setToolTipContent (appView.getTabToolTip() || appView.getTabTitle ()) ;
 		tab.resetLabel (titleLabel) ;
 		tab.setImage (icon) ;
 	}
-	
+
 	tab.setTabId (tabId) ; //set the new tabId to the existing tab
-	
+
 	if (! tab.isSelected()) {
 		tabGroup.selectTab(tab);
 	}
@@ -1120,7 +1122,7 @@ function() {
 	this._currentViewId = this._appViewMgr.popView();
 	//dispose the view and remove the controller
 	this.disposeView (oldCurrentViewId);
-	
+
 }
 
 ZaApp.prototype.disposeView =
@@ -1135,12 +1137,12 @@ function (viewId, closeHidden) {
 		}else{
 			view[n] = null ;
 		}
-	} 
-	
+	}
+
 	//destroy the controller also
 	if (this._controllers[viewId] != null) {
 		this._controllers[viewId] = null ;
-	} 
+	}
 }
 
 ZaApp.prototype.setView =
@@ -1164,11 +1166,11 @@ function(active) {
 
 ZaApp.prototype.setTabGroup =
 function (tabGroup) {
-	this._tabGroup = tabGroup ;	
+	this._tabGroup = tabGroup ;
 }
 
 ZaApp.prototype.getTabGroup =
 function () {
-	return this._tabGroup ;	
-	
+	return this._tabGroup ;
+
 }

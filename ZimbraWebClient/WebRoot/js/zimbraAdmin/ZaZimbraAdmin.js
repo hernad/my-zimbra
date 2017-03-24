@@ -87,7 +87,7 @@ ZaZimbraAdmin._ACCOUNT_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._ALIAS_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._DL_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._HELP_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
-ZaZimbraAdmin._MIGRATION_WIZ_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
+//ZaZimbraAdmin._MIGRATION_WIZ_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._POSTQ_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._POSTQ_BY_SERVER_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._RESOURCE_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
@@ -98,8 +98,8 @@ ZaZimbraAdmin._HOME_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._MONITOR_HOME_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._MANAGE_ACCOUNT_HOME_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._ADMINISTRATION_HOME_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
-ZaZimbraAdmin._MIGRATION_HOME_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
-ZaZimbraAdmin._DOWNLOAD_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
+//ZaZimbraAdmin._MIGRATION_HOME_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
+//ZaZimbraAdmin._DOWNLOAD_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._SEARCH_HOME_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._SEARCH_RESULT_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
 ZaZimbraAdmin._SEARCH_FILTER_VIEW = ZaZimbraAdmin.VIEW_INDEX++;
@@ -703,6 +703,7 @@ function() {
     helpLabel.reparentHtmlElement (ZaSettings.SKIN_HELP_DOM_ID) ;
 }
 
+/* hernad
 ZaZimbraAdmin.prototype._createDownloadLink =
 function() {
     var downloadsContainer = document.getElementById(ZaSettings.SKIN_DW_DOM_ID);
@@ -717,11 +718,13 @@ function() {
     dwLabel.getHtmlElement().onclick = function () { ZaZimbraAdmin.prototype._dwListener.call(adminObj) ;};
     dwLabel.setCursor ("pointer") ;
 
+
     dwLabel.getHtmlElement().innerHTML =
         this._getAppLink(null, "Migration",  ZaMsg.goToMigrationWiz, skin.skin_container_dw_max_str_length);
 
     dwLabel.reparentHtmlElement (ZaSettings.SKIN_DW_DOM_ID) ;
 }
+*/
 
 ZaZimbraAdmin.prototype._setUserName =
 function () {
@@ -1060,7 +1063,7 @@ function() {
     //add logoff
     this._createLogOff();
     this._createHelpLink();
-    this._createDownloadLink() ;
+    // hernad this._createDownloadLink() ;
     this._setUserName() ;
 
     if(ZaSettings.BANNER_ENABLED) {

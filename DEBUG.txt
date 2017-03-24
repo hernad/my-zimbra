@@ -793,3 +793,13 @@ Caused by: java.net.BindException: Address already in use
 
 zimbra@vagrant:~$ zmprov -l ms $(zmhostname) zimbraAdminBindAddress ""
 
+
+
+https://localhost:7071/zimbraAdmin/public/admin.jsp
+
+
+https://192.168.168.126:7071/zimbraAdmin/?dev=1 => ucitavaju se standardni js ZaZimbraAdmin.js etc
+
+
+/opt/zimbra/zimlets-deployed/com_zimbra_clientuploader/com_zimbra_clientuploader.js
+

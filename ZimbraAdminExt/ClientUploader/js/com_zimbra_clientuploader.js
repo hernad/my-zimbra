@@ -46,13 +46,14 @@ if(appNewUI && ZaSettings && ZaSettings.EnabledZimlet["com_zimbra_clientuploader
     ZaClientUploader.STATUS_SUCCEEDED = 2;
     ZaClientUploader.STATUS_FAILED = 3;
 
+/* hernad
     if(ZaSettings) {
         ZaSettings.Client_UPLOAD_VIEW = "zimbraClientUploadView";
         ZaSettings.ALL_UI_COMPONENTS.push({ value: ZaSettings.Client_UPLOAD_VIEW, label: com_zimbra_clientuploader.UI_Comp_clientUpload });
         ZaSettings.OVERVIEW_TOOLS_ITEMS.push(ZaSettings.Client_UPLOAD_VIEW);
         ZaSettings.VIEW_RIGHTS [ZaSettings.Client_UPLOAD_VIEW] = "adminConsoleClientUploadRights";
     }
-
+*/
     ZaClientUploader.myXModel = {
         items: [
             {id:ZaClientUploader.A2_isFileSelected, ref:ZaClientUploader.A2_isFileSelected, type:_ENUM_, choices:ZaModel.BOOLEAN_CHOICES1},

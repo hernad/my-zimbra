@@ -287,7 +287,8 @@ ZaOverviewPanelController.prototype._buildNewFolderTree = function() {
     var showMonitor = ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.CARTE_BLANCHE_UI];
     var showManageAccount = ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.CARTE_BLANCHE_UI];
     var showAdministration = ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.CARTE_BLANCHE_UI];
-    var showTool = ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.CARTE_BLANCHE_UI];
+    //hernad var showTool = ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.CARTE_BLANCHE_UI];
+    var showTool = false;
 
     if (!showMonitor) {
         for (var i = 0; i < ZaSettings.OVERVIEW_MONITORING_ITEMS.length; i++) {
@@ -316,6 +317,7 @@ ZaOverviewPanelController.prototype._buildNewFolderTree = function() {
         }
     }
 
+/* hernad
     if (!showTool) {
         for (var i = 0; i < ZaSettings.OVERVIEW_TOOLS_ITEMS.length; i++) {
             if (ZaSettings.ENABLED_UI_COMPONENTS[ZaSettings.OVERVIEW_TOOLS_ITEMS[i]]) {
@@ -324,6 +326,7 @@ ZaOverviewPanelController.prototype._buildNewFolderTree = function() {
             }
         }
     }
+*/
     //
     // There is no ACL for Download Page in the tool tree items. So tool will be shown here.
     //showTool = true;
@@ -658,7 +661,9 @@ ZaOverviewPanelController.prototype._buildNewFolderTree = function() {
         }
     }
 
+/* hernad
     if (showTool) {
+
         // Section Tool and Migration Start
         ti = new ZaTreeItemData({
             parent : ZaMsg.OVP_home,
@@ -681,6 +686,7 @@ ZaOverviewPanelController.prototype._buildNewFolderTree = function() {
         ZaOverviewPanelController.overviewTreeListeners[ZaZimbraAdmin._DOWNLOAD_VIEW] = ZaOverviewPanelController.downloadTreeListener;
         tree.addTreeItemData(ti);
     }
+*/
 
     // Section Search Start
     ti = new ZaTreeItemData({
@@ -1288,6 +1294,7 @@ ZaOverviewPanelController.searchResultTreeListener = function(ev) {
     }
 }
 
+/* hernad
 ZaOverviewPanelController.downloadTreeListener = function(ev) {
     if (ZaApp.getInstance().getCurrentController()) {
         ZaApp.getInstance().getCurrentController().switchToNextView(ZaApp.getInstance().getMigrationWizController(),
@@ -1296,6 +1303,7 @@ ZaOverviewPanelController.downloadTreeListener = function(ev) {
         ZaApp.getInstance().getMigrationWizController().show();
     }
 }
+*/
 
 ZaOverviewPanelController.zimletListTreeListener = function(ev) {
     ZaZimlet.getAll(ZaZimlet.EXCLUDE_EXTENSIONS, new AjxCallback(ZaOverviewPanelController._zimletListTreeListener));

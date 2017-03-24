@@ -24,12 +24,12 @@
 /**
  * @overview
  * This file contains ids.
- * 
+ *
  */
 
 /**
  * Constructor
- * 
+ *
  * @author Conrad Damon
  */
 ZaId = function() {};
@@ -98,17 +98,17 @@ ZaId.WIDGET_TAB				= "ztab";		// tab button
 /**
  *  * Defines the "tab view" widget type prefix.
  *   */
-ZaId.WIDGET_TAB_VIEW                    = "ztabv";               // tab view
+ZaId.WIDGET_TAB_VIEW   = "ztabv";               // tab view
 
 /**
  *  * Defines the "dialog" widget type prefix.
  *   */
-ZaId.WIDGET_DLG                         = "zdlg";               //  dialog
+ZaId.WIDGET_DLG    = "zdlg";               //  dialog
 
 /**
  *  * Defines the "dialog view " widget type prefix.
  *   */
-ZaId.WIDGET_DLG_VIEW                    = "zdlgv";               // dialog view
+ZaId.WIDGET_DLG_VIEW    = "zdlgv";               // dialog view
 
 /**
  * Defines the "dialog button" widget type prefix.
@@ -127,9 +127,9 @@ ZaId.WIDGET_SEARCH_VIEW			= "zschv";		// view within search panel
 
 /*
  * Container IDs defined by the skin.
- * 
+ *
  * These must match what's in skin.html. They are used by ZmAppViewMgr to visually
- * match components to the containers in which they should be positioned. 
+ * match components to the containers in which they should be positioned.
  */
 ZaId.SKIN_APP_BOTTOM_TOOLBAR			= "skin_container_app_bottom_toolbar";
 ZaId.SKIN_APP_CHOOSER				= "skin_container_app_chooser";
@@ -188,11 +188,11 @@ ZaId.CURRENT_APP_BAR         = "zb_currentApp";
 
 /**
  * Generates the ID for a toolbar.
- * 
+ *
  * <p>
  * Examples: <code>ztb|CLV ztb|TV|Nav ztb|CV|Inv</code>
  * </p>
- * 
+ *
  * @param 	{String}	context	the toolbar context (ID of owning view)
  * @param	{constant}	tbType	the type of toolbar (for example, invite or nav)
  * @return	{String}	the id
@@ -205,7 +205,7 @@ function(context, tbType) {
 /**
  * Generates the ID for a button. Intended for use with the top toolbar, nav toolbar,
  * and invite toolbar.
- * 
+ *
  * @param 	{String}	context	the toolbar context (ID of owning view)
  * @param 	{constant}	op	the button operation
  * @param 	{constant}	tbType	the type of toolbar (eg invite or nav)
@@ -218,7 +218,7 @@ function(context, op, tbType) {
 
 /**
  * Generates the ID for an action menu.
- * 
+ *
  * @param 	{String}	context		the menu context (eg ID of owning view, or app)
  * @param 	{constant}	menuType	the type of menu (eg participant)
  * @return	{String}	the id
@@ -230,7 +230,7 @@ function(context, menuType) {
 
 /**
  * Generates the ID for a menu item in an action menu.
- * 
+ *
  * @param 	{String}	context		the menu context
  * @param 	{constant}	op		the menu operation
  * @param 	{constant}	menuType	the type of menu (eg participant)
@@ -254,7 +254,7 @@ function(overviewContainerId) {
 
 /**
  * Generates the ID for an overview.
- * 
+ *
  * @param 	{String}	overviewId	the overview ID
  * @return	{String}	the id
  */
@@ -265,7 +265,7 @@ function(overviewId) {
 
 /**
  * Generates the ID for a tree within an overview.
- * 
+ *
  * @param 	{String}	overviewId	the overview ID
  * @param 	{String}	orgType 	the organizer type (see <code>ZaId.ORG_</code> constants)
  * @return	{String}	the id
@@ -276,8 +276,8 @@ function(overviewId, orgType) {
 };
 
 /**
- * Generates a tree item ID 
- * 
+ * Generates a tree item ID
+ *
  * @param 	{String}	overviewId	the unique ID for overview
  * @param 	{ZmOrganizer}	organizerId	the ID of the data object backing tree item
  * @param 	{constant}	type		the organizer type (for headers only)
@@ -294,10 +294,10 @@ function(overviewId, organizerId, type, indexNo) {
 };
 
 /**
- * Generates an ID for a view 
- * 
- * @param 	{constant}	viewId		the view identifier 
- * @param 	{constant}	component	the component identifier 
+ * Generates an ID for a view
+ *
+ * @param 	{constant}	viewId		the view identifier
+ * @param 	{constant}	component	the component identifier
  * @param 	{constant}	context		the ID of owning view
  * @return	{String}	the id
  */
@@ -309,7 +309,7 @@ function(viewId, component, context) {
 
 /**
  * Generates an ID for a dialog
- * 
+ *
  * @param       {constant}      component       the component identifier
  * @param       {constant}      context         the ID of owning view
  * @return      {String}        the id
@@ -321,7 +321,7 @@ function(component, context) {
 
 /**
  * Generates an ID for a dialog view
- * 
+ *
  * @param       {constant}      component       the component identifier
  * @param       {constant}      context         the ID of owning view
  * @return      {String}        the id
@@ -334,7 +334,7 @@ function(component, context) {
 
 /**
  * Generates an ID for a dialog button
- * 
+ *
  * @param       {constant}      component       the component identifier
  * @param       {constant}      context         the ID of owning view
  * @return      {String}        the id
@@ -348,8 +348,8 @@ function(component, context) {
 
 /**
  * Generates an ID for the compose view
- * 
- * @param 	{constant}	component	component identifier 
+ *
+ * @param 	{constant}	component	component identifier
  * @return	{String}	the id
  */
 ZaId.getComposeViewId =
@@ -360,8 +360,8 @@ function(component) {
 
 /**
  * Generates an ID for a tab (actually the tab button in the tab bar).
- * 
- * @param 	{constant}	context		the owning view identifier 
+ *
+ * @param 	{constant}	context		the owning view identifier
  * @param 	{String}	tabName		[string]name of tab
  * @return	{String}	the id
  */
@@ -373,8 +373,8 @@ function(context, tabName) {
 
 /**
  * Generates an ID for a tab view.
- * 
- * @param 	{constant}	context		the owning view identifier 
+ *
+ * @param 	{constant}	context		the owning view identifier
  * @param 	{String}	tabName		[string]name of tab
  * @return	{String}	the id
  */
@@ -397,8 +397,8 @@ ZaId.getPrefPageId = function(tabKey) {
 
 /**
  * Generates an ID for a search view.
- * 
- * @param 	{constant}	context		the owning view identifier 
+ *
+ * @param 	{constant}	context		the owning view identifier
  * @param 	{String}	tabName		[string]name of tab
  * @return	{String}	the id
  */
@@ -410,16 +410,16 @@ function(context, tabName) {
 
 
 /*
- * 
+ *
  * Gettings IDs for different areas of Admin console
- * 
+ *
  */
 
 /*
  * -----------
- *    App 
+ *    App
  * -----------
- * 
+ *
  */
 
 // context
@@ -429,7 +429,7 @@ ZaId.APP	= "App";
  * ---------
  * Overviews
  * ---------
- * 
+ *
  */
 
 
@@ -462,7 +462,7 @@ ZaId.TREEITEM_SEARCHMAIL	= "SEARCHMAIL";
 
 /*
  * ----------
- *  panel 
+ *  panel
  * ----------
  *
  */
@@ -483,9 +483,9 @@ ZaId.SEARCH_QUERY		= "SEARCH_QUERY";
 
 
 
-/* 
+/*
  * ------------
- * List  View 
+ * List  View
  * ------------
  *
  * */
@@ -504,7 +504,7 @@ ZaId.VIEW_GSETLIST		= "GSLV";  // redundant
 ZaId.VIEW_RIGHTLIST		= "RLV";
 ZaId.VIEW_GACLIST		= "ACLV";
 
-ZaId.VIEW_STATUSLIST		= "STALV"; 
+ZaId.VIEW_STATUSLIST		= "STALV";
 ZaId.VIEW_STATISLIST		= "STSLV";
 
 ZaId.VIEW_MQLIST		= "MQLV";  // redundant
@@ -650,6 +650,6 @@ ZaId.CTR_PREFIX			= "CTR_";
 // ZaId.CTR_PREFIX should be used like the follows:
 // e.g.
 // ZaId.CTR_VIEW_ACCT = ZaId.CTR_PREFIX + ZaId.VIEW_ACCT
-// ZaId.CTR_VIEW_ACCTLIST = ZaId.CTR_PREFIX + ZaId.VIEW_ACCTLIST 
+// ZaId.CTR_VIEW_ACCTLIST = ZaId.CTR_PREFIX + ZaId.VIEW_ACCTLIST
 
 ZaId.CTR_UNDEF			= "CTR_UNDEFINE";

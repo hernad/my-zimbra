@@ -36,9 +36,9 @@ ZaAppChooser = function(parent, className, buttons) {
 	this.TOOLTIP[ZaAppChooser.B_SERVERS]	= ZaMsg.goToServers;
 */
 	this.TOOLTIP[ZaAppChooser.B_HELP]		= ZaMsg.goToHelp;
-	this.TOOLTIP[ZaAppChooser.B_MIGRATION_WIZ]	= ZaMsg.goToMigrationWiz;	
+	//this.TOOLTIP[ZaAppChooser.B_MIGRATION_WIZ]	= ZaMsg.goToMigrationWiz;	
 	this.TOOLTIP[ZaAppChooser.B_LOGOUT]		= ZaMsg.logOff;
-	
+
 	this.setScrollStyle(Dwt.CLIP);
 
 	this._buttons = new Object();
@@ -73,7 +73,7 @@ ZaAppChooser.B_DOMAINS	= i++;
 ZaAppChooser.B_SERVERS	= i++;
 ZaAppChooser.B_GLOBAL	= i++;
 ZaAppChooser.B_DISTRIBUTION_LISTS	= i++;
-ZaAppChooser.B_MIGRATION_WIZ = i++;
+//ZaAppChooser.B_MIGRATION_WIZ = i++;
 
 ZaAppChooser.IMAGE = new Object();
 ZaAppChooser.IMAGE[ZaAppChooser.OUTER]		= "ImgAppChiclet";
@@ -101,7 +101,7 @@ ZaAppChooser.SEP_HEIGHT = 10;
 ZaAppChooser.prototype = new DwtToolBar;
 ZaAppChooser.prototype.constructor = ZaAppChooser;
 
-ZaAppChooser.prototype.toString = 
+ZaAppChooser.prototype.toString =
 function() {
 	return "ZaAppChooser";
 }

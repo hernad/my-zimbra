@@ -436,7 +436,7 @@ ZaSettings.MAILQ_VIEW = "mailQueue";
 ZaSettings.ALL_UI_COMPONENTS.push({ value: ZaSettings.MAILQ_VIEW, label: ZaMsg.UI_Comp_mailQueueView });
 ZaSettings.SERVER_STATS_VIEW = "perServerStatisticsView";
 ZaSettings.ALL_UI_COMPONENTS.push({ value: ZaSettings.SERVER_STATS_VIEW, label: ZaMsg.UI_Comp_ServerStatsView });
-ZaSettings.DOWNLOADS_VIEW = "downloadsView";
+//ZaSettings.DOWNLOADS_VIEW = "downloadsView";
 ZaSettings.ALL_UI_COMPONENTS.push({ value: ZaSettings.DOWNLOADS_VIEW, label: ZaMsg.UI_Comp_DownloadsView });
 }
 ZaSettings.initConst();
@@ -502,19 +502,19 @@ ZaSettings.exchangeServerType = ZaSettings.getExchangeServerType;
 ZaSettings.OVERVIEW_CONFIG_ITEMS = [ZaSettings.COS_LIST_VIEW,ZaSettings.ZIMLET_LIST_VIEW,ZaSettings.SERVER_LIST_VIEW,ZaSettings.ADMIN_ZIMLET_LIST_VIEW,
     ZaSettings.DOMAIN_LIST_VIEW,ZaSettings.GLOBAL_CONFIG_VIEW];
 ZaSettings.OVERVIEW_ADDRESSES_ITEMS = [ZaSettings.ACCOUNT_LIST_VIEW,ZaSettings.ALIAS_LIST_VIEW,ZaSettings.DL_LIST_VIEW,ZaSettings.RESOURCE_LIST_VIEW];
-ZaSettings.OVERVIEW_TOOLS_ITEMS = [ZaSettings.MAILQ_VIEW,ZaSettings.DOWNLOADS_VIEW];
+//hernad: ZaSettings.OVERVIEW_TOOLS_ITEMS = [ZaSettings.MAILQ_VIEW,ZaSettings.DOWNLOADS_VIEW];
 ZaSettings.OVERVIEW_MONITORING_ITEMS = [ZaSettings.GLOBAL_STATS_VIEW,ZaSettings.GLOBAL_STATUS_VIEW,ZaSettings.SERVER_STATS_VIEW];
 
 ZaSettings.OVERVIEW_MANAGER_ACCOUNT_ITEMS = [ZaSettings.ACCOUNT_LIST_VIEW,ZaSettings.ALIAS_LIST_VIEW,ZaSettings.DL_LIST_VIEW,ZaSettings.RESOURCE_LIST_VIEW];
 ZaSettings.OVERVIEW_ADMIN_ITEMS = [ZaSettings.COS_LIST_VIEW,ZaSettings.ZIMLET_LIST_VIEW,ZaSettings.SERVER_LIST_VIEW,ZaSettings.ADMIN_ZIMLET_LIST_VIEW,
     ZaSettings.DOMAIN_LIST_VIEW,ZaSettings.GLOBAL_CONFIG_VIEW];
-ZaSettings.OVERVIEW_TOOLS_ITEMS = [ZaSettings.MAILQ_VIEW,ZaSettings.DOWNLOADS_VIEW];
+//hernad: ZaSettings.OVERVIEW_TOOLS_ITEMS = [ZaSettings.MAILQ_VIEW,ZaSettings.DOWNLOADS_VIEW];
 ZaSettings.OVERVIEW_MONITORING_ITEMS = [ZaSettings.MAILQ_VIEW, ZaSettings.GLOBAL_STATUS_VIEW,ZaSettings.SERVER_STATS_VIEW];
 //Domain operations  - it might be duplicated to domain view tabs
 ZaSettings.DOMAIN_GAL_WIZ = "domainGALWizard";
 ZaSettings.DOMAIN_AUTH_WIZ = "domainAuthWizard";
 ZaSettings.DOMAIN_WIKI_WIZ = "domainWikiWizard";
-ZaSettings.DOMAIN_CHECK_MX_WIZ = "domainCheckMXWiz";
+//ZaSettings.DOMAIN_CHECK_MX_WIZ = "domainCheckMXWiz";
 
 //Global Server Statistics View
 /* No need to have the statistics view since they are all system admin only rights
