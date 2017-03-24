@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # ***** BEGIN LICENSE BLOCK *****
 # Zimbra Collaboration Suite Server
 # Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 Synacor, Inc.
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>.
 # ***** END LICENSE BLOCK *****
-# 
+#
 
 PID=""
 PIDFILE="/opt/zimbra/data/ldap/state/run/slapd.pid"
@@ -26,7 +26,7 @@ zmsetvars
 
 if [ x$ldap_is_master = "xfalse" ]; then
   if [ "x$ldap_url" = "x$ldap_master_url" -a "x$1" != "xstop" ]; then
-    echo "ldap_url and ldap_master_url cannot be the same on an ldap replica"
+    echo "ldap_url $ldap_url and ldap_master_url: $ldap_master_url cannot be the same on an ldap replica"
     exit 1
   fi
 fi
@@ -104,7 +104,7 @@ start()
       if [ $RUNNING = 0 ]; then
 	    sudo /opt/zimbra/libexec/zmslapd -l LOCAL0 \
           -u zimbra -h "${bind_url} ldapi:///" -F /opt/zimbra/data/ldap/config
-      else 
+      else
         break
       fi
       sleep 5
@@ -135,7 +135,7 @@ start()
 stop()
 {
 	checkrunning
-  
+
 	if [ $RUNNING = 0 ]; then
 		echo "slapd not running"
 		exit 0
@@ -155,7 +155,7 @@ stop()
     if [ $? = 0 ]; then
       echo " gave up waiting!"
       exit 1
-    else 
+    else
       echo " done."
     fi
 	fi
@@ -173,7 +173,7 @@ status()
 	fi
 }
 
-case "$1" in 
+case "$1" in
 	restart)
 		$0 stop
 		$0 start
