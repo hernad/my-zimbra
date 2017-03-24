@@ -56,5 +56,5 @@ cp $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
 cp $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
 
 PICT=LoginBanner.png
-cp $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
-cp $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
+cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
+cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
