@@ -377,6 +377,9 @@ if (application.getInitParameter("offlineMode") != null) {
  * ***** END LICENSE BLOCK *****
 -->
 	<c:set var="client" value="${param.client}"/>
+  <c:set var="developerURL" value="https://github.com/hernad/my-zimbra"/>
+  <c:set var="originalDeveloperURL" value="https://www.zimbra.com"/>
+
 	<c:set var="useStandard" value="${not (ua.isFirefox3up or ua.isGecko1_9up or ua.isIE8up or ua.isSafari4Up or ua.isChrome or ua.isModernIE)}"/>
 	<c:if test="${empty client}">
 		<%-- set client select default based on user agent. --%>
@@ -424,9 +427,16 @@ if (application.getInitParameter("offlineMode") != null) {
 	<div class="LoginScreen">
 		<div class="${smallScreen?'center-small':'center'}">
 			<div class="contentBox">
-				<h1><a href="https://www.zimbra.com/" id="bannerLink" target="_new" title='<fmt:message key="zimbraTitle"/>'><span class="ScreenReaderOnly"><fmt:message key="zimbraTitle"/></span>
+				<h1>
+          <a href="${developerURL}" id="bannerLink" target="_new" title='<fmt:message key="developerTitle"/>'>
+          <span class="ScreenReaderOnly"><fmt:message key="zimbraTitle"/></span>
 					<span class="Img${smallScreen?'App':'Login'}Banner"></span>
-				</a></h1>
+          </a>
+          <a href="${originalDeveloperURL}" id="bannerLinkZ" target="_new" title='<fmt:message key="zimbraTitle"/>'>
+          <span class="ScreenReaderOnly"><fmt:message key="zimbraTitle"/></span>
+          <span class="Img${smallScreen?'App':'Login'}BannerZInside"></span>
+          </a>
+        </h1>
 				<div id="ZLoginAppName"><fmt:message key="splashScreenAppName"/></div>
 				<c:choose>
 					<c:when test="${not empty domainLoginRedirectUrl && param.sso eq 1 && empty param.ignoreLoginURL && (isAllowedUA eq true)}">
