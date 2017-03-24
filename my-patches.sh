@@ -49,3 +49,12 @@ curl -LO http://central.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.
 
 cd ../..
 ls -l ThirdParty/jetty/jetty-distribution-${JETTY_VERSION}.tar.gz
+
+WEBROOT=ZimbraWebClient/WebRoot
+PICT=AppBanner.png
+cp $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
+cp $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
+
+PICT=LoginBanner.png
+cp $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
+cp $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
