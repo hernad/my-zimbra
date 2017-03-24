@@ -70,6 +70,14 @@ PICT=LoginBanner.png
 cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
 cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
 
+PICT=LoginBanner_white.png
+cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
+cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
+
+PICT=LoginBanner_black.png
+cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
+cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
+
 
 PICT=AppBanner.png
 cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/serenity/logos/$PICT
@@ -78,5 +86,13 @@ cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/sereni
 PICT=LoginBanner.png
 cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/serenity/logos/$PICT
 cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/serenity/logos/ZimbraInside/$PICT
+
+PICT=LoginBanner_White.png
+cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
+cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
+
+PICT=LoginBanner_Black.png
+cp -av $WEBROOT/skins/_base/logos/$PICT $WEBROOT/admin_skins/_base/logos/$PICT
+cp -av $WEBROOT/skins/_base/logos/ZimbraInside/$PICT $WEBROOT/admin_skins/_base/logos/ZimbraInside/$PICT
 
 
